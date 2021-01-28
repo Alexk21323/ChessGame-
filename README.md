@@ -1,15 +1,15 @@
 # Task Scheduler
  
- > Authors: \<[Yishao Wang](https://github.com/caKuma)\>
+ > Authors: \<[Yishao Wang](https://github.com/caKuma)\>, \<[Ryan Park](https://github.com/rpark028)\>, \<[akuan004](https://github.com/akuan004)\>, \<[jintei002](https://github.com/jintei002)\>
 ## Project Description
  > * Being on task is important and using a task scheduler to keep track of your tasks seems like an reasonable thing to do....
- > * 
+ > 
  > * The language used is C++.
  > * Tools used:
  >   * [Github](https://github.com/) - For code sharing and code repository.
  >   * [Valgrind](https://github.com/) - For for testing functions for memory leaks.
  >   * [Googletest](https://github.com/google/googletest) - For writing unit tests.
- > * 
+ > 
  > * For the client, the client can input the task, including a title and description and category of the task, and duration and/or due date of the task.  
  > * output of the program is going to be listing the task the user inputted.
  > * Design patterns:
