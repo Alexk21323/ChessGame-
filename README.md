@@ -2,7 +2,7 @@
  
  > Authors: \<[Yishao Wang](https://github.com/caKuma)\>, \<[Ryan Park](https://github.com/rpark028)\>, \<[akuan004](https://github.com/akuan004)\>, \<[jintei002](https://github.com/jintei002)\>
 ## Project Description
- > * We would like to make a chess game and to do that we would use c++, github, valgrind and googletest. The input of the game would be either mouse and the output would be a gui of the chess board. 
+ > * We would like to make a chess game and to do that we would use c++, github, valgrind and googletest. The input of the game would be mouse and the output would be a gui of the chess board. 
  > 
  > * The language used is C++.
  > * Tools used:
@@ -10,8 +10,6 @@
  >   * [Valgrind](https://github.com/) - For for testing functions for memory leaks.
  >   * [Googletest](https://github.com/google/googletest) - For writing unit tests.
  > 
- > * For the client, the client can input the task, including a title and description and category of the task, and duration and/or due date of the task.  
- > * output of the program is going to be listing the task the user inputted.
  > * Design patterns:
  > * Composite: We picked this pattern because we’re making a game that can make a lot of use by implementing the players. Our assumption is there would be a lot of overlapping code between each piece such as moving in the directions. That is where the composite design pattern would come into play by using the component to define our default behaviors and the leafs can inherit those components. The chosen design is the most ideal solution for our project because it’s a well known pattern for making use of reusable code. 
  > * Abstract Factory: We picked the abstract factory design pattern because this can go hand in hand with the composite design pattern. We would create a “piece” factory and from there you can create different piece factories based on their movements. For instance, creating a “diagonal” player factory and a “straight” player factory. This solves the problem of breaking down the players further and having less functions to rewrite. The chosen pattern will lead to a good solution because it will help us create families of related objects without specifying concrete classes. 
