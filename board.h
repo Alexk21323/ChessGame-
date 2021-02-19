@@ -29,9 +29,6 @@ sf::Sprite getSprite(){return s;}
 
 
 
-
-
-
 };
 
 
