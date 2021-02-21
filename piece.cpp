@@ -17,8 +17,8 @@ sf::Sprite Piece::getSprite(){
 }
 
 void Piece::setSize(){
-    s.setPosition(0,0);
-    sf::Vector2f targetSize(70.0f, 70.0f);
+    s.setPosition(10,10);
+    sf::Vector2f targetSize(100.0f, 100.0f);
      s.setScale(
         targetSize.x / s.getGlobalBounds().width,
         targetSize.y / s.getGlobalBounds().height
