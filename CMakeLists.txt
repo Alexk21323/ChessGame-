@@ -12,5 +12,11 @@ include_directories(SFML_INCLUDE_DIR)
 
 find_package(SFML 2.5.1 COMPONENTS system window graphics network audio)
 
-add_executable(chess main.cpp board.cpp)
+add_executable(
+    chess 
+    main.cpp
+    board.cpp
+    piece.cpp
+    
+    )
 target_link_libraries (chess sfml-graphics sfml-window sfml-system)
