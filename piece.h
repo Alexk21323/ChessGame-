@@ -2,12 +2,22 @@
 #define _PIECES_H
 
 #include <iostream>
+#include <string>
 #include <SFML/Graphics.hpp>
 
-class Pieces{
+class Piece{
+
+public:
 
 
-
+sf::Sprite s;
+sf::Texture t;
+Piece(){}
+sf::Texture getPiece();
+void setSprite();
+sf::Sprite getSprite();
+void setTexture(std::string filename);
+void setSize();
 };
 
 
