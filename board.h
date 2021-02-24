@@ -47,6 +47,7 @@ Board(Builder& builder){
 }
 Tile* getTile();
 Tile* operator [](std::size_t index);
+Board* startGame();
 
 
 
