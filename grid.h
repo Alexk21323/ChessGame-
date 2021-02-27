@@ -22,5 +22,10 @@ Public:
         else 
             return out << *tile->getPiece();
     }
+<<<<<<< HEAD:Grid.h
 }
 
+=======
+    
+}
+>>>>>>> 9fb6f0f32f32c18c2571be43efcefca1d1d6a3a0:grid.h
