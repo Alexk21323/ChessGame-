@@ -6,6 +6,13 @@ Grid::Grid(int position){
     this->piece = nullptr;
 }
 
+Grid::Grid(int position, int x, int y){
+    this->position = position;
+    this->piece = nullptr;
+    this->x = x;
+    this->y = y;
+}
+
 Grid::Grid(Piece& piece){
     this->position = piece.get_Position();
     this->piece = &piece; 
@@ -18,4 +25,3 @@ Grid::Grid(Piece* piece){
     this->position = piece->getPosition();
     this->piece = piece;
 }
-
