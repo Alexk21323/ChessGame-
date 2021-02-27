@@ -1,19 +1,18 @@
 #include "board.h"
-#include "piece.h"d
 
 typedef Board::Builder Builder;
 
 Builder::Builder(){
     for(int i = 0; i < 64; i++){
-        tiles.push_back(new Tile(i));
+        grids.push_back(new Grid(i));
     }
 }
 
 Builder& Builder::setPiece(Piece& piece){
-    if(tiles[piece.getPosition].isEmpty()){
+    if(grids[piece.getPosition].isEmpty()){
         const int position = piece.getPosition;
-        delete tiles[position];
-        tiles[position] = new Tile(piece);
+        delete grids[position];
+        grids[position] = new Grid(piece);
     }
     //deference this pointer 
     return *this;
@@ -33,8 +32,18 @@ Builder& Builder::setMovemaker(Color moveMaker){
 
 //Board class
 
-Board::Board(Builder& builder){
+Board::Board(){
     this->grids = builder.grids;
+    board_texture.loadFromFile("Board.png");
+    board_sprite.setTexture(t);
+    board_sprite.setPosition(0,0);
+    
+    sf::Vector2f targetSize(1000.0f, 1000.0f);
+    
+    board_sprite.setScale(
+        targetSize.x / board_sprite.getGlobalBounds().width,
+        targetSize.y / board_sprite.getGlobalBounds().height
+    );
 }
 
 Grid* Board::getGrid(int position){

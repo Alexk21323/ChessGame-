@@ -30,39 +30,14 @@ int y;
 
 //Member Variabels 
 vector<piece*> Pieces;
+vector<Grid*> grids;
 
 public:
 ~Board();
-Board(Builder& builder){
-    // board_texture.loadFromFile("Board.png");
-    // board_sprite.setTexture(t);
-    // board_sprite.setPosition(0,0);
-    
-    // sf::Vector2f targetSize(1000.0f, 1000.0f);
-    
-    // board_sprite.setScale(
-    //     targetSize.x / board_sprite.getGlobalBounds().width,
-    //     targetSize.y / board_sprite.getGlobalBounds().height
-    // );
-}
+Board(Builder& builder)();
 Tile* getTile();
 Tile* operator [](std::size_t index);
 Board* startGame();
-
-
-
 };
-
-
-
-
-
-
-
-
-
-
-
-
 
 #endif //_BOARD_H
