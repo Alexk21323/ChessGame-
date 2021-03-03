@@ -6,18 +6,15 @@
 int main(){
 
 Board* b = new Board();
-sf::VideoMode v(1000,1000);
+sf::VideoMode v(800,800);
 sf::RenderWindow w(v, "Chess");
 Piece* p = new Piece();
-p->setTexture("Sprites/bking.png");
-p->setSprite();
-p->setSize();
-
+b->setPiece(p);
 
 while(w.isOpen()){
     w.clear();
-    w.draw(b->getSprite());
-    w.draw(p->getSprite());
+    b->draw(w);
+    //w.draw(p->getSprite());
     w.display();
     sf::Event e;
     while(w.pollEvent(e)){
