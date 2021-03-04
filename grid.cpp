@@ -14,7 +14,7 @@ Grid::Grid(int position, int x, int y){
 }
 
 Grid::Grid(Piece& piece){
-    this->position = piece.get_Position();
+    this->position = piece.getPosition();
     this->piece = &piece; 
 }
 

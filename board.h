@@ -10,17 +10,6 @@
 #include "piece.h"
 
 class Board{
-public:
-    //For starting a fresh Board 
-    class Builder{
-        vector <Grid*> grids;
-        vector <Piece*> pieces;
-        Builder();
-        Builder& setPiece(Piece* piece);
-        Builder& setMoveMaker(Alliance moveMaker);
-        Board* build();
-    }
-private:
 //Display Variables
 sf::Image image;
 sf::Sprite board_sprite;
@@ -29,15 +18,23 @@ int x;
 int y;
 
 //Member Variabels 
-vector<piece*> Pieces;
-vector<Grid*> grids;
+//grids will keep track of what's on the board
+
+
 
 public:
 ~Board();
-Board(Builder& builder)();
-Tile* getTile();
-Tile* operator [](std::size_t index);
-Board* startGame();
+Board();
+void startGame();
+Grid* getGrid(int position);
+void setPiece(Piece* piece);
+void setPiece(Piece& piece);
+//void setMoveMaker(Alliance moveMaker);
+void draw(sf::RenderWindow &window);
+Grid* operator [](int index);
+std::vector<Grid*> grids; //<-----call pieces with this
+
+
 };
 
 #endif //_BOARD_H

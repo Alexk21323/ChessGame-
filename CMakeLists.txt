@@ -17,6 +17,7 @@ add_executable(
     main.cpp
     board.cpp
     piece.cpp
+    grid.cpp
     
     )
 target_link_libraries (chess sfml-graphics sfml-window sfml-system)
