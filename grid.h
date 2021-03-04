@@ -1,31 +1,29 @@
 #ifndef _GRID_H_
 #define _GRID_H_
-#include "piece.h"
 
-Class Grid {
+#include "piece.h"
+#include "pawn.hpp"
+class Grid {
     int position;
     Piece* piece;
+    int x;
+    int y;
     
-Public:
-    ~Grid() = delete;
+public:
+    ~Grid(){}
     Grid(int destination);
     Grid(int destination, int x, int y);
     Grid(Piece& piece);
     Grid(Piece* piece);
-    int x;
-    int y;
     const int getPosition() const {return this->position;}
     Piece* getPiece() const {return this->piece;}
-    bool isEmpty() {return this->piece == nullptr}
-    friend std::ostream& operator <<(std::ostream& out, Tile& tile){
-        if(tile.isempty()) return out << '-';
+    bool isEmpty() {return this->piece == nullptr;}
+    friend std::ostream& operator <<(std::ostream& out, Grid& grid){
+        if(grid.isEmpty()) 
+            return out << "-";
         else 
-            return out << *tile->getPiece();
+            return out << "piece is here";
     }
-<<<<<<< HEAD:Grid.h
-}
+};
 
-=======
-    
-}
->>>>>>> 9fb6f0f32f32c18c2571be43efcefca1d1d6a3a0:grid.h
+#endif //_GRID_H_

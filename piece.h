@@ -4,27 +4,22 @@
 #include <iostream>
 #include <string>
 #include <SFML/Graphics.hpp>
-
 class Piece{
 
 public:
 
 
-sf::Sprite s;
-sf::Texture t;
 Piece(){}
-sf::Texture getPiece();
-void setSprite();
-sf::Sprite getSprite();
-void setTexture(std::string filename);
-void setSize();
+
+//All of the textures needed
+
+virtual sf::Sprite getSprite()=0;
+virtual int getPosition() = 0;
+virtual void draw(sf::RenderWindow &window) =0;
+
+
+
+
 };
-
-
-
-
-
-
-
 
 #endif //_PIECES_H
