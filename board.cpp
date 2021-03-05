@@ -1,5 +1,11 @@
 #include "board.h"
 #include "pawn.hpp"
+#include "knight.hpp"
+#include "rook.hpp"
+#include "bishop.hpp"
+#include "queen.hpp"
+#include "king.hpp"
+
 Board::Board(){
     int grid_position = 1; 
     for(int i = 0; i < 8; i++){
@@ -59,9 +65,29 @@ void Board::draw(sf::RenderWindow &window){
 }
 void Board::startGame(){
     // Black side 
-    for(int i = 1; i <=64; i++){
-        this->setPiece(new Pawn(i));
+    for(int i = 9; i <=16; i++){
+        this->setPiece(new Pawn(i,"Black"));
     }
+    this->setPiece(new Knight(2,"Black"));
+    this->setPiece(new Knight(7,"Black"));
+    this->setPiece(new Rook(1,"Black"));
+    this->setPiece(new Rook(8,"Black"));
+    this->setPiece(new Bishop(3,"Black"));
+    this->setPiece(new Bishop(6,"Black"));
+    this->setPiece(new Queen(4,"Black"));
+    this->setPiece(new King(5,"Black"));
+    // White side
+    for(int i = 49; i <=56; i++){
+        this->setPiece(new Pawn(i,"White"));
+    }
+    this->setPiece(new Knight(63,"White"));
+    this->setPiece(new Knight(58,"White"));
+    this->setPiece(new Rook(64,"White"));
+    this->setPiece(new Rook(57,"White"));
+    this->setPiece(new Bishop(59,"White"));
+    this->setPiece(new Bishop(62,"White"));
+    this->setPiece(new Queen(60,"White"));
+    this->setPiece(new King(61,"White"));
 
     // this->setPiece(new Pawn(1));
     // this->setPiece(new Pawn(2));
