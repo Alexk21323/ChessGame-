@@ -14,13 +14,8 @@ class Board{
 sf::Image image;
 sf::Sprite board_sprite;
 sf::Texture board_texture;
-int x;
-int y;
-
 //Member Variabels 
 //grids will keep track of what's on the board
-
-
 
 public:
 ~Board();
@@ -43,7 +38,6 @@ player
 =>click will be in board move()
 
 */
-
 };
 
 #endif //_BOARD_H

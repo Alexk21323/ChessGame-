@@ -10,13 +10,12 @@
 class Pawn: public Piece{
 public:
 //member variables
-int position;
+
 sf::Sprite sprite; 
 sf::Texture texture;
     Pawn(int pos){ 
         texture.loadFromFile("Sprites/wpawn.png");
         sprite.setTexture(texture);
-        sprite.setPosition(0,700);
 
         sf::Vector2f targetSize(100.0f, 100.0f);
         sprite.setScale(
@@ -30,28 +29,20 @@ sf::Texture texture;
         return sprite;
     }
 
-
-        int getPosition(){
-            return position;
-        }
-       
-        void draw(sf::RenderWindow& window){
-        
-       wee
-            // int y = pos/8;
-            // int x = (pos-y*8
+    int getPosition(){
+        return position;
+    }
+    
+    void setPosition(int x, int y){
+        sprite.setPosition(x,y);
+    }
+    void draw(sf::RenderWindow& window){
             window.draw(sprite);
         }
-        
-    
+
+        void move(int a, int b){
+        sprite.setPosition(a, b);
+    }
 };
-
-
-
-
-
-
-
-
 
 #endif //
