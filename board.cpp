@@ -1,5 +1,11 @@
 #include "board.h"
 #include "pawn.hpp"
+#include "rook.hpp"
+#include "knight.hpp"
+#include "bishop.hpp"
+#include "queen.hpp"
+#include "king.hpp"
+
 Board::Board(){
     int grid_position = 1; 
     for(int i = 0; i < 8; i++){
@@ -58,11 +64,6 @@ void Board::draw(sf::RenderWindow &window){
     }
 }
 void Board::startGame(){
-    // Black side 
-    for(int i = 1; i <=64; i++){
-        this->setPiece(new Pawn(i));
-    }
-
     // this->setPiece(new Pawn(1));
     // this->setPiece(new Pawn(2));
     // this->setPiece(new Pawn(3));
@@ -81,17 +82,36 @@ void Board::startGame(){
     //     board.setPiece(new Rook(Alliance::Black, i));
     // }
     // //White Side 
-    // board.setPiece(new Rook(Alliance::White, 57));
-    // board.setPiece(new Knight(Alliance::White, 58));
-    // board.setPiece(new Bishop(Alliance::White, 59));
-    // board.setPiece(new Queen(Alliance::White, 60));
-    // board.setPiece(new King(Alliance::White, 61));
-    // board.setPiece(new Bishop(Alliance::White, 62));
-    // board.setPiece(new Knight(Alliance::White, 63));
-    // board.setPiece(new Rook(Alliance::White, 64));
-    // for (int i = 49; i<= 56; i++){
-    //     board.setPiece(new Rook(Alliance::Black, i));
-    // }
+    this->setPiece(new Rook(57));
+    this->setPiece(new Knight(58));
+    this->setPiece(new Bishop(59));
+    this->setPiece(new Queen(60));
+    this->setPiece(new King(61));
+    this->setPiece(new Bishop(62));
+    this->setPiece(new Knight(63));
+    this->setPiece(new Rook(64));
+    for (int i = 49; i<= 56; i++){
+        this->setPiece(new Pawn(i));
+    }
 
-    //Board* board = new Board();
 }
+
+/*
+   
+
+    pawn
+    calcPossibleMoves return a vector of moves
+    getMove()
+    
+    p-> click -> position ->getGrid(position) = piece 
+    piece.getMovement(get possible vector of moves which in position, draw circle on these position)
+    second click get another position, check of position contain in possible move vector 
+    if contains invoke move(x,y) 
+    
+
+    pawn(int, int pos)
+    if()
+
+
+
+*/
