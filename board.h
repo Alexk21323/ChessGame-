@@ -14,9 +14,6 @@ class Board{
 sf::Image image;
 sf::Sprite board_sprite;
 sf::Texture board_texture;
-int x;
-int y;
-
 //Member Variabels 
 //grids will keep track of what's on the board
 

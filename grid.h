@@ -13,10 +13,11 @@ class Grid {
    
 public:
     ~Grid(){}
-    Grid(int destination);
     Grid(int destination, int x, int y);
-    Grid(Piece& piece);
+    Grid(Piece& piece, int x, int y);
     Grid(Piece* piece);
+    int GetX(){ return x; }
+    int GetY(){ return y; }
     const int getPosition() const {return this->position;}
     Piece* getPiece() const {return this->piece;}
     bool isEmpty() {return this->piece == nullptr;}

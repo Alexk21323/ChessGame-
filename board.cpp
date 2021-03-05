@@ -4,15 +4,11 @@ Board::Board(){
     int grid_position = 1; 
     for(int i = 0; i < 8; i++){
         for(int j = 0; j < 8; j++){
-            if (grid_position == 64){
-                grids.push_back(new Grid(64, 700, 700 ));
-            }
-            else{
             grids.push_back(new Grid(grid_position, j *100, i*100 ));
             grid_position += 1;
             }
         }
-    } 
+     
     board_texture.loadFromFile("Board.png");
     board_sprite.setTexture(board_texture);
     board_sprite.setPosition(0,0);
@@ -32,10 +28,14 @@ void Board::setPiece(Piece* piece){
 
 void Board::setPiece(Piece& piece){ 
     int position;
+    int x;
+    int y;
     if(grids[piece.getPosition()-1]->isEmpty()){
         position = piece.getPosition();
+        x = grids[position-1]->GetX();
+        y = grids[position-1]->GetY();
         delete grids[position-1];
-        grids[position-1] = new Grid(piece);
+        grids[position-1] = new Grid(piece, x, y);
     }
 
 }
@@ -62,7 +62,7 @@ void Board::startGame(){
     for(int i = 1; i <=64; i++){
         this->setPiece(new Pawn(i));
     }
-    
+
     // this->setPiece(new Pawn(1));
     // this->setPiece(new Pawn(2));
     // this->setPiece(new Pawn(3));
