@@ -3,45 +3,16 @@
 Board::Board(){
     int grid_position = 1; 
     for(int i = 0; i < 8; i++){
-        for(int j = 0; j < 8; j ++){
-            grids.push_back(new Grid(grid_position, i *100, j*100 ));
+        for(int j = 0; j < 8; j++){
+            if (grid_position == 64){
+                grids.push_back(new Grid(64, 700, 700 ));
+            }
+            else{
+            grids.push_back(new Grid(grid_position, j *100, i*100 ));
             grid_position += 1;
+            }
         }
-    }   
-}
-
-void Board::setPiece(Piece* piece){
-    if(piece != nullptr) 
-        setPiece(*piece);
-}
-
-void Board::setPiece(Piece& piece){ 
-    int position;
-    if(grids[piece.getPosition()]->isEmpty()){
-        position = piece.getPosition();
-        delete grids[position];
-        grids[position] = new Grid(piece);
-    }
-    else{ 
-        position = piece.getPosition();
-        grids[position] = new Grid(piece);
-    }
-}
-Grid* Board::getGrid(int position){
-    if(position < 1 || position > 64)
-        throw std::invalid_argument("Invalid position");
-    else 
-        return grids[position];
-}
-
-Grid* Board::operator[](int i){
-    return getGrid(i);
-}
-
-
-void Board::draw(sf::RenderWindow &window){
-    sf::Texture board_texture;
-    sf::Sprite board_sprite;
+    } 
     board_texture.loadFromFile("Board.png");
     board_sprite.setTexture(board_texture);
     board_sprite.setPosition(0,0);
@@ -52,14 +23,53 @@ void Board::draw(sf::RenderWindow &window){
         targetSize.x / board_sprite.getGlobalBounds().width,
         targetSize.y / board_sprite.getGlobalBounds().height
     );
-    window.draw(board_sprite);
-    window.draw(grids[1]->getPiece()->getSprite());
 }
 
+void Board::setPiece(Piece* piece){
+    if(piece != nullptr) 
+        setPiece(*piece);
+}
+
+void Board::setPiece(Piece& piece){ 
+    int position;
+    if(grids[piece.getPosition()-1]->isEmpty()){
+        position = piece.getPosition();
+        delete grids[position-1];
+        grids[position-1] = new Grid(piece);
+    }
+
+}
+Grid* Board::getGrid(int position){
+    if(position < 1 || position > 64)
+        throw std::invalid_argument("Invalid position");
+    else 
+        return grids[position-1];
+}
+
+Grid* Board::operator[](int i){
+    return getGrid(i);
+}
+
+void Board::draw(sf::RenderWindow &window){
+    window.draw(board_sprite);
+    for(int i = 0; i < grids.size(); i++){
+        if(grids[i]->getPiece() != nullptr)
+            window.draw(grids[i]->getPiece()->getSprite());
+    }
+}
 void Board::startGame(){
     // Black side 
-    this->setPiece(new Pawn(1));
+    for(int i = 1; i <=64; i++){
+        this->setPiece(new Pawn(i));
+    }
     
+    // this->setPiece(new Pawn(1));
+    // this->setPiece(new Pawn(2));
+    // this->setPiece(new Pawn(3));
+    // this->setPiece(new Pawn(4));
+    // this->setPiece(new Pawn(5));
+    // this->setPiece(new Pawn(6));
+
     // board.setPiece(new Knight(Alliance::Black, 2));
     // board.setPiece(new Bishop(Alliance::Black, 3));
     // board.setPiece(new Queen(Alliance::Black, 4));
@@ -85,18 +95,3 @@ void Board::startGame(){
 
     //Board* board = new Board();
 }
-
-
-
-/*
-
-    1 -> 0-99.99 * 0-99.99
-    x/100 
-    y/100  
-
-
-
-
-
-
-*/

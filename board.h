@@ -20,8 +20,6 @@ int y;
 //Member Variabels 
 //grids will keep track of what's on the board
 
-
-
 public:
 ~Board();
 Board();
@@ -43,7 +41,6 @@ player
 =>click will be in board move()
 
 */
-
 };
 
 #endif //_BOARD_H

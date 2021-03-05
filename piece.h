@@ -7,8 +7,9 @@
 class Piece{
 
 public:
-
-
+int position;
+int x; 
+int y; 
 Piece(){}
 
 //All of the textures needed
@@ -16,9 +17,8 @@ Piece(){}
 virtual sf::Sprite getSprite()=0;
 virtual int getPosition() = 0;
 virtual void draw(sf::RenderWindow &window) =0;
-
-
-
+virtual void move(int a, int b) = 0;
+virtual void setPosition(int x, int y) = 0;
 
 };
 

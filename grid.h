@@ -3,12 +3,14 @@
 
 #include "piece.h"
 #include "pawn.hpp"
+
 class Grid {
     int position;
     Piece* piece;
     int x;
     int y;
     
+   
 public:
     ~Grid(){}
     Grid(int destination);
