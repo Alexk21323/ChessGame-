@@ -24,9 +24,9 @@ virtual void move(int a, int b) = 0;
 virtual void setPosition(int x, int y) = 0;
 //virtual std::vector<int> getAvailableMoves() = 0;
 
-std::string getColor(){
-return color;
-}
+// std::string getColor(){
+// return color;
+// }
 
 };
 
