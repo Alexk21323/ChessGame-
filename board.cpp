@@ -69,6 +69,8 @@ void Board::draw(sf::RenderWindow &window){
         }
     }
 }
+
+
 void Board::startGame(){
 
     // this->setPiece(new Pawn(1));

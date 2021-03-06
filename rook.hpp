@@ -5,41 +5,42 @@
 #include "grid.h"
 #include <SFML/Graphics.hpp>
 
-class Rook: public Piece{
+class Rook : public Piece
+{
 public:
-//member variables
+    //member variables
 
-sf::Sprite sprite; 
-sf::Texture texture;
-    Rook(std::vector<int> pos){ 
+    sf::Sprite sprite;
+    sf::Texture texture;
+    Rook(std::vector<int> pos)
+    {
         texture.loadFromFile("Sprites/wrook.png");
         sprite.setTexture(texture);
 
         sf::Vector2f targetSize(100.0f, 100.0f);
         sprite.setScale(
-        targetSize.x / sprite.getGlobalBounds().width,
-        targetSize.y / sprite.getGlobalBounds().height
-        );
+            targetSize.x / sprite.getGlobalBounds().width,
+            targetSize.y / sprite.getGlobalBounds().height);
         position = pos;
     }
-            
-    sf::Sprite getSprite(){
+
+    sf::Sprite getSprite()
+    {
         return sprite;
     }
 
-    std::vector<int> getPosition(){
+    std::vector<int> getPosition()
+    {
         return position;
     }
-    
-    void setPosition(int x, int y){
-        sprite.setPosition(x,y);
-    }
-    void draw(sf::RenderWindow& window){
-            window.draw(sprite);
-        }
 
-        void move(int a, int b){
-        sprite.setPosition(a, b);
+    void setSpriteLocation(int x, int y)
+    {
+        sprite.setPosition(x, y);
+    }
+    void draw(sf::RenderWindow &window)
+    {
+        window.draw(sprite);
     }
 };
 

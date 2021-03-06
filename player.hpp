@@ -13,8 +13,9 @@
 class Player
 {
     public:
-    virtual void move(int x, int y, Board* board) = 0;
-
+    virtual void select(int x, int y, Board* board) = 0;
+    virtual void makeMove(int x, int y, Board* board, int tmpX, int tmpY) = 0;
+    
     //member variable
     
 
