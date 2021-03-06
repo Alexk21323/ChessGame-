@@ -70,6 +70,7 @@ void Board::draw(sf::RenderWindow &window){
     }
 }
 void Board::startGame(){
+
     // this->setPiece(new Pawn(1));
     // this->setPiece(new Pawn(2));
     // this->setPiece(new Pawn(3));

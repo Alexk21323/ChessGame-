@@ -43,4 +43,4 @@ sf::Texture texture;
     }
 };
 
-#endif //
+#endif //_QUEEN_H

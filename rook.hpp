@@ -43,4 +43,4 @@ sf::Texture texture;
     }
 };
 
-#endif //
+#endif //_ROOk_H
