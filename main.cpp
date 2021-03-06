@@ -3,10 +3,12 @@
 #include "board.h"
 #include "piece.h"
 #include "pawn.hpp"
+#include "human.hpp"
 
 int main(){
 Board* b = new Board();
 b->startGame();
+Human* h = new Human();
 sf::VideoMode v(800,800);
 sf::RenderWindow w(v, "Chess");
 
@@ -18,6 +20,11 @@ while(w.isOpen()){
     while(w.pollEvent(e)){
         if((e.type== sf::Event::Closed)){
             w.close();
+        }
+        if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        {
+            sf::Vector2i mousePos = sf::Mouse::getPosition(w);
+            h->move(mousePos.x, mousePos.y, b);
         }
     }
     }
