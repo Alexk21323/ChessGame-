@@ -5,20 +5,15 @@
 #include "grid.h"
 #include <SFML/Graphics.hpp>
 
-
-
 class Pawn: public Piece{
 public:
 //member variables
 
 sf::Sprite sprite; 
 sf::Texture texture;
-    Pawn(int pos,std::string col){ 
-        this->color = col;
-        if(color == "White")
-            texture.loadFromFile("Sprites/wpawn.png");
-        if(color == "Black")
-            texture.loadFromFile("Sprites/bpawn.png");
+    Pawn(std::vector<int> pos){ 
+        texture.loadFromFile("Sprites/wpawn.png");
+
         sprite.setTexture(texture);
 
         sf::Vector2f targetSize(100.0f, 100.0f);
@@ -33,7 +28,7 @@ sf::Texture texture;
         return sprite;
     }
 
-    int getPosition(){
+    std::vector<int> getPosition(){
         return position;
     }
 
@@ -49,4 +44,4 @@ sf::Texture texture;
     }
 };
 
-#endif //
+#endif //_PAWN_H

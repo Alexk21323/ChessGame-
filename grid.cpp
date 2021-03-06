@@ -1,13 +1,12 @@
 #include "grid.h"
 #include "piece.h"
 
-Grid::Grid(int position, int x1, int y1){
-    this->position = position;
+Grid::Grid(std::vector<int> destination, int x1, int y1){
+    this->position = destination;
     this->piece = nullptr;
     x = x1;
     y = y1;
     std::cout<< x <<"  " << y << std::endl;
-
 }
 
 Grid::Grid(Piece& piece, int x1, int y1){
