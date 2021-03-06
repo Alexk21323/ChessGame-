@@ -15,6 +15,7 @@ sf::Texture texture;
         if (color1 == true){
         color = color1;
         texture.loadFromFile("Sprites/wpawn.png");
+
         sprite.setTexture(texture);
 
         sf::Vector2f targetSize(100.0f, 100.0f);
@@ -44,7 +45,7 @@ sf::Texture texture;
     std::vector<int> getPosition(){
         return position;
     }
-    
+
     void setPosition(int x, int y){
         sprite.setPosition(x,y);
     }
@@ -52,9 +53,9 @@ sf::Texture texture;
             window.draw(sprite);
         }
 
-        void move(int a, int b){
-        sprite.setPosition(a, b);
+    void move(int a, int b){
+    sprite.setPosition(a, b);
     }
 };
 
-#endif //
+#endif //_PAWN_H

@@ -57,4 +57,4 @@ sf::Texture texture;
     }
 };
 
-#endif //
+#endif //_KING_H

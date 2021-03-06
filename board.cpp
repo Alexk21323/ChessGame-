@@ -79,10 +79,10 @@ void Board::startGame(){
     this->setPiece(new Bishop({5, 0}, false));
     this->setPiece(new Knight({6, 0}, false));
     this->setPiece(new Rook({7, 0}, false ));
+    //White side
     for (int i = 0; i <=7 ; i++){
         this->setPiece(new Pawn({i, 1}, false));
     }
-    // White Side 
     this->setPiece(new Rook({0, 7}, true));
     this->setPiece(new Knight({1, 7}, true));
     this->setPiece(new Bishop({2, 7}, true));
