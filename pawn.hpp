@@ -5,15 +5,13 @@
 #include "grid.h"
 #include <SFML/Graphics.hpp>
 
-
-
 class Pawn: public Piece{
 public:
 //member variables
 
 sf::Sprite sprite; 
 sf::Texture texture;
-    Pawn(int pos){ 
+    Pawn(std::vector<int> pos){ 
         texture.loadFromFile("Sprites/wpawn.png");
         sprite.setTexture(texture);
 
@@ -29,7 +27,7 @@ sf::Texture texture;
         return sprite;
     }
 
-    int getPosition(){
+    std::vector<int> getPosition(){
         return position;
     }
     

@@ -5,14 +5,18 @@
 #include "bishop.hpp"
 #include "queen.hpp"
 #include "king.hpp"
+#include <vector>
 
 Board::Board(){
-    int grid_position = 1; 
     for(int i = 0; i < 8; i++){
+        std::vector <Grid*> temp;
         for(int j = 0; j < 8; j++){
-            grids.push_back(new Grid(grid_position, j *100, i*100 ));
-            grid_position += 1;
+            std::vector<int> gridPos;
+            gridPos.push_back(j);
+            gridPos.push_back(i);
+            temp.push_back(new Grid(gridPos, i *100, j*100 ));
             }
+        grids.push_back(temp);
         }
      
     board_texture.loadFromFile("Board.png");
@@ -33,34 +37,36 @@ void Board::setPiece(Piece* piece){
 }
 
 void Board::setPiece(Piece& piece){ 
-    int position;
-    int x;
-    int y;
-    if(grids[piece.getPosition()-1]->isEmpty()){
+    std::vector<int> position;
+    std::vector<int> gridPos;
+    std::vector<int> temp = piece.getPosition();
+    int x = grids[temp[0]][temp[1]]->GetCoordinates()[0];
+    int y = grids[temp[0]][temp[1]]->GetCoordinates()[1];
+    if(grids[temp[0]][temp[1]]->isEmpty()){
         position = piece.getPosition();
-        x = grids[position-1]->GetX();
-        y = grids[position-1]->GetY();
-        delete grids[position-1];
-        grids[position-1] = new Grid(piece, x, y);
+        gridPos = grids[temp[0]][temp[1]]->GetPos();
+        delete grids[temp[0]][temp[1]];
+        grids[position[0]][position[1]] = new Grid(piece, x, y);
     }
 
 }
-Grid* Board::getGrid(int position){
-    if(position < 1 || position > 64)
+Grid* Board::getGrid(std::vector<int> position){
+    if(position[0] < 0  || position[0] > 7)
         throw std::invalid_argument("Invalid position");
-    else 
-        return grids[position-1];
-}
-
-Grid* Board::operator[](int i){
-    return getGrid(i);
+    if(position[1] < 0  || position[1] > 7)
+        throw std::invalid_argument("Invalid position"); 
+    else{
+        return grids[position[0]][position[1]];
+    }
 }
 
 void Board::draw(sf::RenderWindow &window){
     window.draw(board_sprite);
-    for(int i = 0; i < grids.size(); i++){
-        if(grids[i]->getPiece() != nullptr)
-            window.draw(grids[i]->getPiece()->getSprite());
+    for(int i = 0; i < 8; i++){
+        for (int j = 0; j < 8; j++){
+        if(grids[i][j]->getPiece() != nullptr)
+            window.draw(grids[i][j]->getPiece()->getSprite());
+        }
     }
 }
 void Board::startGame(){
@@ -82,18 +88,18 @@ void Board::startGame(){
     //     board.setPiece(new Rook(Alliance::Black, i));
     // }
     // //White Side 
-    this->setPiece(new Rook(57));
-    this->setPiece(new Knight(58));
-    this->setPiece(new Bishop(59));
-    this->setPiece(new Queen(60));
-    this->setPiece(new King(61));
-    this->setPiece(new Bishop(62));
-    this->setPiece(new Knight(63));
-    this->setPiece(new Rook(64));
-    for (int i = 49; i<= 56; i++){
-        this->setPiece(new Pawn(i));
+    
+    this->setPiece(new Rook({0, 7}));
+    this->setPiece(new Knight({1, 7}));
+    this->setPiece(new Bishop({2, 7}));
+    this->setPiece(new Queen({3, 7}));
+    this->setPiece(new King({4, 7}));
+    this->setPiece(new Bishop({5, 7}));
+    this->setPiece(new Knight({6, 7}));
+    this->setPiece(new Rook({7, 7}));
+    for (int i = 0; i <=7 ; i++){
+        this->setPiece(new Pawn({i, 6}));
     }
-
 }
 
 /*

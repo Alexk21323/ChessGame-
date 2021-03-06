@@ -5,15 +5,13 @@
 #include "grid.h"
 #include <SFML/Graphics.hpp>
 
-
-
 class Rook: public Piece{
 public:
 //member variables
 
 sf::Sprite sprite; 
 sf::Texture texture;
-    Rook(int pos){ 
+    Rook(std::vector<int> pos){ 
         texture.loadFromFile("Sprites/wrook.png");
         sprite.setTexture(texture);
 
@@ -29,7 +27,7 @@ sf::Texture texture;
         return sprite;
     }
 
-    int getPosition(){
+    std::vector<int> getPosition(){
         return position;
     }
     

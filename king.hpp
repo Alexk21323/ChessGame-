@@ -5,15 +5,13 @@
 #include "grid.h"
 #include <SFML/Graphics.hpp>
 
-
-
 class King: public Piece{
 public:
 //member variables
 
 sf::Sprite sprite; 
 sf::Texture texture;
-    King(int pos){ 
+    King(std::vector<int> pos){ 
         texture.loadFromFile("Sprites/wking.png");
         sprite.setTexture(texture);
 
@@ -29,7 +27,7 @@ sf::Texture texture;
         return sprite;
     }
 
-    int getPosition(){
+    std::vector<int> getPosition(){
         return position;
     }
     
