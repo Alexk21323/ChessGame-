@@ -10,10 +10,10 @@ class Piece{
 
 public:
 std::vector<int> position;
+bool color;
 int x; 
 int y; 
 Piece(){}
-
 //All of the textures needed
 
 virtual sf::Sprite getSprite()=0;
