@@ -1,4 +1,4 @@
-MakeCache.txt
+CMakeCache.txt
 CMakeFiles/
 Makefile
 cmake_install.cmake
@@ -7,3 +7,4 @@ CMakeCache.txt
 CMakeFiles/
 cmake_install.cmake
 Makefile 
+.vscode 

@@ -1,3 +1,5 @@
+
+
 cmake_minimum_required(VERSION 2.8)
 # The project name
 project(MyProject)
@@ -11,5 +13,11 @@ include_directories(SFML_INCLUDE_DIR)
 
 find_package(SFML 2.5.1 COMPONENTS system window graphics network audio)
 
-add_executable(Chess main.cpp)
-target_link_libraries (Chess sfml-graphics sfml-window sfml-system)
+add_executable(
+    chess 
+    main.cpp
+    board.cpp
+    grid.cpp
+    
+    )
+target_link_libraries (chess sfml-graphics sfml-window sfml-system)
