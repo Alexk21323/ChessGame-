@@ -44,14 +44,45 @@ void Board::setPiece(Piece &piece)
     std::vector<int> position;
     std::vector<int> gridPos;
     std::vector<int> temp = piece.getPosition();
+    std::vector<int> old = piece.getOld();
     int x = grids[temp[0]][temp[1]]->GetCoordinates()[0];
     int y = grids[temp[0]][temp[1]]->GetCoordinates()[1];
     if (grids[temp[0]][temp[1]]->isEmpty())
     {
         position = piece.getPosition();
-        gridPos = grids[temp[0]][temp[1]]->GetPos();
         delete grids[temp[0]][temp[1]];
         grids[position[0]][position[1]] = new Grid(piece, x, y);
+    }
+    else
+    {
+        position = piece.getPosition();
+        delete grids[temp[0]][temp[1]];
+        grids[position[0]][position[1]] = new Grid(piece, x, y);
+    }
+}
+void Board::movePiece(Piece &piece)
+{
+    std::vector<int> position;
+    std::vector<int> gridPos;
+    std::vector<int> temp = piece.getPosition();
+    std::vector<int> old = piece.getOld();
+    int x = grids[temp[0]][temp[1]]->GetCoordinates()[0];
+    int y = grids[temp[0]][temp[1]]->GetCoordinates()[1];
+    if (grids[temp[0]][temp[1]]->isEmpty())
+    {
+       position = piece.getPosition();
+        delete grids[temp[0]][temp[1]];
+        grids[position[0]][position[1]] = new Grid(piece, x, y);
+        delete grids[old[0]][old[1]];
+        grids[old[0]][old[1]] = new Grid(old, old[0] * 100, old[1] * 100);
+    }
+    else
+    {
+        position = piece.getPosition();
+        delete grids[temp[0]][temp[1]];
+        grids[position[0]][position[1]] = new Grid(piece, x, y);
+        delete grids[old[0]][old[1]];
+        grids[old[0]][old[1]] = new Grid(old, old[0] * 100, old[1] * 100);
     }
 }
 Grid *Board::getGrid(std::vector<int> position)

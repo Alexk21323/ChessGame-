@@ -7,7 +7,7 @@ Grid::Grid(std::vector<int> destination, int x1, int y1)
     this->piece = nullptr;
     x = x1;
     y = y1;
-    // std::cout << x << "  " << y << std::endl;
+
 }
 
 Grid::Grid(Piece &piece, int x1, int y1)
@@ -16,8 +16,11 @@ Grid::Grid(Piece &piece, int x1, int y1)
     this->piece = &piece;
     this->x = x1;
     this->y = y1;
+
+    //std::cout<< x <<"  " << y << std::endl;
+    piece.setSpriteLocation(x,y);
     // std::cout << x << "  " << y << std::endl;
-    piece.setPosition(x, y);
+
 }
 
 Grid::Grid(Piece *piece)
