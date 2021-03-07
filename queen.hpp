@@ -54,12 +54,17 @@ public:
     {
         sprite.setPosition(x, y);
     }
+    std::vector<std::vector<int>> getAvailableMoves()
+    {
+        
+    }
     void draw(sf::RenderWindow &window)
     {
         window.draw(sprite);
     }
 
  
+
 };
 
 #endif //_QUEEN_H

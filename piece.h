@@ -6,6 +6,8 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include "board.h"
+
 
 class Piece
 {
@@ -14,7 +16,6 @@ public:
 
 
     std::vector<int> position;
-    
     std::vector<int> oldPosition;
     bool color;
     int x;
@@ -30,6 +31,7 @@ public:
     bool getColor(){ return color; }
     //virtual std::vector<int> getAvailableMoves() = 0;
     virtual void setSpriteLocation(int x, int y) =0; 
+    virtual std::vector<std::vector<int>> getAvailableMoves(Board* board) = 0;
     std::vector<int> getOld(){
         return oldPosition;
     }
