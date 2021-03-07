@@ -56,6 +56,11 @@ sf::Texture texture;
     void move(int a, int b){
     sprite.setPosition(a, b);
     }
+
+    std::vector<std::vector<int>> getAvailableMoves()
+    {
+        
+    }
 };
 
 #endif //_PAWN_H
