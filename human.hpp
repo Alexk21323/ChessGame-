@@ -31,9 +31,7 @@ public:
         this->y = mouseY;
         int destinationX = x / 100;
         int destinationY = y / 100;
-        std::cout<<"Initial: "<<xPiece <<"\t"<<yPiece<<std::endl;
-        std::cout<<"Final: "<<destinationX <<"\t"<<destinationY<<std::endl;
-        
+       
         Piece *tmpPiece;
         if (board->getGrid({xPiece, yPiece})->getPiece() != nullptr)
         {
