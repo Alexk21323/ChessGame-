@@ -21,23 +21,14 @@ public:
 ~Board();
 Board();
 void startGame();
-Grid* getGrid(int position);
+Grid* getGrid(std::vector<int> position);
 void setPiece(Piece* piece);
 void setPiece(Piece& piece);
 //void setMoveMaker(Alliance moveMaker);
 void draw(sf::RenderWindow &window);
-Grid* operator [](int index);
-std::vector<Grid*> grids; //<-----call pieces with this
+// Grid* operator [][](std::vector<int> index);
+std::vector<std::vector<Grid*>> grids; //<-----call pieces with this
 
-/*32 grids = 32 pieces => access everything else
-player 
--Board  => move => int a, int b (a to b)
-=>all other grid shit
-=> stack of moves <a,b>
-
-=>click will be in board move()
-
-*/
 };
 
 #endif //_BOARD_H

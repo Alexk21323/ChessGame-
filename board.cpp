@@ -1,18 +1,22 @@
 #include "board.h"
 #include "pawn.hpp"
-#include "knight.hpp"
 #include "rook.hpp"
+#include "knight.hpp"
 #include "bishop.hpp"
 #include "queen.hpp"
 #include "king.hpp"
+#include <vector>
 
 Board::Board(){
-    int grid_position = 1; 
     for(int i = 0; i < 8; i++){
+        std::vector <Grid*> temp;
         for(int j = 0; j < 8; j++){
-            grids.push_back(new Grid(grid_position, j *100, i*100 ));
-            grid_position += 1;
+            std::vector<int> gridPos;
+            gridPos.push_back(j);
+            gridPos.push_back(i);
+            temp.push_back(new Grid(gridPos, i *100, j*100 ));
             }
+        grids.push_back(temp);
         }
      
     board_texture.loadFromFile("Board.png");
@@ -33,91 +37,81 @@ void Board::setPiece(Piece* piece){
 }
 
 void Board::setPiece(Piece& piece){ 
-    int position;
-    int x;
-    int y;
-    if(grids[piece.getPosition()-1]->isEmpty()){
+    std::vector<int> position;
+    std::vector<int> gridPos;
+    std::vector<int> temp = piece.getPosition();
+    int x = grids[temp[0]][temp[1]]->GetCoordinates()[0];
+    int y = grids[temp[0]][temp[1]]->GetCoordinates()[1];
+    if(grids[temp[0]][temp[1]]->isEmpty()){
         position = piece.getPosition();
-        x = grids[position-1]->GetX();
-        y = grids[position-1]->GetY();
-        delete grids[position-1];
-        grids[position-1] = new Grid(piece, x, y);
+        gridPos = grids[temp[0]][temp[1]]->GetPos();
+        delete grids[temp[0]][temp[1]];
+        grids[position[0]][position[1]] = new Grid(piece, x, y);
     }
 
 }
-Grid* Board::getGrid(int position){
-    if(position < 1 || position > 64)
+Grid* Board::getGrid(std::vector<int> position){
+    if(position[0] < 0  || position[0] > 7)
         throw std::invalid_argument("Invalid position");
-    else 
-        return grids[position-1];
-}
-
-Grid* Board::operator[](int i){
-    return getGrid(i);
+    if(position[1] < 0  || position[1] > 7)
+        throw std::invalid_argument("Invalid position"); 
+    else{
+        return grids[position[0]][position[1]];
+    }
 }
 
 void Board::draw(sf::RenderWindow &window){
     window.draw(board_sprite);
-    for(int i = 0; i < grids.size(); i++){
-        if(grids[i]->getPiece() != nullptr)
-            window.draw(grids[i]->getPiece()->getSprite());
+    for(int i = 0; i < 8; i++){
+        for (int j = 0; j < 8; j++){
+        if(grids[i][j]->getPiece() != nullptr)
+            window.draw(grids[i][j]->getPiece()->getSprite());
+        }
     }
 }
 void Board::startGame(){
-    // Black side 
-    for(int i = 9; i <=16; i++){
-        this->setPiece(new Pawn(i,"Black"));
+    //Black side
+    this->setPiece(new Rook({0, 0}, false));
+    this->setPiece(new Knight({1, 0}, false));
+    this->setPiece(new Bishop({2, 0}, false));
+    this->setPiece(new Queen({3, 0}, false));
+    this->setPiece(new King({4, 0}, false));
+    this->setPiece(new Bishop({5, 0}, false));
+    this->setPiece(new Knight({6, 0}, false));
+    this->setPiece(new Rook({7, 0}, false ));
+    //White side
+    for (int i = 0; i <=7 ; i++){
+        this->setPiece(new Pawn({i, 1}, false));
     }
-    this->setPiece(new Knight(2,"Black"));
-    this->setPiece(new Knight(7,"Black"));
-    this->setPiece(new Rook(1,"Black"));
-    this->setPiece(new Rook(8,"Black"));
-    this->setPiece(new Bishop(3,"Black"));
-    this->setPiece(new Bishop(6,"Black"));
-    this->setPiece(new Queen(4,"Black"));
-    this->setPiece(new King(5,"Black"));
-    // White side
-    for(int i = 49; i <=56; i++){
-        this->setPiece(new Pawn(i,"White"));
+    this->setPiece(new Rook({0, 7}, true));
+    this->setPiece(new Knight({1, 7}, true));
+    this->setPiece(new Bishop({2, 7}, true));
+    this->setPiece(new Queen({3, 7}, true));
+    this->setPiece(new King({4, 7}, true));
+    this->setPiece(new Bishop({5, 7}, true));
+    this->setPiece(new Knight({6, 7}, true));
+    this->setPiece(new Rook({7, 7}, true ));
+    for (int i = 0; i <=7 ; i++){
+        this->setPiece(new Pawn({i, 6}, true));
     }
-    this->setPiece(new Knight(63,"White"));
-    this->setPiece(new Knight(58,"White"));
-    this->setPiece(new Rook(64,"White"));
-    this->setPiece(new Rook(57,"White"));
-    this->setPiece(new Bishop(59,"White"));
-    this->setPiece(new Bishop(62,"White"));
-    this->setPiece(new Queen(60,"White"));
-    this->setPiece(new King(61,"White"));
-
-    // this->setPiece(new Pawn(1));
-    // this->setPiece(new Pawn(2));
-    // this->setPiece(new Pawn(3));
-    // this->setPiece(new Pawn(4));
-    // this->setPiece(new Pawn(5));
-    // this->setPiece(new Pawn(6));
-
-    // board.setPiece(new Knight(Alliance::Black, 2));
-    // board.setPiece(new Bishop(Alliance::Black, 3));
-    // board.setPiece(new Queen(Alliance::Black, 4));
-    // board.setPiece(new King(Alliance::Black, 5));
-    // board.setPiece(new Bishop(Alliance::Black, 6));
-    // board.setPiece(new Knight(Alliance::Black, 7));
-    // board.setPiece(new Rook(Alliance::Black, 8));
-    // for (int i = 9; i<= 16; i++){
-    //     board.setPiece(new Rook(Alliance::Black, i));
-    // }
-    // //White Side 
-    // board.setPiece(new Rook(Alliance::White, 57));
-    // board.setPiece(new Knight(Alliance::White, 58));
-    // board.setPiece(new Bishop(Alliance::White, 59));
-    // board.setPiece(new Queen(Alliance::White, 60));
-    // board.setPiece(new King(Alliance::White, 61));
-    // board.setPiece(new Bishop(Alliance::White, 62));
-    // board.setPiece(new Knight(Alliance::White, 63));
-    // board.setPiece(new Rook(Alliance::White, 64));
-    // for (int i = 49; i<= 56; i++){
-    //     board.setPiece(new Rook(Alliance::Black, i));
-    // }
-
-    //Board* board = new Board();
 }
+
+/*
+   
+
+    pawn
+    calcPossibleMoves return a vector of moves
+    getMove()
+    
+    p-> click -> position ->getGrid(position) = piece 
+    piece.getMovement(get possible vector of moves which in position, draw circle on these position)
+    second click get another position, check of position contain in possible move vector 
+    if contains invoke move(x,y) 
+    
+
+    pawn(int, int pos)
+    if()
+
+
+
+*/
