@@ -38,7 +38,8 @@ int main()
                         sf::Vector2i mousePos = sf::Mouse::getPosition(w);
                         tmpCoorX = mousePos.x / 100;
                         tmpCoorY = mousePos.y / 100;
-                        if(h->select(mousePos.x, mousePos.y, b)){
+                        if(h->select(mousePos.x, mousePos.y, b))
+                        {
                         firstClick = false;
                         }
                     }
@@ -58,13 +59,13 @@ int main()
         }
     }
 
-    // for (int i = 0; i < 8; i++)
-    // {
-    //     for (int j = 0; j < 8; j++)
-    //     {
-    //         std::cout << b->grids[j][i]->getPosition()[0] << "  " << b->grids[j][i]->getPosition()[1] << "\n";
+    // for(int i = 0; i< 8; i++){
+    //     for (int j = 0; j < 8; j++){
+    //         std::cout << b->grids[j][i]->getPosition()[0] << 
+    //         "  "<< b->grids[j][i]->getPosition()[1] <<"\n";
     //     }
     // }
+
 
     return 0;
 }

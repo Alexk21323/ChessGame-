@@ -12,15 +12,31 @@ public:
 
     sf::Sprite sprite;
     sf::Texture texture;
-    King(std::vector<int> pos)
-    {
-        texture.loadFromFile("Sprites/pepe2.png");
-        sprite.setTexture(texture);
 
-        sf::Vector2f targetSize(100.0f, 100.0f);
-        sprite.setScale(
-            targetSize.x / sprite.getGlobalBounds().width,
-            targetSize.y / sprite.getGlobalBounds().height);
+    King(std::vector<int> pos, bool color1)
+    {
+        if (color1)
+        {
+            color = color1;
+            texture.loadFromFile("Sprites/wking.png");
+            sprite.setTexture(texture);
+
+            sf::Vector2f targetSize(100.0f, 100.0f);
+            sprite.setScale(
+                targetSize.x / sprite.getGlobalBounds().width,
+                targetSize.y / sprite.getGlobalBounds().height);
+        }
+        else
+        {
+            color = color1;
+            texture.loadFromFile("Sprites/bking.png");
+            sprite.setTexture(texture);
+
+            sf::Vector2f targetSize(100.0f, 100.0f);
+            sprite.setScale(
+                targetSize.x / sprite.getGlobalBounds().width,
+                targetSize.y / sprite.getGlobalBounds().height);
+        }
         position = pos;
     }
 
@@ -33,15 +49,17 @@ public:
     {
         return position;
     }
-
+    
     void setSpriteLocation(int x, int y)
     {
         sprite.setPosition(x, y);
     }
+
     void draw(sf::RenderWindow &window)
     {
         window.draw(sprite);
     }
+
     
 };
 

@@ -12,15 +12,31 @@ public:
 
     sf::Sprite sprite;
     sf::Texture texture;
-    Knight(std::vector<int> pos)
-    {
-        texture.loadFromFile("Sprites/wknight.png");
-        sprite.setTexture(texture);
 
-        sf::Vector2f targetSize(100.0f, 100.0f);
-        sprite.setScale(
-            targetSize.x / sprite.getGlobalBounds().width,
-            targetSize.y / sprite.getGlobalBounds().height);
+    Knight(std::vector<int> pos, bool color1)
+    {
+        if (color1)
+        {
+            color = color1;
+            texture.loadFromFile("Sprites/wknight.png");
+            sprite.setTexture(texture);
+
+            sf::Vector2f targetSize(100.0f, 100.0f);
+            sprite.setScale(
+                targetSize.x / sprite.getGlobalBounds().width,
+                targetSize.y / sprite.getGlobalBounds().height);
+        }
+        else
+        {
+            color = color1;
+            texture.loadFromFile("Sprites/bknight.png");
+            sprite.setTexture(texture);
+
+            sf::Vector2f targetSize(100.0f, 100.0f);
+            sprite.setScale(
+                targetSize.x / sprite.getGlobalBounds().width,
+                targetSize.y / sprite.getGlobalBounds().height);
+        }
         position = pos;
     }
 
@@ -33,7 +49,7 @@ public:
     {
         return position;
     }
-
+    
     void setSpriteLocation(int x, int y)
     {
         sprite.setPosition(x, y);
@@ -42,6 +58,9 @@ public:
     {
         window.draw(sprite);
     }
+    
+   
+    
 };
 
 #endif //_KNIGHT_H

@@ -44,22 +44,45 @@ void Board::setPiece(Piece &piece)
     std::vector<int> position;
     std::vector<int> gridPos;
     std::vector<int> temp = piece.getPosition();
-
+    std::vector<int> old = piece.getOld();
     int x = grids[temp[0]][temp[1]]->GetCoordinates()[0];
     int y = grids[temp[0]][temp[1]]->GetCoordinates()[1];
     if (grids[temp[0]][temp[1]]->isEmpty())
     {
         position = piece.getPosition();
-        gridPos = grids[temp[0]][temp[1]]->GetPos();
         delete grids[temp[0]][temp[1]];
         grids[position[0]][position[1]] = new Grid(piece, x, y);
     }
     else
     {
         position = piece.getPosition();
-        gridPos = grids[temp[0]][temp[1]]->GetPos();
         delete grids[temp[0]][temp[1]];
         grids[position[0]][position[1]] = new Grid(piece, x, y);
+    }
+}
+void Board::movePiece(Piece &piece)
+{
+    std::vector<int> position;
+    std::vector<int> gridPos;
+    std::vector<int> temp = piece.getPosition();
+    std::vector<int> old = piece.getOld();
+    int x = grids[temp[0]][temp[1]]->GetCoordinates()[0];
+    int y = grids[temp[0]][temp[1]]->GetCoordinates()[1];
+    if (grids[temp[0]][temp[1]]->isEmpty())
+    {
+       position = piece.getPosition();
+        delete grids[temp[0]][temp[1]];
+        grids[position[0]][position[1]] = new Grid(piece, x, y);
+        delete grids[old[0]][old[1]];
+        grids[old[0]][old[1]] = new Grid(old, old[0] * 100, old[1] * 100);
+    }
+    else
+    {
+        position = piece.getPosition();
+        delete grids[temp[0]][temp[1]];
+        grids[position[0]][position[1]] = new Grid(piece, x, y);
+        delete grids[old[0]][old[1]];
+        grids[old[0]][old[1]] = new Grid(old, old[0] * 100, old[1] * 100);
     }
 }
 Grid *Board::getGrid(std::vector<int> position)
@@ -86,40 +109,33 @@ void Board::draw(sf::RenderWindow &window)
         }
     }
 }
-
 void Board::startGame()
 {
-
-    // this->setPiece(new Pawn(1));
-    // this->setPiece(new Pawn(2));
-    // this->setPiece(new Pawn(3));
-    // this->setPiece(new Pawn(4));
-    // this->setPiece(new Pawn(5));
-    // this->setPiece(new Pawn(6));
-
-    // board.setPiece(new Knight(Alliance::Black, 2));
-    // board.setPiece(new Bishop(Alliance::Black, 3));
-    // board.setPiece(new Queen(Alliance::Black, 4));
-    // board.setPiece(new King(Alliance::Black, 5));
-    // board.setPiece(new Bishop(Alliance::Black, 6));
-    // board.setPiece(new Knight(Alliance::Black, 7));
-    // board.setPiece(new Rook(Alliance::Black, 8));
-    // for (int i = 9; i<= 16; i++){
-    //     board.setPiece(new Rook(Alliance::Black, i));
-    // }
-    // //White Side
-
-    this->setPiece(new Rook({0, 7}));
-    this->setPiece(new Knight({1, 7}));
-    this->setPiece(new Bishop({2, 7}));
-    this->setPiece(new Queen({3, 7}));
-    this->setPiece(new King({4, 7}));
-    this->setPiece(new Bishop({5, 7}));
-    this->setPiece(new Knight({6, 7}));
-    this->setPiece(new Rook({7, 7}));
+    //Black side
+    this->setPiece(new Rook({0, 0}, false));
+    this->setPiece(new Knight({1, 0}, false));
+    this->setPiece(new Bishop({2, 0}, false));
+    this->setPiece(new Queen({3, 0}, false));
+    this->setPiece(new King({4, 0}, false));
+    this->setPiece(new Bishop({5, 0}, false));
+    this->setPiece(new Knight({6, 0}, false));
+    this->setPiece(new Rook({7, 0}, false));
+    //White side
     for (int i = 0; i <= 7; i++)
     {
-        this->setPiece(new Pawn({i, 6}));
+        this->setPiece(new Pawn({i, 1}, false));
+    }
+    this->setPiece(new Rook({0, 7}, true));
+    this->setPiece(new Knight({1, 7}, true));
+    this->setPiece(new Bishop({2, 7}, true));
+    this->setPiece(new Queen({3, 7}, true));
+    this->setPiece(new King({4, 7}, true));
+    this->setPiece(new Bishop({5, 7}, true));
+    this->setPiece(new Knight({6, 7}, true));
+    this->setPiece(new Rook({7, 7}, true));
+    for (int i = 0; i <= 7; i++)
+    {
+        this->setPiece(new Pawn({i, 6}, true));
     }
 }
 

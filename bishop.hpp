@@ -12,15 +12,31 @@ public:
 
     sf::Sprite sprite;
     sf::Texture texture;
-    Bishop(std::vector<int> pos)
-    {
-        texture.loadFromFile("Sprites/wbishop.png");
-        sprite.setTexture(texture);
 
-        sf::Vector2f targetSize(100.0f, 100.0f);
-        sprite.setScale(
-            targetSize.x / sprite.getGlobalBounds().width,
-            targetSize.y / sprite.getGlobalBounds().height);
+    Bishop(std::vector<int> pos, bool color1)
+    {
+        if (color1)
+        {
+            color = color1;
+            texture.loadFromFile("Sprites/wbishop.png");
+            sprite.setTexture(texture);
+
+            sf::Vector2f targetSize(100.0f, 100.0f);
+            sprite.setScale(
+                targetSize.x / sprite.getGlobalBounds().width,
+                targetSize.y / sprite.getGlobalBounds().height);
+        }
+        else
+        {
+            color = color1;
+            texture.loadFromFile("Sprites/bbishop.png");
+            sprite.setTexture(texture);
+
+            sf::Vector2f targetSize(100.0f, 100.0f);
+            sprite.setScale(
+                targetSize.x / sprite.getGlobalBounds().width,
+                targetSize.y / sprite.getGlobalBounds().height);
+        }
         position = pos;
     }
 
@@ -42,6 +58,8 @@ public:
     {
         window.draw(sprite);
     }
+  
+ 
 };
 
 #endif //_BISHOP_H

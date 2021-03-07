@@ -11,22 +11,31 @@ class Piece
 {
 
 public:
-    std::vector<int> position;
 
+
+    std::vector<int> position;
+    
+    std::vector<int> oldPosition;
+    bool color;
     int x;
     int y;
+    
     Piece() {}
-
     //All of the textures needed
 
     virtual sf::Sprite getSprite() = 0;
     virtual std::vector<int> getPosition() = 0;
     virtual void draw(sf::RenderWindow &window) = 0;
-    virtual void setSpriteLocation(int x, int y) = 0;
-
     //virtual std::vector<int> getAvailableMoves() = 0;
-    void setPosition(int x, int y)
+    bool getColor(){ return color; }
+    //virtual std::vector<int> getAvailableMoves() = 0;
+    virtual void setSpriteLocation(int x, int y) =0; 
+    std::vector<int> getOld(){
+        return oldPosition;
+    }
+    void setPostion(int x, int y)
     {
+        oldPosition = position;
         position[0] = x;
         position[1] = y;
     }
