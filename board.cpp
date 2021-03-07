@@ -109,8 +109,6 @@ void Board::startGame()
 }
 
 /*
-   
-
     pawn
     calcPossibleMoves return a vector of moves
     getMove()
@@ -123,7 +121,4 @@ void Board::startGame()
 
     pawn(int, int pos)
     if()
-
-
-
 */
