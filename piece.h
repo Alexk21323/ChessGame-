@@ -8,29 +8,39 @@
 #include <vector>
 #include "board.h"
 
-class Board;
-class Piece{
+
+class Piece
+{
 
 public:
-std::vector<int> position;
-bool color; // Black=false, White=true.
-int x; 
-int y; 
-Piece(){}
-//All of the textures needed
-
-virtual sf::Sprite getSprite()=0;
-virtual std::vector<int> getPosition() = 0;
-virtual void draw(sf::RenderWindow &window) =0;
-virtual void move(int a, int b) = 0;
-virtual void setPosition(int x, int y) = 0;
-virtual std::vector<std::vector<int>> getAvailableMoves(Board* board) = 0;
 
 
-bool getColor(){
-    return color;
-}
+    std::vector<int> position;
+    std::vector<int> oldPosition;
+    bool color;
+    int x;
+    int y;
+    
+    Piece() {}
+    //All of the textures needed
 
+    virtual sf::Sprite getSprite() = 0;
+    virtual std::vector<int> getPosition() = 0;
+    virtual void draw(sf::RenderWindow &window) = 0;
+    //virtual std::vector<int> getAvailableMoves() = 0;
+    bool getColor(){ return color; }
+    //virtual std::vector<int> getAvailableMoves() = 0;
+    virtual void setSpriteLocation(int x, int y) =0; 
+    virtual std::vector<std::vector<int>> getAvailableMoves(Board* board) = 0;
+    std::vector<int> getOld(){
+        return oldPosition;
+    }
+    void setPostion(int x, int y)
+    {
+        oldPosition = position;
+        position[0] = x;
+        position[1] = y;
+    }
 };
 
 #endif //_PIECES_H
