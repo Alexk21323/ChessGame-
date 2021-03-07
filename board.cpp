@@ -31,6 +31,14 @@ Board::Board()
     board_sprite.setScale(
         targetSize.x / board_sprite.getGlobalBounds().width,
         targetSize.y / board_sprite.getGlobalBounds().height);
+
+    circle_texture.loadFromFile("Sprites/circle.png");
+    circle_sprite.setTexture(circle_texture);
+    sf::Vector2f targetSizeCircle(100.0f, 100.0f);
+
+    circle_sprite.setScale(
+       targetSizeCircle.x / circle_sprite.getGlobalBounds().width,
+        targetSizeCircle.y / circle_sprite.getGlobalBounds().height);
 }
 
 void Board::setPiece(Piece *piece)
@@ -104,8 +112,12 @@ void Board::draw(sf::RenderWindow &window)
     {
         for (int j = 0; j < 8; j++)
         {
-            if (grids[i][j]->getPiece() != nullptr)
+            if (grids[i][j]->getPiece() != nullptr){
                 window.draw(grids[i][j]->getPiece()->getSprite());
+            }
+            
+            // circle_sprite.setPosition(i*100, j*100);
+            // window.draw(circle_sprite);
         }
     }
 }

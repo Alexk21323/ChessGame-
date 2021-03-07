@@ -15,6 +15,8 @@ class Board
     sf::Image image;
     sf::Sprite board_sprite;
     sf::Texture board_texture;
+    sf::Sprite circle_sprite;
+    sf::Texture circle_texture; 
     
 public:
     ~Board();
