@@ -7,25 +7,25 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-class Piece{
+class Piece
+{
 
 public:
-std::vector<int> position;
 
-int x; 
-int y; 
-Piece(){}
+    std::vector<int> position;
+    bool color;
+    int x;
+    int y;
+    Piece() {}
+    //All of the textures needed
 
-//All of the textures needed
-
-virtual sf::Sprite getSprite()=0;
-virtual std::vector<int> getPosition() = 0;
-virtual void draw(sf::RenderWindow &window) =0;
-virtual void move(int a, int b) = 0;
-virtual void setPosition(int x, int y) = 0;
-//virtual std::vector<int> getAvailableMoves() = 0;
-
-
+    virtual sf::Sprite getSprite() = 0;
+    virtual std::vector<int> getPosition() = 0;
+    virtual void draw(sf::RenderWindow &window) = 0;
+    virtual void move(int a, int b) = 0;
+    virtual void setPosition(int x, int y) = 0;
+    //virtual std::vector<int> getAvailableMoves() = 0;
+    bool getColor(){ return color; }
 
 };
 

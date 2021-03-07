@@ -16,7 +16,6 @@ add_executable(
     chess 
     main.cpp
     board.cpp
-    piece.cpp
     grid.cpp
     
     )
