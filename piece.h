@@ -6,12 +6,14 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include "board.h"
 
+class Board;
 class Piece{
 
 public:
 std::vector<int> position;
-bool color;
+bool color; // Black=false, White=true.
 int x; 
 int y; 
 Piece(){}
@@ -22,12 +24,12 @@ virtual std::vector<int> getPosition() = 0;
 virtual void draw(sf::RenderWindow &window) =0;
 virtual void move(int a, int b) = 0;
 virtual void setPosition(int x, int y) = 0;
-virtual std::vector<std::vector<int>> getAvailableMoves() = 0;
+virtual std::vector<std::vector<int>> getAvailableMoves(Board* board) = 0;
 
 
-// std::string getColor(){
-// return color;
-// }
+bool getColor(){
+    return color;
+}
 
 };
 

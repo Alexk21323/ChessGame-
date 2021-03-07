@@ -9,6 +9,7 @@ class Pawn: public Piece{
 public:
 //member variables
 
+bool isFirstTime = true;
 sf::Sprite sprite; 
 sf::Texture texture;
     Pawn(std::vector<int> pos, bool color1){ 
@@ -54,13 +55,59 @@ sf::Texture texture;
         }
 
     void move(int a, int b){
-    sprite.setPosition(a, b);
+        sprite.setPosition(a, b);
     }
 
-    std::vector<std::vector<int>> getAvailableMoves()
+    void setFirstTimeMove(bool b)
     {
-        
+        isFirstTime = b;
+    }
+
+    std::vector<std::vector<int>> getAvailableMoves(Board* board)
+    {
+        std::vector<std::vector<int>> AvailableMoves;
+        if(this->color == false)
+        {
+            if(isFirstTime == true)
+            {
+                AvailableMoves.push_back({{this->getPosition()[0],this->getPosition()[1]-1}});
+                AvailableMoves.push_back({{this->getPosition()[0],this->getPosition()[1]-2}});
+            }
+            if (board->getGrid({{this->getPosition()[0],this->getPosition()[1]-1}})->getPiece()==nullptr)
+            {
+                AvailableMoves.push_back({{this->getPosition()[0],this->getPosition()[1]-1}});
+            }
+            if(board->getGrid({this->getPosition()[0]-1,this->getPosition()[1]-1})->getPiece() != nullptr && board->getGrid({this->getPosition()[0]-1,this->getPosition()[1]-1})->getPiece()->getColor() != this->color)
+            {
+                AvailableMoves.push_back({this->getPosition()[0]-1,this->getPosition()[1]-1});
+            }
+            if(board->getGrid({this->getPosition()[0]+1,this->getPosition()[1]-1})->getPiece() != nullptr && board->getGrid({this->getPosition()[0]+1,this->getPosition()[1]-1})->getPiece()->getColor() != this->color)
+            {
+                AvailableMoves.push_back({this->getPosition()[0]+1,this->getPosition()[1]-1});
+            }
+        }
+        if(this->color == true)
+        {
+            if(isFirstTime == true)
+            {
+                AvailableMoves.push_back({{this->getPosition()[0],this->getPosition()[1]+1}});
+                AvailableMoves.push_back({{this->getPosition()[0],this->getPosition()[1]+2}});
+            }
+            if(board->getGrid({this->getPosition()[0],this->getPosition()[1]+1})->getPiece() == nullptr)
+            {
+                AvailableMoves.push_back({{this->getPosition()[0],this->getPosition()[1]+1}});
+            }
+            if(board->getGrid({this->getPosition()[0]+1,this->getPosition()[1]+1})->getPiece() != nullptr && board->getGrid({this->getPosition()[0]+1,this->getPosition()[1]+1})->getPiece()->getColor() != this->color)
+            {
+                AvailableMoves.push_back({this->getPosition()[0]+1,this->getPosition()[1]+1});
+            }
+            if(board->getGrid({this->getPosition()[0]-1,this->getPosition()[1]+1})->getPiece() != nullptr && board->getGrid({this->getPosition()[0]-1,this->getPosition()[1]+1})->getPiece()->getColor() != this->color)
+            {
+                AvailableMoves.push_back({this->getPosition()[0]-1,this->getPosition()[1]+1});
+            }
+        }
+        return AvailableMoves;
     }
 };
 
-#endif //_PAWN_H
+#endif _PAWN_H
