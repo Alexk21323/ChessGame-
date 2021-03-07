@@ -43,6 +43,7 @@ public:
     {
         window.draw(sprite);
     }
+    
 };
 
 #endif //_PAWN_H

@@ -33,7 +33,7 @@ public:
     {
         return position;
     }
-
+    
     void setSpriteLocation(int x, int y)
     {
         sprite.setPosition(x, y);

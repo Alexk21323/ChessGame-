@@ -10,9 +10,11 @@ int main()
     Board *b = new Board();
     b->startGame();
     Human *h = new Human();
-    sf::VideoMode v(800, 800);
+    sf::VideoMode v(1000, 800);
     sf::RenderWindow w(v, "Chess");
-
+    bool player1 = true;
+    bool firstClick = true;
+    bool moveMade = false;
     while (w.isOpen())
     {
         w.clear();
@@ -29,29 +31,40 @@ int main()
             }
             else if (e.type == sf::Event::MouseButtonPressed)
             {
-                if (e.mouseButton.button == sf::Mouse::Left)
+                if (firstClick)
                 {
-                    sf::Vector2i mousePos = sf::Mouse::getPosition(w);
-                    tmpCoorX = mousePos.x / 100;
-                    tmpCoorY = mousePos.y / 100;
-                    h->select(mousePos.x, mousePos.y, b);
+                    if (e.mouseButton.button == sf::Mouse::Left)
+                    {
+                        sf::Vector2i mousePos = sf::Mouse::getPosition(w);
+                        tmpCoorX = mousePos.x / 100;
+                        tmpCoorY = mousePos.y / 100;
+                        if(h->select(mousePos.x, mousePos.y, b)){
+                        firstClick = false;
+                        }
+                    }
                 }
-                else if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+                else if (!firstClick)
                 {
-                    sf::Vector2i mousePos = sf::Mouse::getPosition(w);
-                    h->makeMove(mousePos.x, mousePos.y, b, tmpCoorX, tmpCoorY);
-                    
+                    if (e.mouseButton.button == sf::Mouse::Left)
+                    {
+                        sf::Vector2i mousePos = sf::Mouse::getPosition(w);
+                        if (h->makeMove(mousePos.x, mousePos.y, b))
+                        {
+                            firstClick = true;
+                        }
+                    }
                 }
             }
         }
     }
-    for (int i = 0; i < 8; i++)
-    {
-        for (int j = 0; j < 8; j++)
-        {
-            std::cout << b->grids[j][i]->getPosition()[0] << "  " << b->grids[j][i]->getPosition()[1] << "\n";
-        }
-    }
+
+    // for (int i = 0; i < 8; i++)
+    // {
+    //     for (int j = 0; j < 8; j++)
+    //     {
+    //         std::cout << b->grids[j][i]->getPosition()[0] << "  " << b->grids[j][i]->getPosition()[1] << "\n";
+    //     }
+    // }
 
     return 0;
 }

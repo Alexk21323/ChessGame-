@@ -9,37 +9,43 @@ class Human : public Player
 public:
     int x;
     int y;
-    int x_c;
-    int y_c;
-    void select(int x, int y, Board *board)
+    int xPiece;
+    int yPiece;
+    bool select(int x, int y, Board *board)
     {
-        this->x = x;
-        this->y = y;
-        int tmpx = x - (x % 100);
-        int tmpy = y - (y % 100);
+        this->xPiece = x/100;
+        this->yPiece = y/100;
+        int tmpx = x/100;
+        int tmpy = y / 100;
 
+         if(board->getGrid({xPiece, yPiece})->getPiece()!= nullptr){
+
+             return true;
+         }
+         
         //get the pixel position to coordinates
-       
-        std::cout<<"initial: "<<tmpx<<"\t"<<tmpy<<"\n";
-       // board->getGrid({7,7})->getPiece()->setPosition(tmpx,tmpy);
+
+       // std::cout << "initial: " << tmpx << "\t" << tmpy << "\n";
+        // board->getGrid({7,7})->getPiece()->setPosition(tmpx,tmpy);
+        return false;
     }
-    void makeMove(int mouseX, int mouseY, Board *board, int xCoor, int yCoor)
+    bool makeMove(int mouseX, int mouseY, Board *board)
     {
         this->x = mouseX;
         this->y = mouseY;
-        this->x_c = xCoor;
-        this->y_c = yCoor;
-         int tmpx = x/100;
-        int tmpy = y/100;
-        std::cout<<"tmp coord: "<<x_c<<"\t"<<y_c<<"\n";
-        std::cout<<"final: "<<tmpx<<"\t"<<tmpy<<"\n";
-        Piece* tmpPiece;
-        //if(board->getGrid({x_c, y_c})->getPiece()!= nullptr){
-        tmpPiece = board->getGrid({x_c, y_c})->getPiece();
-        tmpPiece->setPosition(tmpx, tmpy);
+        
+        int destinationX = x / 100;
+        int destinationY = y / 100;
+        //std::cout << "tmp coord: " << x << "\t" << y << "\n";
+        //std::cout << "final: " << destinationX << "\t" << destinationY << "\n";
+        Piece *tmpPiece;
+        if(board->getGrid({xPiece, yPiece})->getPiece()!= nullptr){
+        tmpPiece = board->getGrid({xPiece, yPiece})->getPiece();
+        tmpPiece->setPosition(destinationX, destinationY);
         board->setPiece(tmpPiece);
-        //}
-
+        return true;
+        }
+        return false;
     }
 };
 

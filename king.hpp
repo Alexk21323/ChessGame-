@@ -14,7 +14,7 @@ public:
     sf::Texture texture;
     King(std::vector<int> pos)
     {
-        texture.loadFromFile("Sprites/wking.png");
+        texture.loadFromFile("Sprites/pepe2.png");
         sprite.setTexture(texture);
 
         sf::Vector2f targetSize(100.0f, 100.0f);
@@ -42,6 +42,7 @@ public:
     {
         window.draw(sprite);
     }
+    
 };
 
 #endif //_KING_H
