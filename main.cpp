@@ -21,13 +21,12 @@ while(w.isOpen()){
         }
     }
     }
-    for(int i = 0; i< 8; i++){
-        for (int j = 0; j < 8; j++){
-            std::cout << b->grids[j][i]->getPosition()[0] << 
-            "  "<< b->grids[j][i]->getPosition()[1] <<"\n";
-        }
-    }
-
+    // for(int i = 0; i< 8; i++){
+    //     for (int j = 0; j < 8; j++){
+    //         std::cout << b->grids[j][i]->getPosition()[0] << 
+    //         "  "<< b->grids[j][i]->getPosition()[1] <<"\n";
+    //     }
+    // }
     return 0;
 
 }

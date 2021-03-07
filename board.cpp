@@ -7,69 +7,79 @@
 #include "king.hpp"
 #include <vector>
 
-Board::Board(){
-    for(int i = 0; i < 8; i++){
-        std::vector <Grid*> temp;
-        for(int j = 0; j < 8; j++){
+Board::Board()
+{
+    for (int i = 0; i < 8; i++)
+    {
+        std::vector<Grid *> temp;
+        for (int j = 0; j < 8; j++)
+        {
             std::vector<int> gridPos;
             gridPos.push_back(j);
             gridPos.push_back(i);
-            temp.push_back(new Grid(gridPos, i *100, j*100 ));
-            }
-        grids.push_back(temp);
+            temp.push_back(new Grid(gridPos, i * 100, j * 100));
         }
-     
+        grids.push_back(temp);
+    }
+
     board_texture.loadFromFile("Board.png");
     board_sprite.setTexture(board_texture);
-    board_sprite.setPosition(0,0);
-    
+    board_sprite.setPosition(0, 0);
+
     sf::Vector2f targetSize(800.0f, 800.0f);
-    
+
     board_sprite.setScale(
         targetSize.x / board_sprite.getGlobalBounds().width,
-        targetSize.y / board_sprite.getGlobalBounds().height
-    );
+        targetSize.y / board_sprite.getGlobalBounds().height);
 }
 
-void Board::setPiece(Piece* piece){
-    if(piece != nullptr) 
+void Board::setPiece(Piece *piece)
+{
+    if (piece != nullptr)
         setPiece(*piece);
 }
 
-void Board::setPiece(Piece& piece){ 
+void Board::setPiece(Piece &piece)
+{
     std::vector<int> position;
     std::vector<int> gridPos;
     std::vector<int> temp = piece.getPosition();
     int x = grids[temp[0]][temp[1]]->GetCoordinates()[0];
     int y = grids[temp[0]][temp[1]]->GetCoordinates()[1];
-    if(grids[temp[0]][temp[1]]->isEmpty()){
+    if (grids[temp[0]][temp[1]]->isEmpty())
+    {
         position = piece.getPosition();
         gridPos = grids[temp[0]][temp[1]]->GetPos();
         delete grids[temp[0]][temp[1]];
         grids[position[0]][position[1]] = new Grid(piece, x, y);
     }
-
 }
-Grid* Board::getGrid(std::vector<int> position){
-    if(position[0] < 0  || position[0] > 7)
+Grid *Board::getGrid(std::vector<int> position)
+{
+    if (position[0] < 0 || position[0] > 7)
         throw std::invalid_argument("Invalid position");
-    if(position[1] < 0  || position[1] > 7)
-        throw std::invalid_argument("Invalid position"); 
-    else{
+    if (position[1] < 0 || position[1] > 7)
+        throw std::invalid_argument("Invalid position");
+    else
+    {
         return grids[position[0]][position[1]];
     }
 }
 
-void Board::draw(sf::RenderWindow &window){
+void Board::draw(sf::RenderWindow &window)
+{
     window.draw(board_sprite);
-    for(int i = 0; i < 8; i++){
-        for (int j = 0; j < 8; j++){
-        if(grids[i][j]->getPiece() != nullptr)
-            window.draw(grids[i][j]->getPiece()->getSprite());
+    for (int i = 0; i < 8; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            if (grids[i][j]->getPiece() != nullptr)
+                window.draw(grids[i][j]->getPiece()->getSprite());
         }
     }
 }
-void Board::startGame(){
+void Board::startGame()
+{
     //Black side
     this->setPiece(new Rook({0, 0}, false));
     this->setPiece(new Knight({1, 0}, false));
@@ -78,9 +88,10 @@ void Board::startGame(){
     this->setPiece(new King({4, 0}, false));
     this->setPiece(new Bishop({5, 0}, false));
     this->setPiece(new Knight({6, 0}, false));
-    this->setPiece(new Rook({7, 0}, false ));
+    this->setPiece(new Rook({7, 0}, false));
     //White side
-    for (int i = 0; i <=7 ; i++){
+    for (int i = 0; i <= 7; i++)
+    {
         this->setPiece(new Pawn({i, 1}, false));
     }
     this->setPiece(new Rook({0, 7}, true));
@@ -90,8 +101,9 @@ void Board::startGame(){
     this->setPiece(new King({4, 7}, true));
     this->setPiece(new Bishop({5, 7}, true));
     this->setPiece(new Knight({6, 7}, true));
-    this->setPiece(new Rook({7, 7}, true ));
-    for (int i = 0; i <=7 ; i++){
+    this->setPiece(new Rook({7, 7}, true));
+    for (int i = 0; i <= 7; i++)
+    {
         this->setPiece(new Pawn({i, 6}, true));
     }
 }
