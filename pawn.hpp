@@ -66,40 +66,40 @@ public:
         {
             if(isFirstTime == true)
             {
-                AvailableMoves.push_back({{this->getPosition()[0],this->getPosition()[1]-1}});
-                AvailableMoves.push_back({{this->getPosition()[0],this->getPosition()[1]-2}});
+                AvailableMoves.push_back({{this->position[0],this->position[1]-1}});
+                AvailableMoves.push_back({{this->position[0],this->position[1]-2}});
             }
-            if (board->getGrid({{this->getPosition()[0],this->getPosition()[1]-1}})->getPiece()==nullptr)
+            if (board->getGrid({{this->position[0],this->position[1]-1}})->getPiece()==nullptr)
             {
-                AvailableMoves.push_back({{this->getPosition()[0],this->getPosition()[1]-1}});
+                AvailableMoves.push_back({{this->position[0],this->position[1]-1}});
             }
-            if(board->getGrid({this->getPosition()[0]-1,this->getPosition()[1]-1})->getPiece() != nullptr && board->getGrid({this->getPosition()[0]-1,this->getPosition()[1]-1})->getPiece()->getColor() != this->color)
+            if(board->getGrid({this->position[0]-1,this->position[1]-1})->getPiece() != nullptr && board->getGrid({this->position[0]-1,this->position[1]-1})->getPiece()->getColor() != this->color)
             {
-                AvailableMoves.push_back({this->getPosition()[0]-1,this->getPosition()[1]-1});
+                AvailableMoves.push_back({this->position[0]-1,this->position[1]-1});
             }
-            if(board->getGrid({this->getPosition()[0]+1,this->getPosition()[1]-1})->getPiece() != nullptr && board->getGrid({this->getPosition()[0]+1,this->getPosition()[1]-1})->getPiece()->getColor() != this->color)
+            if(board->getGrid({this->position[0]+1,this->position[1]-1})->getPiece() != nullptr && board->getGrid({this->position[0]+1,this->position[1]-1})->getPiece()->getColor() != this->color)
             {
-                AvailableMoves.push_back({this->getPosition()[0]+1,this->getPosition()[1]-1});
+                AvailableMoves.push_back({this->position[0]+1,this->position[1]-1});
             }
         }
         if(this->color == true)
         {
             if(isFirstTime == true)
             {
-                AvailableMoves.push_back({{this->getPosition()[0],this->getPosition()[1]+1}});
-                AvailableMoves.push_back({{this->getPosition()[0],this->getPosition()[1]+2}});
+                AvailableMoves.push_back({{this->position[0],this->position[1]+1}});
+                AvailableMoves.push_back({{this->position[0],this->position[1]+2}});
             }
-            if(board->getGrid({this->getPosition()[0],this->getPosition()[1]+1})->getPiece() == nullptr)
+            if(board->getGrid({this->position[0],this->position[1]+1})->getPiece() == nullptr)
             {
-                AvailableMoves.push_back({{this->getPosition()[0],this->getPosition()[1]+1}});
+                AvailableMoves.push_back({{this->position[0],this->position[1]+1}});
             }
-            if(board->getGrid({this->getPosition()[0]+1,this->getPosition()[1]+1})->getPiece() != nullptr && board->getGrid({this->getPosition()[0]+1,this->getPosition()[1]+1})->getPiece()->getColor() != this->color)
+            if(board->getGrid({this->position[0]+1,this->position[1]+1})->getPiece() != nullptr && board->getGrid({this->position[0]+1,this->position[1]+1})->getPiece()->getColor() != this->color)
             {
-                AvailableMoves.push_back({this->getPosition()[0]+1,this->getPosition()[1]+1});
+                AvailableMoves.push_back({this->position[0]+1,this->position[1]+1});
             }
-            if(board->getGrid({this->getPosition()[0]-1,this->getPosition()[1]+1})->getPiece() != nullptr && board->getGrid({this->getPosition()[0]-1,this->getPosition()[1]+1})->getPiece()->getColor() != this->color)
+            if(board->getGrid({this->position[0]-1,this->position[1]+1})->getPiece() != nullptr && board->getGrid({this->position[0]-1,this->position[1]+1})->getPiece()->getColor() != this->color)
             {
-                AvailableMoves.push_back({this->getPosition()[0]-1,this->getPosition()[1]+1});
+                AvailableMoves.push_back({this->position[0]-1,this->position[1]+1});
             }
         }
         return AvailableMoves;
@@ -116,4 +116,4 @@ public:
     
 };
 
-#endif _PAWN_H
+#endif //_PAWN_H
