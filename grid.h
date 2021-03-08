@@ -5,26 +5,34 @@
 #include "pawn.hpp"
 #include <vector>
 
-class Grid {
+class Grid
+{
     std::vector<int> position;
-    Piece* piece;
+    Piece *piece;
     int x;
     int y;
 
 public:
-    ~Grid(){}
+    ~Grid() {}
     Grid(std::vector<int> destination, int x, int y);
-    Grid(Piece& piece, int x, int y);
-    Grid(Piece* piece);
-    std::vector<int> GetPos(){ return position; }
-    std::vector<int> GetCoordinates() { return {x,y}; }
-    const std::vector<int> getPosition() const {return this->position;}
-    Piece* getPiece() const {return this->piece;}
-    bool isEmpty() {return this->piece == nullptr;}
-    friend std::ostream& operator <<(std::ostream& out, Grid& grid){
-        if(grid.isEmpty()) 
+    Grid(Piece &piece, int x, int y);
+    Grid(Piece *piece);
+    std::vector<int> GetPos() { return position; }
+    std::vector<int> GetCoordinates() { return {x, y}; }
+    const std::vector<int> getPosition() const { return this->position; }
+    Piece *getPiece() const { return this->piece; }
+    void deletePiece(){
+    Piece* tmp = this->piece;
+    this->piece = nullptr;
+    delete tmp;    
+        
+    }
+    bool isEmpty() { return this->piece == nullptr; }
+    friend std::ostream &operator<<(std::ostream &out, Grid &grid)
+    {
+        if (grid.isEmpty())
             return out << "-";
-        else 
+        else
             return out << "piece is here";
     }
 };
