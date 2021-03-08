@@ -8,7 +8,6 @@ class Pawn : public Piece
 {
 public:
     //member variables
-    bool isFirstTime = true;
     sf::Sprite sprite;
     sf::Texture texture;
     
@@ -51,11 +50,7 @@ public:
         return position;
     }
 
-    void setFirstTimeMove(bool b)
-    {
-        isFirstTime = b;
-    }
-
+   
     void setSpriteLocation(int x, int y)
     {
         sprite.setPosition(x, y);

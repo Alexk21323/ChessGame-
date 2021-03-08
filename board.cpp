@@ -37,7 +37,7 @@ Board::Board()
     sf::Vector2f targetSizeCircle(100.0f, 100.0f);
 
     circle_sprite.setScale(
-       targetSizeCircle.x / circle_sprite.getGlobalBounds().width,
+        targetSizeCircle.x / circle_sprite.getGlobalBounds().width,
         targetSizeCircle.y / circle_sprite.getGlobalBounds().height);
 }
 
@@ -78,7 +78,7 @@ void Board::movePiece(Piece &piece)
     int y = grids[temp[0]][temp[1]]->GetCoordinates()[1];
     if (grids[temp[0]][temp[1]]->isEmpty())
     {
-       position = piece.getPosition();
+        position = piece.getPosition();
         delete grids[temp[0]][temp[1]];
         grids[position[0]][position[1]] = new Grid(piece, x, y);
         delete grids[old[0]][old[1]];
@@ -95,9 +95,9 @@ void Board::movePiece(Piece &piece)
 }
 Grid *Board::getGrid(std::vector<int> position)
 {
-    if (position[0] < 0 || position[0] > 7)
+    if (position[0] < -1 || position[0] > 8)
         throw std::invalid_argument("Invalid position");
-    if (position[1] < 0 || position[1] > 7)
+    if (position[1] < -1 || position[1] > 8)
         throw std::invalid_argument("Invalid position");
     else
     {
@@ -112,10 +112,11 @@ void Board::draw(sf::RenderWindow &window)
     {
         for (int j = 0; j < 8; j++)
         {
-            if (grids[i][j]->getPiece() != nullptr){
+            if (grids[i][j]->getPiece() != nullptr)
+            {
                 window.draw(grids[i][j]->getPiece()->getSprite());
             }
-            
+
             // circle_sprite.setPosition(i*100, j*100);
             // window.draw(circle_sprite);
         }
@@ -151,94 +152,98 @@ void Board::startGame()
     }
 }
 
-std::vector<std::vector<int>> Board::possibleMoves(Piece* piece)
+std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
 {
     std::vector<std::vector<int>> AvailableMoves;
-    switch(piece->getType())
+    switch (piece->getType())
     {
-        case 0:
-        Pawn* p = new Pawn(piece->getPosition(),piece->getColor());
-        if(p->color == false)
+    case 0:
+    {
+        //Piece* p = new Pawn(piece->getPosition(),piece->getColor());
+        if (piece->color == true)
         {
-            if(p->isFirstTime == true)
+            if (piece->isFirstTime == true)
             {
-                AvailableMoves.push_back({{p->position[0],p->position[1]-1}});
-                AvailableMoves.push_back({{p->position[0],p->position[1]-2}});
-                p->setFirstTimeMove(false);
+                AvailableMoves.push_back({{piece->position[0], piece->position[1] - 1}});
+                AvailableMoves.push_back({{piece->position[0], piece->position[1] - 2}});
+                piece->setFirstTimeMove(false);
             }
-            if (this->getGrid({{p->position[0],p->position[1]-1}})->getPiece()==nullptr)
+            if (this->getGrid({piece->position[0], piece->position[1] - 1})->getPiece() == nullptr)
             {
-                AvailableMoves.push_back({{p->position[0],p->position[1]-1}});
+                AvailableMoves.push_back({{piece->position[0], piece->position[1] - 1}});
             }
-            if(this->getGrid({p->position[0]-1,p->position[1]-1})->getPiece() != nullptr && this->getGrid({p->position[0]-1,p->position[1]-1})->getPiece()->getColor() != p->color)
+            if (this->getGrid({piece->position[0] + 1, piece->position[1] - 1})->getPiece() != nullptr && this->getGrid({piece->position[0] + 1, piece->position[1] - 1})->getPiece()->getColor() != piece->color)
             {
-                AvailableMoves.push_back({p->position[0]-1,p->position[1]-1});
+                AvailableMoves.push_back({piece->position[0] + 1, piece->position[1] - 1});
             }
-            if(this->getGrid({p->position[0]+1,p->position[1]-1})->getPiece() != nullptr && this->getGrid({p->position[0]+1,p->position[1]-1})->getPiece()->getColor() != p->color)
+            if (this->getGrid({piece->position[0] - 1, piece->position[1] - 1})->getPiece() != nullptr && this->getGrid({piece->position[0] - 1, piece->position[1] - 1})->getPiece()->getColor() != piece->color)
             {
-                AvailableMoves.push_back({p->position[0]+1,p->position[1]-1});
+                AvailableMoves.push_back({piece->position[0] - 1, piece->position[1] - 1});
             }
         }
-        if(p->color == true)
+        if (piece->color == false)
         {
-            if(p->isFirstTime == true)
+            if (piece->isFirstTime == true)
             {
-                AvailableMoves.push_back({{p->position[0],p->position[1]+1}});
-                AvailableMoves.push_back({{p->position[0],p->position[1]+2}});
-                p->setFirstTimeMove(false);
+                AvailableMoves.push_back({{piece->position[0], piece->position[1] + 1}});
+                AvailableMoves.push_back({{piece->position[0], piece->position[1] + 2}});
+                piece->setFirstTimeMove(false);
             }
-            if(this->getGrid({p->position[0],p->position[1]+1})->getPiece() == nullptr)
+            if (this->getGrid({piece->position[0], piece->position[1] + 1})->getPiece() == nullptr)
             {
-                AvailableMoves.push_back({{p->position[0],p->position[1]+1}});
+                AvailableMoves.push_back({{piece->position[0], piece->position[1] + 1}});
             }
-            if(this->getGrid({p->position[0]+1,p->position[1]+1})->getPiece() != nullptr && this->getGrid({p->position[0]+1,p->position[1]+1})->getPiece()->getColor() != p->color)
+            if (this->getGrid({piece->position[0] + 1, piece->position[1] + 1})->getPiece() != nullptr && this->getGrid({piece->position[0] + 1, piece->position[1] + 1})->getPiece()->getColor() != piece->color)
             {
-                AvailableMoves.push_back({p->position[0]+1,p->position[1]+1});
+                AvailableMoves.push_back({piece->position[0] + 1, piece->position[1] + 1});
             }
-            if(this->getGrid({p->position[0]-1,p->position[1]+1})->getPiece() != nullptr && this->getGrid({p->position[0]-1,p->position[1]+1})->getPiece()->getColor() != p->color)
+            if (this->getGrid({piece->position[0] - 1, piece->position[1] + 1})->getPiece() != nullptr && this->getGrid({piece->position[0] - 1, piece->position[1] + 1})->getPiece()->getColor() != piece->color)
             {
-                AvailableMoves.push_back({p->position[0]-1,p->position[1]+1});
-            } 
+                AvailableMoves.push_back({piece->position[0] - 1, piece->position[1] + 1});
+            }
         }
         return AvailableMoves;
-        break; 
-        case 5:
-        if(this->getGrid({piece->position[0]+1,piece->position[1]})->getPiece() == nullptr)
+        break;
+    }
+    case 5:
+    {
+        if (this->getGrid({piece->position[0] + 1, piece->position[1]})->getPiece() == nullptr)
         {
-            AvailableMoves.push_back({piece->position[0]+1,piece->position[1]});
+            AvailableMoves.push_back({piece->position[0] + 1, piece->position[1]});
         }
-        if(this->getGrid({piece->position[0]-1,piece->position[1]})->getPiece() == nullptr)
+        if (this->getGrid({piece->position[0] - 1, piece->position[1]})->getPiece() == nullptr)
         {
-            AvailableMoves.push_back({piece->position[0]-1,piece->position[1]});
+            AvailableMoves.push_back({piece->position[0] - 1, piece->position[1]});
         }
         //vertical check
-        if(this->getGrid({piece->position[0],piece->position[1]+1})->getPiece() == nullptr)
+        if (this->getGrid({piece->position[0], piece->position[1] + 1})->getPiece() == nullptr)
         {
-            AvailableMoves.push_back({piece->position[0],piece->position[1]+1});
+            AvailableMoves.push_back({piece->position[0], piece->position[1] + 1});
         }
-        if(this->getGrid({piece->position[0],piece->position[1]-1})->getPiece() == nullptr)
+        if (this->getGrid({piece->position[0], piece->position[1] - 1})->getPiece() == nullptr)
         {
-            AvailableMoves.push_back({piece->position[0],piece->position[1]-1});
+            AvailableMoves.push_back({piece->position[0], piece->position[1] - 1});
         }
         //diagonal check
-        if(this->getGrid({piece->position[0]+1,piece->position[1]+1})->getPiece() == nullptr)
+        if (this->getGrid({piece->position[0] + 1, piece->position[1] + 1})->getPiece() == nullptr)
         {
-            AvailableMoves.push_back({piece->position[0]+1,piece->position[1]+1});
+            AvailableMoves.push_back({piece->position[0] + 1, piece->position[1] + 1});
         }
-        if(this->getGrid({piece->position[0]-1,piece->position[1]-1})->getPiece() == nullptr)
+        if (this->getGrid({piece->position[0] - 1, piece->position[1] - 1})->getPiece() == nullptr)
         {
-            AvailableMoves.push_back({piece->position[0]-1,piece->position[1]-1});
+            AvailableMoves.push_back({piece->position[0] - 1, piece->position[1] - 1});
         }
-        if(this->getGrid({piece->position[0]-1,piece->position[1]+1})->getPiece() == nullptr)
+        if (this->getGrid({piece->position[0] - 1, piece->position[1] + 1})->getPiece() == nullptr)
         {
-            AvailableMoves.push_back({piece->position[0]-1,piece->position[1]+1});
+            AvailableMoves.push_back({piece->position[0] - 1, piece->position[1] + 1});
         }
-        if(this->getGrid({piece->position[0]+1,piece->position[1]-1})->getPiece() == nullptr)
+        if (this->getGrid({piece->position[0] + 1, piece->position[1] - 1})->getPiece() == nullptr)
         {
-            AvailableMoves.push_back({piece->position[0]+1,piece->position[1]-1});
+            AvailableMoves.push_back({piece->position[0] + 1, piece->position[1] - 1});
         }
         return AvailableMoves;
-
+        break;
+    }
     }
 }
 

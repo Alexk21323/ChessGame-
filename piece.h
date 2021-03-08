@@ -1,6 +1,5 @@
 #ifndef _PIECES_H
 #define _PIECES_H
-#include "board.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -16,7 +15,8 @@ public:
     int type;
     int x;
     int y;
-    
+    bool isFirstTime = true;
+
     Piece() {}
     //All of the textures needed
 
@@ -24,13 +24,19 @@ public:
     virtual std::vector<int> getPosition() = 0;
     virtual void draw(sf::RenderWindow &window) = 0;
     //virtual std::vector<int> getAvailableMoves() = 0;
-    bool getColor(){ return color; }
-    int getType(){return type;}
+    bool getColor() { return color; }
+    int getType() { return type; }
     //virtual std::vector<int> getAvailableMoves() = 0;
-    virtual void setSpriteLocation(int x, int y) =0; 
-    std::vector<int> getOld(){
+    virtual void setSpriteLocation(int x, int y) = 0;
+    std::vector<int> getOld()
+    {
         return oldPosition;
     }
+    void setFirstTimeMove(bool b)
+    {
+        isFirstTime = b;
+    }
+
     void setPostion(int x, int y)
     {
         oldPosition = position;
