@@ -17,10 +17,7 @@ Grid::Grid(Piece &piece, int x1, int y1)
     this->x = x1;
     this->y = y1;
 
-    //std::cout<< x <<"  " << y << std::endl;
     piece.setSpriteLocation(x,y);
-    // std::cout << x << "  " << y << std::endl;
-
 }
 
 Grid::Grid(Piece *piece)
