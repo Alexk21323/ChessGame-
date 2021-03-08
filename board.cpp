@@ -234,6 +234,32 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
         return AvailableMoves;
         break;
     }
+    case 1: //Rook
+    {
+        //to the vertical movement movement
+         for (int i = 1; i <= 7; i++)
+        {
+            if (piece->position[0] <= 7 && piece->position[1]-i >= 0)
+            {
+                if (this->getGrid({piece->position[0], piece->position[1]-i})->getPiece() == nullptr)
+                {
+                    AvailableMoves.push_back({piece->position[0], piece->position[1] - i});
+                }
+                else if (this->getGrid({piece->position[0], piece->position[1] - i})->getPiece()->getColor() != piece->getColor())
+                {
+                    AvailableMoves.push_back({piece->position[0], piece->position[1] - i});
+                    break;
+                }
+                else if (this->getGrid({piece->position[0], piece->position[1] - i})->getPiece() != nullptr)
+                {
+                    break;
+                }
+            }
+        }
+
+        return AvailableMoves;
+        break;
+    }
     case 2: //Knight
     {
         //bottom side
@@ -311,6 +337,7 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
         return AvailableMoves;
         break;
     }
+
     case 3: //Bishop
     {
         //bottom left to top right
