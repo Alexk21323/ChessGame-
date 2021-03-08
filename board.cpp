@@ -236,12 +236,12 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
     }
     case 1: //Rook
     {
-        //to the vertical movement movement
-         for (int i = 1; i <= 7; i++)
+        //vertical movement up
+        for (int i = 1; i <= 7; i++)
         {
-            if (piece->position[0] <= 7 && piece->position[1]-i >= 0)
+            if (piece->position[0] <= 7 && piece->position[1] - i >= 0)
             {
-                if (this->getGrid({piece->position[0], piece->position[1]-i})->getPiece() == nullptr)
+                if (this->getGrid({piece->position[0], piece->position[1] - i})->getPiece() == nullptr)
                 {
                     AvailableMoves.push_back({piece->position[0], piece->position[1] - i});
                 }
@@ -251,6 +251,26 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
                     break;
                 }
                 else if (this->getGrid({piece->position[0], piece->position[1] - i})->getPiece() != nullptr)
+                {
+                    break;
+                }
+            }
+        }
+        //vertical movement down
+        for (int i = 1; i <= 7; i++)
+        {
+            if (piece->position[0] <= 7 && piece->position[1] + i <= 7)
+            {
+                if (this->getGrid({piece->position[0], piece->position[1] + i})->getPiece() == nullptr)
+                {
+                    AvailableMoves.push_back({piece->position[0], piece->position[1] + i});
+                }
+                else if (this->getGrid({piece->position[0], piece->position[1] + i})->getPiece()->getColor() != piece->getColor())
+                {
+                    AvailableMoves.push_back({piece->position[0], piece->position[1] + i});
+                    break;
+                }
+                else if (this->getGrid({piece->position[0], piece->position[1] + i})->getPiece() != nullptr)
                 {
                     break;
                 }
