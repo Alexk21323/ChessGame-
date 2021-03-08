@@ -328,9 +328,19 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
         {
             if (piece->position[0] - i >= 0 && piece->position[1] - i >= 0)
             {
-                if (this->getGrid({piece->position[0] - i, piece->position[1] - i})->getPiece() == nullptr ||
-                    this->getGrid({piece->position[0] - i, piece->position[1] - i})->getPiece()->getColor() != piece->getColor())
+                if (this->getGrid({piece->position[0] - i, piece->position[1] - i})->getPiece() == nullptr)
+                {
                     AvailableMoves.push_back({piece->position[0] - i, piece->position[1] - i});
+                }
+                else if(this->getGrid({piece->position[0] - i, piece->position[1] - i})->getPiece()->getColor() != piece->getColor())
+                {
+                    AvailableMoves.push_back({piece->position[0] - i, piece->position[1] - i});
+                    break;    
+                }
+                else if (this->getGrid({piece->position[0] - i, piece->position[1] - i})->getPiece() != nullptr)
+                {
+                    break;
+                }
             }
         }
 
