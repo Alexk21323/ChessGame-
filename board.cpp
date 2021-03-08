@@ -248,8 +248,6 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
 }
 
 /*
-   
-
     pawn
     calcPossibleMoves return a vector of moves
     getMove()
@@ -262,7 +260,4 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
 
     pawn(int, int pos)
     if()
-
-
-
 */
