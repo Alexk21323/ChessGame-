@@ -276,6 +276,26 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
                 }
             }
         }
+        //horizontal movement right
+        for (int i = 1; i <= 7; i++)
+        {
+            if (piece->position[0]+i <= 7 && piece->position[1] <= 7)
+            {
+                if (this->getGrid({piece->position[0]+i, piece->position[1]})->getPiece() == nullptr)
+                {
+                    AvailableMoves.push_back({piece->position[0]+i, piece->position[1]});
+                }
+                else if (this->getGrid({piece->position[0]+i, piece->position[1]})->getPiece()->getColor() != piece->getColor())
+                {
+                    AvailableMoves.push_back({piece->position[0]+i, piece->position[1]});
+                    break;
+                }
+                else if (this->getGrid({piece->position[0]+i, piece->position[1]})->getPiece() != nullptr)
+                {
+                    break;
+                }
+            }
+        }
 
         return AvailableMoves;
         break;
