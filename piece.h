@@ -1,26 +1,22 @@
 #ifndef _PIECES_H
 #define _PIECES_H
-
 #include <iostream>
 #include <vector>
 #include <string>
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include "board.h"
-
 
 class Piece
 {
-
 public:
-
-
     std::vector<int> position;
     std::vector<int> oldPosition;
     bool color;
+    int type;
     int x;
     int y;
-    
+    bool isFirstTime = true;
+
     Piece() {}
     //All of the textures needed
 
@@ -28,13 +24,19 @@ public:
     virtual std::vector<int> getPosition() = 0;
     virtual void draw(sf::RenderWindow &window) = 0;
     //virtual std::vector<int> getAvailableMoves() = 0;
-    bool getColor(){ return color; }
+    bool getColor() { return color; }
+    int getType() { return type; }
     //virtual std::vector<int> getAvailableMoves() = 0;
-    virtual void setSpriteLocation(int x, int y) =0; 
-    virtual std::vector<std::vector<int>> getAvailableMoves(Board* board) = 0;
-    std::vector<int> getOld(){
+    virtual void setSpriteLocation(int x, int y) = 0;
+    std::vector<int> getOld()
+    {
         return oldPosition;
     }
+    void setFirstTimeMove(bool b)
+    {
+        isFirstTime = b;
+    }
+
     void setPostion(int x, int y)
     {
         oldPosition = position;

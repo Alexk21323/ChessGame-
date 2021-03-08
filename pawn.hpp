@@ -2,20 +2,18 @@
 #define _PAWN_H
 
 #include "piece.h"
-#include "grid.h"
 #include <SFML/Graphics.hpp>
 
 class Pawn : public Piece
 {
 public:
     //member variables
-
-    bool isFirstTime = true;
     sf::Sprite sprite;
     sf::Texture texture;
     
     Pawn(std::vector<int> pos, bool color1)
     {
+        type = 0;
         if (color1 == true)
         {
             color = color1;
@@ -102,15 +100,16 @@ public:
         }
         return AvailableMoves;
         }
+
     void setSpriteLocation(int x, int y)
     {
         sprite.setPosition(x, y);
     }
+
     void draw(sf::RenderWindow &window)
     {
         window.draw(sprite);
     }
-
     
 };
 
