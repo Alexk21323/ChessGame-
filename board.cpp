@@ -151,6 +151,97 @@ void Board::startGame()
     }
 }
 
+std::vector<std::vector<int>> Board::possibleMoves(Piece* piece)
+{
+    std::vector<std::vector<int>> AvailableMoves;
+    switch(piece->getType())
+    {
+        case 0:
+        Pawn* p = new Pawn(piece->getPosition(),piece->getColor());
+        if(p->color == false)
+        {
+            if(p->isFirstTime == true)
+            {
+                AvailableMoves.push_back({{p->position[0],p->position[1]-1}});
+                AvailableMoves.push_back({{p->position[0],p->position[1]-2}});
+                p->setFirstTimeMove(false);
+            }
+            if (this->getGrid({{p->position[0],p->position[1]-1}})->getPiece()==nullptr)
+            {
+                AvailableMoves.push_back({{p->position[0],p->position[1]-1}});
+            }
+            if(this->getGrid({p->position[0]-1,p->position[1]-1})->getPiece() != nullptr && this->getGrid({p->position[0]-1,p->position[1]-1})->getPiece()->getColor() != p->color)
+            {
+                AvailableMoves.push_back({p->position[0]-1,p->position[1]-1});
+            }
+            if(this->getGrid({p->position[0]+1,p->position[1]-1})->getPiece() != nullptr && this->getGrid({p->position[0]+1,p->position[1]-1})->getPiece()->getColor() != p->color)
+            {
+                AvailableMoves.push_back({p->position[0]+1,p->position[1]-1});
+            }
+        }
+        if(p->color == true)
+        {
+            if(p->isFirstTime == true)
+            {
+                AvailableMoves.push_back({{p->position[0],p->position[1]+1}});
+                AvailableMoves.push_back({{p->position[0],p->position[1]+2}});
+                p->setFirstTimeMove(false);
+            }
+            if(this->getGrid({p->position[0],p->position[1]+1})->getPiece() == nullptr)
+            {
+                AvailableMoves.push_back({{p->position[0],p->position[1]+1}});
+            }
+            if(this->getGrid({p->position[0]+1,p->position[1]+1})->getPiece() != nullptr && this->getGrid({p->position[0]+1,p->position[1]+1})->getPiece()->getColor() != p->color)
+            {
+                AvailableMoves.push_back({p->position[0]+1,p->position[1]+1});
+            }
+            if(this->getGrid({p->position[0]-1,p->position[1]+1})->getPiece() != nullptr && this->getGrid({p->position[0]-1,p->position[1]+1})->getPiece()->getColor() != p->color)
+            {
+                AvailableMoves.push_back({p->position[0]-1,p->position[1]+1});
+            } 
+        }
+        return AvailableMoves;
+        break; 
+        case 5:
+        if(this->getGrid({piece->position[0]+1,piece->position[1]})->getPiece() == nullptr)
+        {
+            AvailableMoves.push_back({piece->position[0]+1,piece->position[1]});
+        }
+        if(this->getGrid({piece->position[0]-1,piece->position[1]})->getPiece() == nullptr)
+        {
+            AvailableMoves.push_back({piece->position[0]-1,piece->position[1]});
+        }
+        //vertical check
+        if(this->getGrid({piece->position[0],piece->position[1]+1})->getPiece() == nullptr)
+        {
+            AvailableMoves.push_back({piece->position[0],piece->position[1]+1});
+        }
+        if(this->getGrid({piece->position[0],piece->position[1]-1})->getPiece() == nullptr)
+        {
+            AvailableMoves.push_back({piece->position[0],piece->position[1]-1});
+        }
+        //diagonal check
+        if(this->getGrid({piece->position[0]+1,piece->position[1]+1})->getPiece() == nullptr)
+        {
+            AvailableMoves.push_back({piece->position[0]+1,piece->position[1]+1});
+        }
+        if(this->getGrid({piece->position[0]-1,piece->position[1]-1})->getPiece() == nullptr)
+        {
+            AvailableMoves.push_back({piece->position[0]-1,piece->position[1]-1});
+        }
+        if(this->getGrid({piece->position[0]-1,piece->position[1]+1})->getPiece() == nullptr)
+        {
+            AvailableMoves.push_back({piece->position[0]-1,piece->position[1]+1});
+        }
+        if(this->getGrid({piece->position[0]+1,piece->position[1]-1})->getPiece() == nullptr)
+        {
+            AvailableMoves.push_back({piece->position[0]+1,piece->position[1]-1});
+        }
+        return AvailableMoves;
+
+    }
+}
+
 /*
    
 
