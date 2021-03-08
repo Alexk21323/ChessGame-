@@ -20,10 +20,10 @@ public:
         tmpPiece = board->getGrid({xPiece, yPiece})->getPiece();
          
         std::cout<<"coord "<<xPiece<<"\t"<<yPiece<<std::endl;
-         posMove = board->possibleMoves(tmpPiece);
+        posMove = board->possibleMoves(tmpPiece);
         for (int i = 0; i < posMove.size(); i++)
         { 
-            std::cout <<"possible ";
+            std::cout <<"possible";
             for (int j = 0; j < posMove[i].size(); j++)
             {
                 std::cout<<posMove[i][j];
