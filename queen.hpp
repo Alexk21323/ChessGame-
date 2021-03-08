@@ -54,34 +54,34 @@ public:
     {
         sprite.setPosition(x, y);
     }
-    std::vector<std::vector<int>> getAvailableMoves(Board* board)
-    {
-        std::vector<std::vector<int>> AvailableMoves;
-        //check horizontal
-        for(int i; i <= 7-position[0];i++)
-        {
-            if(board->getGrid({this->position[0]+i,this->position[1]})->getPiece() != nullptr)
-            {
-                break;
-            }
-            else
-            {
-                AvailableMoves.push_back({this->position[0]+i,this->position[1]});
-            }
+    // std::vector<std::vector<int>> getAvailableMoves(Board* board)
+    // {
+    //     std::vector<std::vector<int>> AvailableMoves;
+    //     //check horizontal
+    //     for(int i; i <= 7-position[0];i++)
+    //     {
+    //         if(board->getGrid({this->position[0]+i,this->position[1]})->getPiece() != nullptr)
+    //         {
+    //             break;
+    //         }
+    //         else
+    //         {
+    //             AvailableMoves.push_back({this->position[0]+i,this->position[1]});
+    //         }
             
-        }
-        for(int i; i <= 7-(7-position[0]);i++)
-        {
-            if(board->getGrid({this->position[0]-i,this->position[1]})->getPiece() != nullptr)
-            {
-                break;
-            }
-            else
-            {
-                AvailableMoves.push_back({this->position[0]-i,this->position[1]});
-            }
-        }
-    }
+    //     }
+    //     for(int i; i <= 7-(7-position[0]);i++)
+    //     {
+    //         if(board->getGrid({this->position[0]-i,this->position[1]})->getPiece() != nullptr)
+    //         {
+    //             break;
+    //         }
+    //         else
+    //         {
+    //             AvailableMoves.push_back({this->position[0]-i,this->position[1]});
+    //         }
+    //     }
+    // }
     void draw(sf::RenderWindow &window)
     {
         window.draw(sprite);

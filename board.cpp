@@ -92,7 +92,8 @@ void Board::movePiece(Piece &piece)
         delete grids[old[0]][old[1]];
         grids[old[0]][old[1]] = new Grid(old, old[0] * 100, old[1] * 100);
     }
-    if (piece.getType() == 0){
+    if (piece.getType() == 0)
+    {
         piece.setFirstTimeMove(false);
     }
 }
@@ -119,20 +120,19 @@ void Board::draw(sf::RenderWindow &window)
             {
                 window.draw(grids[i][j]->getPiece()->getSprite());
             }
-        
         }
     }
 }
 
-void Board::showSelection(sf::RenderWindow& window, int x, int y){
-    
+void Board::showSelection(sf::RenderWindow &window, int x, int y)
+{
     std::vector<std::vector<int>> showMoves;
     showMoves = possibleMoves(grids[x][y]->getPiece());
-    for(int i = 0; i < showMoves.size(); i++){
-        circle_sprite.setPosition(showMoves[i][0]*100, showMoves[i][1]*100);
+    for (int i = 0; i < showMoves.size(); i++)
+    {
+        circle_sprite.setPosition(showMoves[i][0] * 100, showMoves[i][1] * 100);
         window.draw(circle_sprite);
     }
-
 }
 
 void Board::startGame()
@@ -170,7 +170,7 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
     std::vector<std::vector<int>> AvailableMoves;
     switch (piece->getType())
     {
-    case 0:
+    case 0:     //Pawn 
     {
         //Piece* p = new Pawn(piece->getPosition(),piece->getColor());
         if (piece->color == true)
@@ -234,41 +234,135 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
         return AvailableMoves;
         break;
     }
-    case 5:
+    case 2:     //Knight
     {
-        if (this->getGrid({piece->position[0] + 1, piece->position[1]})->getPiece() == nullptr)
+        //bottom side
+        if (piece->position[1] + 2 >= 0 && piece->position[1] + 2 <= 7)
         {
-            AvailableMoves.push_back({piece->position[0] + 1, piece->position[1]});
+            //bottom right
+            if (piece->position[0] + 1 >= 0 && piece->position[0] + 1 <= 7)
+            {
+                if (this->getGrid({piece->position[0] + 1, piece->position[1] + 2})->getPiece() == nullptr ||
+                    this->getGrid({piece->position[0] + 1, piece->position[1] + 2})->getPiece()->getColor() != piece->getColor())
+                    AvailableMoves.push_back({piece->position[0] + 1, piece->position[1] + 2});
+            }
+            //bottom left 
+            if (piece->position[0] - 1 >= 0 && piece->position[0] - 1 <= 7)
+            {
+                if (this->getGrid({piece->position[0] - 1, piece->position[1] + 2})->getPiece() == nullptr ||
+                    this->getGrid({piece->position[0] - 1, piece->position[1] + 2})->getPiece()->getColor() != piece->getColor())
+                    AvailableMoves.push_back({piece->position[0] - 1, piece->position[1] + 2});
+            }
         }
-        if (this->getGrid({piece->position[0] - 1, piece->position[1]})->getPiece() == nullptr)
+        //top side 
+        if (piece->position[1] - 2 >= 0 && piece->position[1] - 2 <= 7)
         {
-            AvailableMoves.push_back({piece->position[0] - 1, piece->position[1]});
+            //top right
+            if (piece->position[0] + 1 >= 0 && piece->position[0] + 1 <= 7)
+            {
+                if (this->getGrid({piece->position[0] + 1, piece->position[1] - 2})->getPiece() == nullptr ||
+                    this->getGrid({piece->position[0] + 1, piece->position[1] - 2})->getPiece()->getColor() != piece->getColor())
+                    AvailableMoves.push_back({piece->position[0] + 1, piece->position[1] - 2});
+            }
+            //bottom left 
+            if (piece->position[0] - 1 >= 0 && piece->position[0] - 1 <= 7)
+            {
+                if (this->getGrid({piece->position[0] - 1, piece->position[1] - 2})->getPiece() == nullptr ||
+                    this->getGrid({piece->position[0] - 1, piece->position[1] - 2})->getPiece()->getColor() != piece->getColor())
+                    AvailableMoves.push_back({piece->position[0] - 1, piece->position[1] - 2});
+            }
         }
-        //vertical check
-        if (this->getGrid({piece->position[0], piece->position[1] + 1})->getPiece() == nullptr)
+        //left side 
+        if (piece->position[0] - 2 >= 0 && piece->position[0] - 2 <= 7)
         {
-            AvailableMoves.push_back({piece->position[0], piece->position[1] + 1});
+            //left bottom
+            if (piece->position[1] + 1 >= 0 && piece->position[1] + 1 <= 7)
+            {
+                if (this->getGrid({piece->position[0] - 2, piece->position[1] + 1})->getPiece() == nullptr ||
+                    this->getGrid({piece->position[0] - 2, piece->position[1] + 1})->getPiece()->getColor() != piece->getColor())
+                    AvailableMoves.push_back({piece->position[0] - 2, piece->position[1] + 1});
+            }
+            //left top  
+            if (piece->position[1] - 1 >= 0 && piece->position[1] - 1 <= 7)
+            {
+                if (this->getGrid({piece->position[0] - 2, piece->position[1] - 1})->getPiece() == nullptr ||
+                    this->getGrid({piece->position[0] - 2, piece->position[1] - 1})->getPiece()->getColor() != piece->getColor())
+                    AvailableMoves.push_back({piece->position[0] - 2, piece->position[1] - 1});
+            }
         }
-        if (this->getGrid({piece->position[0], piece->position[1] - 1})->getPiece() == nullptr)
+        //right side
+        if (piece->position[0] + 2 >= 0 && piece->position[0] + 2 <= 7)
         {
-            AvailableMoves.push_back({piece->position[0], piece->position[1] - 1});
+            //left bottom
+            if (piece->position[1] + 1 >= 0 && piece->position[1] + 1 <= 7)
+            {
+                if (this->getGrid({piece->position[0] - 2, piece->position[1] + 1})->getPiece() == nullptr ||
+                    this->getGrid({piece->position[0] - 2, piece->position[1] + 1})->getPiece()->getColor() != piece->getColor())
+                    AvailableMoves.push_back({piece->position[0] + 2, piece->position[1] + 1});
+            }
+            //left top  
+            if (piece->position[1] - 1 >= 0 && piece->position[1] - 1 <= 7)
+            {
+                if (this->getGrid({piece->position[0] - 2, piece->position[1] - 1})->getPiece() == nullptr ||
+                    this->getGrid({piece->position[0] - 2, piece->position[1] - 1})->getPiece()->getColor() != piece->getColor())
+                    AvailableMoves.push_back({piece->position[0] + 2, piece->position[1] - 1});
+            }
         }
-        //diagonal check
-        if (this->getGrid({piece->position[0] + 1, piece->position[1] + 1})->getPiece() == nullptr)
-        {
-            AvailableMoves.push_back({piece->position[0] + 1, piece->position[1] + 1});
+        return AvailableMoves;
+        break;
+    }
+    case 5:     //King
+    {
+        //bottom 3 block check and sides
+        if (piece->position[1] + 1 >= 0 && piece->position[1] + 1 <= 7)
+        { //bottom
+            if (this->getGrid({piece->position[0], piece->position[1] + 1})->getPiece() == nullptr ||
+                this->getGrid({piece->position[0], piece->position[1] + 1})->getPiece()->getColor() != piece->getColor())
+                AvailableMoves.push_back({piece->position[0], piece->position[1] + 1});
+            if (piece->position[0] + 1 >= 0 && piece->position[0] + 1 <= 7)
+            {
+                //bottom right
+                if (this->getGrid({piece->position[0] + 1, piece->position[1] + 1})->getPiece() == nullptr ||
+                    this->getGrid({piece->position[0] + 1, piece->position[1] + 1})->getPiece()->getColor() != piece->getColor())
+                    AvailableMoves.push_back({piece->position[0] + 1, piece->position[1] + 1});
+                //right
+                if (this->getGrid({piece->position[0] + 1, piece->position[1]})->getPiece() == nullptr ||
+                    this->getGrid({piece->position[0] + 1, piece->position[1]})->getPiece()->getColor() != piece->getColor())
+                    AvailableMoves.push_back({piece->position[0] + 1, piece->position[1]});
+            }
+            if (piece->position[0] - 1 >= 0 && piece->position[0] - 1 <= 7)
+            {
+                //bottom left
+                if (this->getGrid({piece->position[0] - 1, piece->position[1] + 1})->getPiece() == nullptr ||
+                    this->getGrid({piece->position[0] - 1, piece->position[1] + 1})->getPiece()->getColor() != piece->getColor())
+                    AvailableMoves.push_back({piece->position[0] - 1, piece->position[1] + 1});
+                //left
+                if (this->getGrid({piece->position[0] - 1, piece->position[1]})->getPiece() == nullptr ||
+                    this->getGrid({piece->position[0] - 1, piece->position[1]})->getPiece()->getColor() != piece->getColor())
+                    AvailableMoves.push_back({piece->position[0] - 1, piece->position[1]});
+            }
         }
-        if (this->getGrid({piece->position[0] - 1, piece->position[1] - 1})->getPiece() == nullptr)
+        //top 3 block check
+        if (piece->position[1] - 1 >= 0 && piece->position[1] - 1 <= 7)
         {
-            AvailableMoves.push_back({piece->position[0] - 1, piece->position[1] - 1});
-        }
-        if (this->getGrid({piece->position[0] - 1, piece->position[1] + 1})->getPiece() == nullptr)
-        {
-            AvailableMoves.push_back({piece->position[0] - 1, piece->position[1] + 1});
-        }
-        if (this->getGrid({piece->position[0] + 1, piece->position[1] - 1})->getPiece() == nullptr)
-        {
-            AvailableMoves.push_back({piece->position[0] + 1, piece->position[1] - 1});
+            //top
+            if (this->getGrid({piece->position[0], piece->position[1] - 1})->getPiece() == nullptr ||
+                this->getGrid({piece->position[0], piece->position[1] - 1})->getPiece()->getColor() != piece->getColor())
+                AvailableMoves.push_back({piece->position[0], piece->position[1] - 1});
+            if (piece->position[0] + 1 >= 0 && piece->position[0] + 1 <= 7)
+            {
+                //top right
+                if (this->getGrid({piece->position[0] + 1, piece->position[1] - 1})->getPiece() == nullptr ||
+                    this->getGrid({piece->position[0] + 1, piece->position[1] - 1})->getPiece()->getColor() != piece->getColor())
+                    AvailableMoves.push_back({piece->position[0] + 1, piece->position[1] - 1});
+            }
+            if (piece->position[0] - 1 >= 0 && piece->position[0] - 1 <= 7)
+            {
+                //top left
+                if (this->getGrid({piece->position[0] - 1, piece->position[1] - 1})->getPiece() == nullptr ||
+                    this->getGrid({piece->position[0] - 1, piece->position[1] - 1})->getPiece()->getColor() != piece->getColor())
+                    AvailableMoves.push_back({piece->position[0] - 1, piece->position[1] - 1});
+            }
         }
         return AvailableMoves;
         break;
