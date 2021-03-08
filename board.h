@@ -25,7 +25,6 @@ public:
     void setPiece(Piece &piece);
     //void setMoveMaker(Alliance moveMaker);
     void draw(sf::RenderWindow &window);
-    // Grid* operator [][](std::vector<int> index);
     std::vector<std::vector<Grid *>> grids; //<-----call pieces with this
 };
 
