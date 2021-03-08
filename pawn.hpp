@@ -52,8 +52,6 @@ public:
         return position;
     }
 
-
-
     void setFirstTimeMove(bool b)
     {
         isFirstTime = b;
