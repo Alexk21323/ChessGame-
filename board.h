@@ -25,9 +25,8 @@ public:
     Grid *getGrid(std::vector<int> position);
     void setPiece(Piece *piece);
     void setPiece(Piece &piece);
-    //void setMoveMaker(Alliance moveMaker);
+    void showSelection(sf::RenderWindow& window, int x, int y);
     void draw(sf::RenderWindow &window);
-    // Grid* operator [][](std::vector<int> index);
     void movePiece(Piece& piece);
     std::vector<std::vector<int>> possibleMoves(Piece* piece);
     std::vector<std::vector<Grid *>> grids; //<-----call pieces with this

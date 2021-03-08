@@ -17,8 +17,10 @@ public:
         Piece *tmpPiece;
         this->xPiece = x / 100;
         this->yPiece = y / 100;
+        if( board->getGrid({xPiece, yPiece})->getPiece()== nullptr){
+            return false;
+        }
         tmpPiece = board->getGrid({xPiece, yPiece})->getPiece();
-         
         std::cout<<"coord "<<xPiece<<"\t"<<yPiece<<std::endl;
         posMove = board->possibleMoves(tmpPiece);
         for (int i = 0; i < posMove.size(); i++)
@@ -30,12 +32,13 @@ public:
             }
             std::cout << "\n";
         }
-        if (board->getGrid({xPiece, yPiece})->getPiece() != nullptr && !posMove.empty())
+        if (!posMove.empty())
         {
             return true;
         }
+        else 
+            return false;
 
-        return false;
     }
     bool makeMove(int mouseX, int mouseY, Board *board)
     {
@@ -45,14 +48,10 @@ public:
         int destinationX = x / 100;
         int destinationY = y / 100;
         Piece *tmpPiece;
-        //std::vector<std::vector<int>> posMove;
         std::vector<int> destination;
         destination.push_back(destinationX);
         destination.push_back(destinationY);
-        //std::cout << "destination: " << destination[0] << destination[1] << std::endl;
        
-       
-
         if (board->getGrid({xPiece, yPiece})->getPiece() != nullptr)
         {
             if (xPiece != destinationX || yPiece != destinationY)

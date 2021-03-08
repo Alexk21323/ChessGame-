@@ -58,8 +58,7 @@ public:
     {
         window.draw(sprite);
     }
-  
- 
+    
 };
 
 #endif //_BISHOP_H

@@ -7,6 +7,18 @@
 
 int main()
 {
+    sf::Texture square_texture;
+    sf::Sprite square_sprite;
+    square_texture.loadFromFile("Sprites/square.png");
+    square_sprite.setTexture(square_texture);
+    sf::Vector2f targetSizeCircle(100.0f, 100.0f);
+
+    square_sprite.setScale(
+        targetSizeCircle.x / square_sprite.getGlobalBounds().width,
+        targetSizeCircle.y / square_sprite.getGlobalBounds().height);
+    
+    square_sprite.setPosition(0,0);
+
     Board *b = new Board();
     b->startGame();
     Human *h = new Human();
@@ -15,14 +27,13 @@ int main()
     bool player1 = true;
     bool firstClick = true;
     bool moveMade = false;
+    bool shouldDraw = false; 
+    int xCord;
+    int yCord;
     while (w.isOpen())
     {
-        w.clear();
         b->draw(w);
-        w.display();
         sf::Event e;
-        int tmpCoorX;
-        int tmpCoorY;
         while (w.pollEvent(e))
         {
             if ((e.type == sf::Event::Closed))
@@ -36,11 +47,13 @@ int main()
                     if (e.mouseButton.button == sf::Mouse::Left)
                     {
                         sf::Vector2i mousePos = sf::Mouse::getPosition(w);
-                        tmpCoorX = mousePos.x / 100;
-                        tmpCoorY = mousePos.y / 100;
                         if(h->select(mousePos.x, mousePos.y, b))
                         {
-                        firstClick = false;
+                            firstClick = false;
+                            shouldDraw = true;
+                            xCord = mousePos.x/100;
+                            yCord = mousePos.y/100;
+
                         }
                     }
                 }
@@ -57,14 +70,11 @@ int main()
                 }
             }
         }
+        if(!firstClick){
+        b->showSelection(w, xCord, yCord);
+        shouldDraw = false;
+        }
+        w.display();
     }
-
-    // for(int i = 0; i< 8; i++){
-    //     for (int j = 0; j < 8; j++){
-    //         std::cout << b->grids[j][i]->getPosition()[0] << 
-    //         "  "<< b->grids[j][i]->getPosition()[1] <<"\n";
-    //     }
-    // }
-
     return 0;
 }

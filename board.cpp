@@ -32,7 +32,7 @@ Board::Board()
         targetSize.x / board_sprite.getGlobalBounds().width,
         targetSize.y / board_sprite.getGlobalBounds().height);
 
-    circle_texture.loadFromFile("Sprites/circle.png");
+    circle_texture.loadFromFile("Sprites/square.png");
     circle_sprite.setTexture(circle_texture);
     sf::Vector2f targetSizeCircle(100.0f, 100.0f);
 
@@ -92,6 +92,9 @@ void Board::movePiece(Piece &piece)
         delete grids[old[0]][old[1]];
         grids[old[0]][old[1]] = new Grid(old, old[0] * 100, old[1] * 100);
     }
+    if (piece.getType() == 0){
+        piece.setFirstTimeMove(false);
+    }
 }
 Grid *Board::getGrid(std::vector<int> position)
 {
@@ -116,12 +119,22 @@ void Board::draw(sf::RenderWindow &window)
             {
                 window.draw(grids[i][j]->getPiece()->getSprite());
             }
-
-            // circle_sprite.setPosition(i*100, j*100);
-            // window.draw(circle_sprite);
+        
         }
     }
 }
+
+void Board::showSelection(sf::RenderWindow& window, int x, int y){
+    
+    std::vector<std::vector<int>> showMoves;
+    showMoves = possibleMoves(grids[x][y]->getPiece());
+    for(int i = 0; i < showMoves.size(); i++){
+        circle_sprite.setPosition(showMoves[i][0]*100, showMoves[i][1]*100);
+        window.draw(circle_sprite);
+    }
+
+}
+
 void Board::startGame()
 {
     //Black side
@@ -166,7 +179,6 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
             {
                 AvailableMoves.push_back({{piece->position[0], piece->position[1] - 1}});
                 AvailableMoves.push_back({{piece->position[0], piece->position[1] - 2}});
-                piece->setFirstTimeMove(false);
             }
             else if (piece->isFirstTime == false)
             {
@@ -196,7 +208,6 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
             {
                 AvailableMoves.push_back({{piece->position[0], piece->position[1] + 1}});
                 AvailableMoves.push_back({{piece->position[0], piece->position[1] + 2}});
-                piece->setFirstTimeMove(false);
             }
             else if (piece->isFirstTime == false)
             {
@@ -263,19 +274,4 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
         break;
     }
     }
-    }
-
-    /*
-    pawn
-    calcPossibleMoves return a vector of moves
-    getMove()
-    
-    p-> click -> position ->getGrid(position) = piece 
-    piece.getMovement(get possible vector of moves which in position, draw circle on these position)
-    second click get another position, check of position contain in possible move vector 
-    if contains invoke move(x,y) 
-    
-
-    pawn(int, int pos)
-    if()
-*/
+}
