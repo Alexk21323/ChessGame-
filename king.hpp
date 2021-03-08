@@ -60,7 +60,47 @@ public:
         window.draw(sprite);
     }
 
-    
+    std::vector<std::vector<int>> getAvailableMoves(Board* board)
+    {
+        std::vector<std::vector<int>> AvailableMoves;
+        //horizontal check
+        if(board->getGrid({this->position[0]+1,this->position[1]})->getPiece() == nullptr)
+        {
+            AvailableMoves.push_back({this->position[0]+1,this->position[1]});
+        }
+        if(board->getGrid({this->position[0]-1,this->position[1]})->getPiece() == nullptr)
+        {
+            AvailableMoves.push_back({this->position[0]-1,this->position[1]});
+        }
+        //vertical check
+        if(board->getGrid({this->position[0],this->position[1]+1})->getPiece() == nullptr)
+        {
+            AvailableMoves.push_back({this->position[0],this->position[1]+1});
+        }
+        if(board->getGrid({this->position[0],this->position[1]-1})->getPiece() == nullptr)
+        {
+            AvailableMoves.push_back({this->position[0],this->position[1]-1});
+        }
+        //diagonal check
+        if(board->getGrid({this->position[0]+1,this->position[1]+1})->getPiece() == nullptr)
+        {
+            AvailableMoves.push_back({this->position[0]+1,this->position[1]+1});
+        }
+        if(board->getGrid({this->position[0]-1,this->position[1]-1})->getPiece() == nullptr)
+        {
+            AvailableMoves.push_back({this->position[0]-1,this->position[1]-1});
+        }
+        if(board->getGrid({this->position[0]-1,this->position[1]+1})->getPiece() == nullptr)
+        {
+            AvailableMoves.push_back({this->position[0]-1,this->position[1]+1});
+        }
+        if(board->getGrid({this->position[0]+1,this->position[1]-1})->getPiece() == nullptr)
+        {
+            AvailableMoves.push_back({this->position[0]+1,this->position[1]-1});
+        }
+        return AvailableMoves;
+    }
+
 };
 
 #endif //_KING_H
