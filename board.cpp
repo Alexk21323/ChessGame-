@@ -170,7 +170,7 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
     std::vector<std::vector<int>> AvailableMoves;
     switch (piece->getType())
     {
-    case 0:     //Pawn 
+    case 0: //Pawn
     {
         //Piece* p = new Pawn(piece->getPosition(),piece->getColor());
         if (piece->color == true)
@@ -234,7 +234,7 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
         return AvailableMoves;
         break;
     }
-    case 2:     //Knight
+    case 2: //Knight
     {
         //bottom side
         if (piece->position[1] + 2 >= 0 && piece->position[1] + 2 <= 7)
@@ -246,7 +246,7 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
                     this->getGrid({piece->position[0] + 1, piece->position[1] + 2})->getPiece()->getColor() != piece->getColor())
                     AvailableMoves.push_back({piece->position[0] + 1, piece->position[1] + 2});
             }
-            //bottom left 
+            //bottom left
             if (piece->position[0] - 1 >= 0 && piece->position[0] - 1 <= 7)
             {
                 if (this->getGrid({piece->position[0] - 1, piece->position[1] + 2})->getPiece() == nullptr ||
@@ -254,7 +254,7 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
                     AvailableMoves.push_back({piece->position[0] - 1, piece->position[1] + 2});
             }
         }
-        //top side 
+        //top side
         if (piece->position[1] - 2 >= 0 && piece->position[1] - 2 <= 7)
         {
             //top right
@@ -264,7 +264,7 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
                     this->getGrid({piece->position[0] + 1, piece->position[1] - 2})->getPiece()->getColor() != piece->getColor())
                     AvailableMoves.push_back({piece->position[0] + 1, piece->position[1] - 2});
             }
-            //bottom left 
+            //bottom left
             if (piece->position[0] - 1 >= 0 && piece->position[0] - 1 <= 7)
             {
                 if (this->getGrid({piece->position[0] - 1, piece->position[1] - 2})->getPiece() == nullptr ||
@@ -272,7 +272,7 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
                     AvailableMoves.push_back({piece->position[0] - 1, piece->position[1] - 2});
             }
         }
-        //left side 
+        //left side
         if (piece->position[0] - 2 >= 0 && piece->position[0] - 2 <= 7)
         {
             //left bottom
@@ -282,7 +282,7 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
                     this->getGrid({piece->position[0] - 2, piece->position[1] + 1})->getPiece()->getColor() != piece->getColor())
                     AvailableMoves.push_back({piece->position[0] - 2, piece->position[1] + 1});
             }
-            //left top  
+            //left top
             if (piece->position[1] - 1 >= 0 && piece->position[1] - 1 <= 7)
             {
                 if (this->getGrid({piece->position[0] - 2, piece->position[1] - 1})->getPiece() == nullptr ||
@@ -300,7 +300,7 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
                     this->getGrid({piece->position[0] - 2, piece->position[1] + 1})->getPiece()->getColor() != piece->getColor())
                     AvailableMoves.push_back({piece->position[0] + 2, piece->position[1] + 1});
             }
-            //left top  
+            //left top
             if (piece->position[1] - 1 >= 0 && piece->position[1] - 1 <= 7)
             {
                 if (this->getGrid({piece->position[0] - 2, piece->position[1] - 1})->getPiece() == nullptr ||
@@ -311,7 +311,95 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
         return AvailableMoves;
         break;
     }
-    case 5:     //King
+    case 3: //Bishop
+    {
+        //bottom left to top right
+        for (int i = 1; i <= 7; i++)
+        {
+            if (piece->position[0] + i <= 7 && piece->position[1] - i >= 0)
+            {
+                if (this->getGrid({piece->position[0] + i, piece->position[1] - i})->getPiece() == nullptr)
+                {
+                    AvailableMoves.push_back({piece->position[0] + i, piece->position[1] - i});
+                }
+                else if (this->getGrid({piece->position[0] + i, piece->position[1] - i})->getPiece()->getColor() != piece->getColor())
+                {
+                    AvailableMoves.push_back({piece->position[0] + i, piece->position[1] - i});
+                    break;
+                }
+                else if (this->getGrid({piece->position[0] + i, piece->position[1] - i})->getPiece() != nullptr)
+                {
+                    break;
+                }
+            }
+        }
+        //bottom right to top left
+        for (int i = 1; i <= 7; i++)
+        {
+            if (piece->position[0] - i >= 0 && piece->position[1] - i >= 0)
+            {
+                if (this->getGrid({piece->position[0] - i, piece->position[1] - i})->getPiece() == nullptr)
+                {
+                    AvailableMoves.push_back({piece->position[0] - i, piece->position[1] - i});
+                }
+                else if (this->getGrid({piece->position[0] - i, piece->position[1] - i})->getPiece()->getColor() != piece->getColor())
+                {
+                    AvailableMoves.push_back({piece->position[0] - i, piece->position[1] - i});
+                    break;
+                }
+                else if (this->getGrid({piece->position[0] - i, piece->position[1] - i})->getPiece() != nullptr)
+                {
+                    break;
+                }
+            }
+        }
+
+        //top left to bottom right
+        for (int i = 1; i <= 7; i++)
+        {
+            if (piece->position[0] + i <= 7 && piece->position[1] + i <= 7)
+            {
+                if (this->getGrid({piece->position[0] + i, piece->position[1] + i})->getPiece() == nullptr)
+                {
+                    AvailableMoves.push_back({piece->position[0] + i, piece->position[1] + i});
+                }
+                else if (this->getGrid({piece->position[0] + i, piece->position[1] + i})->getPiece()->getColor() != piece->getColor())
+                {
+                    AvailableMoves.push_back({piece->position[0] + i, piece->position[1] + i});
+                    break;
+                }
+                else if (this->getGrid({piece->position[0] + i, piece->position[1] + i})->getPiece() != nullptr)
+                {
+                    break;
+                }
+            }
+        }
+
+        //top right to bottom left
+        for (int i = 1; i <= 7; i++)
+        {
+            if (piece->position[0] - i >= 0 && piece->position[1] + i <= 7)
+            {
+                if (this->getGrid({piece->position[0] - i, piece->position[1] + i})->getPiece() == nullptr)
+                {
+                    AvailableMoves.push_back({piece->position[0] - i, piece->position[1] + i});
+                }
+                else if (this->getGrid({piece->position[0] - i, piece->position[1] + i})->getPiece()->getColor() != piece->getColor())
+                {
+                    AvailableMoves.push_back({piece->position[0] - i, piece->position[1] + i});
+                    break;
+                }
+                else if (this->getGrid({piece->position[0] - i, piece->position[1] + i})->getPiece() != nullptr)
+                {
+                    break;
+                }
+            }
+        }
+
+        return AvailableMoves;
+        break;
+    }
+    case 5: //King
     {
         //bottom 3 block check and sides
         if (piece->position[1] + 1 >= 0 && piece->position[1] + 1 <= 7)
