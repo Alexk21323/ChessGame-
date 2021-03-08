@@ -12,6 +12,7 @@ public:
 
     sf::Sprite sprite;
     sf::Texture texture;
+
     Bishop(std::vector<int> pos, bool color1)
     {
         if (color1)
@@ -48,8 +49,8 @@ public:
     {
         return position;
     }
-
-    void setPosition(int x, int y)
+    
+    void setSpriteLocation(int x, int y)
     {
         sprite.setPosition(x, y);
     }
@@ -57,11 +58,8 @@ public:
     {
         window.draw(sprite);
     }
-
-    void move(int a, int b)
-    {
-        sprite.setPosition(a, b);
-    }
+  
+ 
 };
 
 #endif //_BISHOP_H

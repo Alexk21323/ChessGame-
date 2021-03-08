@@ -15,7 +15,9 @@ class Board
     sf::Image image;
     sf::Sprite board_sprite;
     sf::Texture board_texture;
-
+    sf::Sprite circle_sprite;
+    sf::Texture circle_texture; 
+    
 public:
     ~Board();
     Board();
@@ -25,6 +27,9 @@ public:
     void setPiece(Piece &piece);
     //void setMoveMaker(Alliance moveMaker);
     void draw(sf::RenderWindow &window);
+    // Grid* operator [][](std::vector<int> index);
+    void movePiece(Piece& piece);
+    std::vector<std::vector<int>> possibleMoves(Piece* piece);
     std::vector<std::vector<Grid *>> grids; //<-----call pieces with this
 };
 
