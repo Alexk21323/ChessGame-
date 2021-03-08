@@ -2,7 +2,6 @@
 #define _KING_H
 
 #include "piece.h"
-#include "grid.h"
 #include <SFML/Graphics.hpp>
 
 class King : public Piece
@@ -12,8 +11,10 @@ public:
 
     sf::Sprite sprite;
     sf::Texture texture;
+
     King(std::vector<int> pos, bool color1)
     {
+        type = 5;
         if (color1)
         {
             color = color1;
@@ -48,20 +49,17 @@ public:
     {
         return position;
     }
-
-    void setPosition(int x, int y)
+    
+    void setSpriteLocation(int x, int y)
     {
         sprite.setPosition(x, y);
     }
+
     void draw(sf::RenderWindow &window)
     {
         window.draw(sprite);
     }
 
-    void move(int a, int b)
-    {
-        sprite.setPosition(a, b);
-    }
 };
 
 #endif //_KING_H
