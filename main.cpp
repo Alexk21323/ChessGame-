@@ -7,23 +7,13 @@
 
 int main()
 {
-    sf::Texture square_texture;
-    sf::Sprite square_sprite;
-    square_texture.loadFromFile("Sprites/square.png");
-    square_sprite.setTexture(square_texture);
-    sf::Vector2f targetSizeCircle(100.0f, 100.0f);
-
-    square_sprite.setScale(
-        targetSizeCircle.x / square_sprite.getGlobalBounds().width,
-        targetSizeCircle.y / square_sprite.getGlobalBounds().height);
-    
-    square_sprite.setPosition(0,0);
 
     Board *b = new Board();
     b->startGame();
     Human *h = new Human();
-    sf::VideoMode v(1000, 800);
-    sf::RenderWindow w(v, "Chess");
+    sf::Vector2u targetSize(1000, 800);
+    sf::RenderWindow w(sf::VideoMode(1000, 800), "Chess");
+    w.setSize(targetSize);
     bool player1 = true;
     bool firstClick = true;
     bool moveMade = false;
@@ -46,14 +36,17 @@ int main()
                 {
                     if (e.mouseButton.button == sf::Mouse::Left)
                     {
-                        sf::Vector2i mousePos = sf::Mouse::getPosition(w);
-                        if(h->select(mousePos.x, mousePos.y, b))
+                     sf::Vector2i mousePos = sf::Mouse::getPosition(w);
+                        if(mousePos.x/100<=7 && mousePos.x/100 >=0 && mousePos.y/100>=0 && mousePos.y/100<=7)
                         {
-                            firstClick = false;
-                            shouldDraw = true;
-                            xCord = mousePos.x/100;
-                            yCord = mousePos.y/100;
-
+                            if (h->select(mousePos.x, mousePos.y, b))
+                            {
+                                firstClick = false;
+                                shouldDraw = true;
+                                xCord = mousePos.x / 100;
+                                yCord = mousePos.y / 100;
+                               
+                            }
                         }
                     }
                 }
@@ -69,11 +62,16 @@ int main()
                     }
                 }
             }
+            else if(e.type == sf::Event::Resized){
+                    w.setSize(targetSize);
+            }
         }
         if(!firstClick){
         b->showSelection(w, xCord, yCord);
         shouldDraw = false;
         }
+     
+        
         w.display();
     }
     return 0;
