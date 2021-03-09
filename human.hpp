@@ -63,6 +63,16 @@ public:
                     {
                         tmpPiece->setPostion(destinationX, destinationY);
                         board->movePiece(*tmpPiece);
+                        if (tmpPiece->getColor() == false && destinationY == 7 && tmpPiece->getType() == 0)
+                        {
+                            board->triggerPromotion = true;
+                            board->setPromotion(tmpPiece);
+                        }
+                        if (tmpPiece->getColor() == true && destinationY == 0 && tmpPiece->getType() == 0)
+                        {
+                            board->triggerPromotion = true;
+                             board->setPromotion(tmpPiece);
+                        }
                         return true;
                     }
                 }
