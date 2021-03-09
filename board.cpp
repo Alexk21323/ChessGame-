@@ -234,6 +234,93 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
         return AvailableMoves;
         break;
     }
+
+    case 1: //Rook
+    {
+        //vertical movement up
+        for (int i = 1; i <= 7; i++)
+        {
+            if (piece->position[0] <= 7 && piece->position[1] - i >= 0)
+            {
+                if (this->getGrid({piece->position[0], piece->position[1] - i})->getPiece() == nullptr)
+                {
+                    AvailableMoves.push_back({piece->position[0], piece->position[1] - i});
+                }
+                else if (this->getGrid({piece->position[0], piece->position[1] - i})->getPiece()->getColor() != piece->getColor())
+                {
+                    AvailableMoves.push_back({piece->position[0], piece->position[1] - i});
+                    break;
+                }
+                else if (this->getGrid({piece->position[0], piece->position[1] - i})->getPiece() != nullptr)
+                {
+                    break;
+                }
+            }
+        }
+        //vertical movement down
+        for (int i = 1; i <= 7; i++)
+        {
+            if (piece->position[0] <= 7 && piece->position[1] + i <= 7)
+            {
+                if (this->getGrid({piece->position[0], piece->position[1] + i})->getPiece() == nullptr)
+                {
+                    AvailableMoves.push_back({piece->position[0], piece->position[1] + i});
+                }
+                else if (this->getGrid({piece->position[0], piece->position[1] + i})->getPiece()->getColor() != piece->getColor())
+                {
+                    AvailableMoves.push_back({piece->position[0], piece->position[1] + i});
+                    break;
+                }
+                else if (this->getGrid({piece->position[0], piece->position[1] + i})->getPiece() != nullptr)
+                {
+                    break;
+                }
+            }
+        }
+        //horizontal movement right
+        for (int i = 1; i <= 7; i++)
+        {
+            if (piece->position[0] + i <= 7 && piece->position[1] <= 7)
+            {
+                if (this->getGrid({piece->position[0] + i, piece->position[1]})->getPiece() == nullptr)
+                {
+                    AvailableMoves.push_back({piece->position[0] + i, piece->position[1]});
+                }
+                else if (this->getGrid({piece->position[0] + i, piece->position[1]})->getPiece()->getColor() != piece->getColor())
+                {
+                    AvailableMoves.push_back({piece->position[0] + i, piece->position[1]});
+                    break;
+                }
+                else if (this->getGrid({piece->position[0] + i, piece->position[1]})->getPiece() != nullptr)
+                {
+                    break;
+                }
+            }
+        }
+
+        //horizontal movement left
+        for (int i = 1; i <= 7; i++)
+        {
+            if (piece->position[0] - i >= 0 && piece->position[1] <= 7)
+            {
+                if (this->getGrid({piece->position[0] - i, piece->position[1]})->getPiece() == nullptr)
+                {
+                    AvailableMoves.push_back({piece->position[0] - i, piece->position[1]});
+                }
+                else if (this->getGrid({piece->position[0] - i, piece->position[1]})->getPiece()->getColor() != piece->getColor())
+                {
+                    AvailableMoves.push_back({piece->position[0] - i, piece->position[1]});
+                    break;
+                }
+                else if (this->getGrid({piece->position[0] - i, piece->position[1]})->getPiece() != nullptr)
+                {
+                    break;
+                }
+            }
+        }
+        return AvailableMoves;
+        break;
+    }
     case 2: //Knight
     {
         //bottom side
@@ -300,7 +387,7 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
                     this->getGrid({piece->position[0] + 2, piece->position[1] + 1})->getPiece()->getColor() != piece->getColor())
                     AvailableMoves.push_back({piece->position[0] + 2, piece->position[1] + 1});
             }
-            //right top
+
             if (piece->position[1] - 1 >= 0 && piece->position[1] - 1 <= 7)
             {
                 if (this->getGrid({piece->position[0] + 2, piece->position[1] - 1})->getPiece() == nullptr ||
@@ -308,6 +395,264 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
                     AvailableMoves.push_back({piece->position[0] + 2, piece->position[1] - 1});
             }
         }
+        return AvailableMoves;
+        break;
+    }
+
+    case 3: //Bishop
+    {
+        //bottom left to top right
+        for (int i = 1; i <= 7; i++)
+        {
+            if (piece->position[0] + i <= 7 && piece->position[1] - i >= 0)
+            {
+                if (this->getGrid({piece->position[0] + i, piece->position[1] - i})->getPiece() == nullptr)
+                {
+                    AvailableMoves.push_back({piece->position[0] + i, piece->position[1] - i});
+                }
+                else if (this->getGrid({piece->position[0] + i, piece->position[1] - i})->getPiece()->getColor() != piece->getColor())
+                {
+                    AvailableMoves.push_back({piece->position[0] + i, piece->position[1] - i});
+                    break;
+                }
+                else if (this->getGrid({piece->position[0] + i, piece->position[1] - i})->getPiece() != nullptr)
+                {
+                    break;
+                }
+            }
+        }
+        //bottom right to top left
+        for (int i = 1; i <= 7; i++)
+        {
+            if (piece->position[0] - i >= 0 && piece->position[1] - i >= 0)
+            {
+                if (this->getGrid({piece->position[0] - i, piece->position[1] - i})->getPiece() == nullptr)
+                {
+                    AvailableMoves.push_back({piece->position[0] - i, piece->position[1] - i});
+                }
+                else if (this->getGrid({piece->position[0] - i, piece->position[1] - i})->getPiece()->getColor() != piece->getColor())
+                {
+                    AvailableMoves.push_back({piece->position[0] - i, piece->position[1] - i});
+                    break;
+                }
+                else if (this->getGrid({piece->position[0] - i, piece->position[1] - i})->getPiece() != nullptr)
+                {
+                    break;
+                }
+            }
+        }
+
+        //top left to bottom right
+        for (int i = 1; i <= 7; i++)
+        {
+            if (piece->position[0] + i <= 7 && piece->position[1] + i <= 7)
+            {
+                if (this->getGrid({piece->position[0] + i, piece->position[1] + i})->getPiece() == nullptr)
+                {
+                    AvailableMoves.push_back({piece->position[0] + i, piece->position[1] + i});
+                }
+                else if (this->getGrid({piece->position[0] + i, piece->position[1] + i})->getPiece()->getColor() != piece->getColor())
+                {
+                    AvailableMoves.push_back({piece->position[0] + i, piece->position[1] + i});
+                    break;
+                }
+                else if (this->getGrid({piece->position[0] + i, piece->position[1] + i})->getPiece() != nullptr)
+                {
+                    break;
+                }
+            }
+        }
+
+        //top right to bottom left
+        for (int i = 1; i <= 7; i++)
+        {
+            if (piece->position[0] - i >= 0 && piece->position[1] + i <= 7)
+            {
+                if (this->getGrid({piece->position[0] - i, piece->position[1] + i})->getPiece() == nullptr)
+                {
+                    AvailableMoves.push_back({piece->position[0] - i, piece->position[1] + i});
+                }
+                else if (this->getGrid({piece->position[0] - i, piece->position[1] + i})->getPiece()->getColor() != piece->getColor())
+                {
+                    AvailableMoves.push_back({piece->position[0] - i, piece->position[1] + i});
+                    break;
+                }
+                else if (this->getGrid({piece->position[0] - i, piece->position[1] + i})->getPiece() != nullptr)
+                {
+                    break;
+                }
+            }
+        }
+
+        return AvailableMoves;
+        break;
+    }
+    case 4:
+    {
+        //vertical movement up
+        for (int i = 1; i <= 7; i++)
+        {
+            if (piece->position[0] <= 7 && piece->position[1] - i >= 0)
+            {
+                if (this->getGrid({piece->position[0], piece->position[1] - i})->getPiece() == nullptr)
+                {
+                    AvailableMoves.push_back({piece->position[0], piece->position[1] - i});
+                }
+                else if (this->getGrid({piece->position[0], piece->position[1] - i})->getPiece()->getColor() != piece->getColor())
+                {
+                    AvailableMoves.push_back({piece->position[0], piece->position[1] - i});
+                    break;
+                }
+                else if (this->getGrid({piece->position[0], piece->position[1] - i})->getPiece() != nullptr)
+                {
+                    break;
+                }
+            }
+        }
+        //vertical movement down
+        for (int i = 1; i <= 7; i++)
+        {
+            if (piece->position[0] <= 7 && piece->position[1] + i <= 7)
+            {
+                if (this->getGrid({piece->position[0], piece->position[1] + i})->getPiece() == nullptr)
+                {
+                    AvailableMoves.push_back({piece->position[0], piece->position[1] + i});
+                }
+                else if (this->getGrid({piece->position[0], piece->position[1] + i})->getPiece()->getColor() != piece->getColor())
+                {
+                    AvailableMoves.push_back({piece->position[0], piece->position[1] + i});
+                    break;
+                }
+                else if (this->getGrid({piece->position[0], piece->position[1] + i})->getPiece() != nullptr)
+                {
+                    break;
+                }
+            }
+        }
+        //horizontal movement right
+        for (int i = 1; i <= 7; i++)
+        {
+            if (piece->position[0] + i <= 7 && piece->position[1] <= 7)
+            {
+                if (this->getGrid({piece->position[0] + i, piece->position[1]})->getPiece() == nullptr)
+                {
+                    AvailableMoves.push_back({piece->position[0] + i, piece->position[1]});
+                }
+                else if (this->getGrid({piece->position[0] + i, piece->position[1]})->getPiece()->getColor() != piece->getColor())
+                {
+                    AvailableMoves.push_back({piece->position[0] + i, piece->position[1]});
+                    break;
+                }
+                else if (this->getGrid({piece->position[0] + i, piece->position[1]})->getPiece() != nullptr)
+                {
+                    break;
+                }
+            }
+        }
+
+        //horizontal movement left
+        for (int i = 1; i <= 7; i++)
+        {
+            if (piece->position[0] - i >= 0 && piece->position[1] <= 7)
+            {
+                if (this->getGrid({piece->position[0] - i, piece->position[1]})->getPiece() == nullptr)
+                {
+                    AvailableMoves.push_back({piece->position[0] - i, piece->position[1]});
+                }
+                else if (this->getGrid({piece->position[0] - i, piece->position[1]})->getPiece()->getColor() != piece->getColor())
+                {
+                    AvailableMoves.push_back({piece->position[0] - i, piece->position[1]});
+                    break;
+                }
+                else if (this->getGrid({piece->position[0] - i, piece->position[1]})->getPiece() != nullptr)
+                {
+                    break;
+                }
+            }
+        }
+        //bottom left to top right
+        for (int i = 1; i <= 7; i++)
+        {
+            if (piece->position[0] + i <= 7 && piece->position[1] - i >= 0)
+            {
+                if (this->getGrid({piece->position[0] + i, piece->position[1] - i})->getPiece() == nullptr)
+                {
+                    AvailableMoves.push_back({piece->position[0] + i, piece->position[1] - i});
+                }
+                else if (this->getGrid({piece->position[0] + i, piece->position[1] - i})->getPiece()->getColor() != piece->getColor())
+                {
+                    AvailableMoves.push_back({piece->position[0] + i, piece->position[1] - i});
+                    break;
+                }
+                else if (this->getGrid({piece->position[0] + i, piece->position[1] - i})->getPiece() != nullptr)
+                {
+                    break;
+                }
+            }
+        }
+        //bottom right to top left
+        for (int i = 1; i <= 7; i++)
+        {
+            if (piece->position[0] - i >= 0 && piece->position[1] - i >= 0)
+            {
+                if (this->getGrid({piece->position[0] - i, piece->position[1] - i})->getPiece() == nullptr)
+                {
+                    AvailableMoves.push_back({piece->position[0] - i, piece->position[1] - i});
+                }
+                else if (this->getGrid({piece->position[0] - i, piece->position[1] - i})->getPiece()->getColor() != piece->getColor())
+                {
+                    AvailableMoves.push_back({piece->position[0] - i, piece->position[1] - i});
+                    break;
+                }
+                else if (this->getGrid({piece->position[0] - i, piece->position[1] - i})->getPiece() != nullptr)
+                {
+                    break;
+                }
+            }
+        }
+
+        //top left to bottom right
+        for (int i = 1; i <= 7; i++)
+        {
+            if (piece->position[0] + i <= 7 && piece->position[1] + i <= 7)
+            {
+                if (this->getGrid({piece->position[0] + i, piece->position[1] + i})->getPiece() == nullptr)
+                {
+                    AvailableMoves.push_back({piece->position[0] + i, piece->position[1] + i});
+                }
+                else if (this->getGrid({piece->position[0] + i, piece->position[1] + i})->getPiece()->getColor() != piece->getColor())
+                {
+                    AvailableMoves.push_back({piece->position[0] + i, piece->position[1] + i});
+                    break;
+                }
+                else if (this->getGrid({piece->position[0] + i, piece->position[1] + i})->getPiece() != nullptr)
+                {
+                    break;
+                }
+            }
+        }
+
+        //top right to bottom left
+        for (int i = 1; i <= 7; i++)
+        {
+            if (piece->position[0] - i >= 0 && piece->position[1] + i <= 7)
+            {
+                if (this->getGrid({piece->position[0] - i, piece->position[1] + i})->getPiece() == nullptr)
+                {
+                    AvailableMoves.push_back({piece->position[0] - i, piece->position[1] + i});
+                }
+                else if (this->getGrid({piece->position[0] - i, piece->position[1] + i})->getPiece()->getColor() != piece->getColor())
+                {
+                    AvailableMoves.push_back({piece->position[0] - i, piece->position[1] + i});
+                    break;
+                }
+                else if (this->getGrid({piece->position[0] - i, piece->position[1] + i})->getPiece() != nullptr)
+                {
+                    break;
+                }
+            }
+        }
+
         return AvailableMoves;
         break;
     }
