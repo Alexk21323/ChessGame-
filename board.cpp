@@ -204,7 +204,10 @@ void Board::showSelection(sf::RenderWindow &window, int x, int y)
 }
 
  void Board::setPromotion(Piece* piece){
-    sf::RenderWindow promotionWindow(sf::VideoMode(400,100), "Promotion");
+    
+    sf::Vector2u targetSize(400, 100);
+    sf::RenderWindow promotionWindow(sf::VideoMode(400, 100), "Promotion");
+    promotionWindow.setSize(targetSize);
         while(promotionWindow.isOpen()){
         promotionWindow.draw(promotion_sprite);
         if (piece->getColor() == false)
@@ -233,6 +236,7 @@ void Board::showSelection(sf::RenderWindow &window, int x, int y)
                     {
                         sf::Vector2i mousePos = sf::Mouse::getPosition(promotionWindow);
                         int x = mousePos.x/100;
+                        //if(mousePos.x >= 400 && mousePos.x <=0 && mousePos.y >=0 && mousePos.y <=100){
                         switch(x)
                         {
                             case 0:
@@ -260,9 +264,13 @@ void Board::showSelection(sf::RenderWindow &window, int x, int y)
                                 break;
                             }
                         }
+                    
 
                     }
-                }       
+                }  
+                else if(e.type == sf::Event::Resized){
+                    promotionWindow.setSize(targetSize);
+            }     
             }
         promotionWindow.display(); 
         }
