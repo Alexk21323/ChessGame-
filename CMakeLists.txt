@@ -12,6 +12,8 @@ include_directories(SFML_INCLUDE_DIR)
 
 find_package(SFML 2.5.1 COMPONENTS system window graphics network audio)
 
+ADD_SUBDIRECTORY(googletest)
+
 add_executable(
     chess 
     main.cpp
@@ -19,4 +21,18 @@ add_executable(
     grid.cpp
     
     )
+
+
+add_executable(
+    test
+    unit_test.cpp
+    board.cpp
+    grid.cpp
+
+        
+    )
+     
+    
 target_link_libraries (chess sfml-graphics sfml-window sfml-system)
+TARGET_LINK_LIBRARIES(test gtest gmock sfml-graphics sfml-window sfml-system)
+TARGET_COMPILE_DEFINITIONS(test PRIVATE gtest_disable_pthreads=ON)

@@ -1,11 +1,4 @@
 #include "board.h"
-#include "pawn.hpp"
-#include "rook.hpp"
-#include "knight.hpp"
-#include "bishop.hpp"
-#include "queen.hpp"
-#include "king.hpp"
-#include <vector>
 
 Board::Board()
 {
@@ -67,8 +60,8 @@ Board::Board()
     queen_sprite.setScale(
         targetSizeCircle.x / queen_sprite.getGlobalBounds().width,
         targetSizeCircle.y / queen_sprite.getGlobalBounds().height);
-    queen_sprite.setPosition(300, 0);    
-    
+    queen_sprite.setPosition(300, 0);
+
     //white promotion
     wrook_texture.loadFromFile("Sprites/wrook.png");
     wrook_sprite.setTexture(wrook_texture);
@@ -96,7 +89,7 @@ Board::Board()
     wqueen_sprite.setScale(
         targetSizeCircle.x / wqueen_sprite.getGlobalBounds().width,
         targetSizeCircle.y / wqueen_sprite.getGlobalBounds().height);
-    wqueen_sprite.setPosition(300, 0);    
+    wqueen_sprite.setPosition(300, 0);
 
     promotion_texture.loadFromFile("Sprites/promotionboard.JPG");
     promotion_sprite.setTexture(promotion_texture);
@@ -104,9 +97,8 @@ Board::Board()
 
     promotion_sprite.setScale(
         backgroundSize.x / promotion_sprite.getGlobalBounds().width,
-       backgroundSize.y / promotion_sprite.getGlobalBounds().height);
-    promotion_sprite.setPosition(0,0);
-    
+        backgroundSize.y / promotion_sprite.getGlobalBounds().height);
+    promotion_sprite.setPosition(0, 0);
 }
 
 void Board::setPiece(Piece *piece)
@@ -203,71 +195,72 @@ void Board::showSelection(sf::RenderWindow &window, int x, int y)
     }
 }
 
- void Board::setPromotion(Piece* piece){
-    sf::RenderWindow promotionWindow(sf::VideoMode(400,100), "Promotion");
-        while(promotionWindow.isOpen()){
+void Board::setPromotion(Piece *piece)
+{
+    sf::RenderWindow promotionWindow(sf::VideoMode(400, 100), "Promotion");
+    while (promotionWindow.isOpen())
+    {
         promotionWindow.draw(promotion_sprite);
         if (piece->getColor() == false)
         {
-        promotionWindow.draw(rook_sprite);
-        promotionWindow.draw(knight_sprite);
-        promotionWindow.draw(bishop_sprite);
-        promotionWindow.draw(queen_sprite);
+            promotionWindow.draw(rook_sprite);
+            promotionWindow.draw(knight_sprite);
+            promotionWindow.draw(bishop_sprite);
+            promotionWindow.draw(queen_sprite);
         }
-        else{
-        promotionWindow.draw(wrook_sprite);
-        promotionWindow.draw(wknight_sprite);
-        promotionWindow.draw(wbishop_sprite);
-        promotionWindow.draw(wqueen_sprite);
+        else
+        {
+            promotionWindow.draw(wrook_sprite);
+            promotionWindow.draw(wknight_sprite);
+            promotionWindow.draw(wbishop_sprite);
+            promotionWindow.draw(wqueen_sprite);
         }
-            
-            sf::Event e;
-            while(promotionWindow.pollEvent(e)){
-                if ((e.type == sf::Event::Closed))
-                {
-                    promotionWindow.close();
-                }
-                else if (e.type == sf::Event::MouseButtonPressed)
-                {
-                    if (e.mouseButton.button == sf::Mouse::Left)
-                    {
-                        sf::Vector2i mousePos = sf::Mouse::getPosition(promotionWindow);
-                        int x = mousePos.x/100;
-                        switch(x)
-                        {
-                            case 0:
-                            { 
-                                setPiece(new Rook({piece->position[0], piece->position[1]}, piece->getColor()));
-                                 promotionWindow.close();
-                                break;
-                            }
-                            case 1:
-                            {
-                                setPiece(new Knight({piece->position[0], piece->position[1]}, piece->getColor()));
-                                 promotionWindow.close();
-                                break;
-                            }
-                            case 2:
-                            {
-                                setPiece(new Bishop({piece->position[0], piece->position[1]}, piece->getColor()));
-                                 promotionWindow.close();
-                                break;
-                            }
-                            case 3:
-                            {
-                                setPiece(new Queen({piece->position[0], piece->position[1]}, piece->getColor()));
-                                 promotionWindow.close();
-                                break;
-                            }
-                        }
 
-                    }
-                }       
+        sf::Event e;
+        while (promotionWindow.pollEvent(e))
+        {
+            if ((e.type == sf::Event::Closed))
+            {
+                promotionWindow.close();
             }
-        promotionWindow.display(); 
+            else if (e.type == sf::Event::MouseButtonPressed)
+            {
+                if (e.mouseButton.button == sf::Mouse::Left)
+                {
+                    sf::Vector2i mousePos = sf::Mouse::getPosition(promotionWindow);
+                    int x = mousePos.x / 100;
+                    switch (x)
+                    {
+                    case 0:
+                    {
+                        setPiece(new Rook({piece->position[0], piece->position[1]}, piece->getColor()));
+                        promotionWindow.close();
+                        break;
+                    }
+                    case 1:
+                    {
+                        setPiece(new Knight({piece->position[0], piece->position[1]}, piece->getColor()));
+                        promotionWindow.close();
+                        break;
+                    }
+                    case 2:
+                    {
+                        setPiece(new Bishop({piece->position[0], piece->position[1]}, piece->getColor()));
+                        promotionWindow.close();
+                        break;
+                    }
+                    case 3:
+                    {
+                        setPiece(new Queen({piece->position[0], piece->position[1]}, piece->getColor()));
+                        promotionWindow.close();
+                        break;
+                    }
+                    }
+                }
+            }
         }
-    
-
+        promotionWindow.display();
+    }
 }
 
 void Board::startGame()
@@ -309,7 +302,7 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
     {
         if (piece->color == true)
         {
-           
+
             if (piece->isFirstTime == true)
             {
                 if (this->getGrid({piece->position[0], piece->position[1] - 1})->getPiece() == nullptr)
@@ -320,7 +313,7 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
                 {
                     if (this->getGrid({piece->position[0] + 1, piece->position[1] - 1})->getPiece() != nullptr && this->getGrid({piece->position[0] + 1, piece->position[1] - 1})->getPiece()->getColor() != piece->color)
                     {
-                        AvailableMoves.push_back({piece->position[0] + 1, piece->position[1] - 1});
+                        AvailableMoves.push_back({{piece->position[0] + 1, piece->position[1] - 1}});
                     }
                 }
                 if (piece->position[0] != 0)
@@ -361,8 +354,8 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
                     AvailableMoves.push_back({{piece->position[0], piece->position[1] + 1}});
                 if (this->getGrid({piece->position[0], piece->position[1] + 2})->getPiece() == nullptr)
                     AvailableMoves.push_back({{piece->position[0], piece->position[1] + 2}});
-                    AvailableMoves.push_back({{piece->position[0], piece->position[1] + 2}});
-                
+                AvailableMoves.push_back({{piece->position[0], piece->position[1] + 2}});
+
                 if (piece->position[0] != 7)
                 {
                     if (this->getGrid({piece->position[0] + 1, piece->position[1] + 1})->getPiece() != nullptr && this->getGrid({piece->position[0] + 1, piece->position[1] + 1})->getPiece()->getColor() != piece->color)
@@ -829,7 +822,7 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
     {
         //bottom 3 block check and sides
         if (piece->position[1] + 1 >= 0 && piece->position[1] + 1 <= 7)
-        { 
+        {
             //bottom
             if (this->getGrid({piece->position[0], piece->position[1] + 1})->getPiece() == nullptr ||
                 this->getGrid({piece->position[0], piece->position[1] + 1})->getPiece()->getColor() != piece->getColor())

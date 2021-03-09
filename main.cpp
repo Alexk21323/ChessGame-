@@ -2,7 +2,6 @@
 #include <SFML/Graphics.hpp>
 #include "board.h"
 #include "piece.h"
-#include "pawn.hpp"
 #include "human.hpp"
 
 int main()

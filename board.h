@@ -4,10 +4,16 @@
 #include <iostream>
 #include <ostream>
 #include <vector>
-
 #include <SFML/Graphics.hpp>
-#include "grid.h"
 #include "piece.h"
+#include "grid.h"
+#include "board.h"
+#include "pawn.hpp"
+#include "rook.hpp"
+#include "knight.hpp"
+#include "bishop.hpp"
+#include "queen.hpp"
+#include "king.hpp"
 
 class Board
 {
@@ -60,6 +66,9 @@ public:
     void draw(sf::RenderWindow &window);
     void movePiece(Piece &piece);
     std::vector<std::vector<int>> possibleMoves(Piece *piece);
+    
+  
+
     std::vector<std::vector<Grid *>> grids; //<-----call pieces with this
 };
 

@@ -12,6 +12,7 @@ public:
     int xPiece;
     int yPiece;
     std::vector<std::vector<int>> posMove;
+    std::vector<Piece*> captured;
     bool select(int x, int y, Board *board)
     {
         Piece *tmpPiece;
@@ -51,7 +52,13 @@ public:
         std::vector<int> destination;
         destination.push_back(destinationX);
         destination.push_back(destinationY);
+
+
        
+        std::cout<<"Size: "<<captured.size()<<std::endl;
+        for(int i =0; i<captured.size(); i++){
+          std::cout<<"Which piece"<<captured[i]->getType()<<std::endl;
+        }
         if (board->getGrid({xPiece, yPiece})->getPiece() != nullptr)
         {
             if (xPiece != destinationX || yPiece != destinationY)
@@ -75,6 +82,7 @@ public:
                         }
                         return true;
                     }
+                    
                 }
             }
         }
