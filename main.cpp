@@ -5,12 +5,10 @@
 #include "pawn.hpp"
 #include "undo.hpp"
 #include "human.hpp"
+#include "computer.hpp"
 
 int main()
 {
-    Board *b = new Board();
-    b->startGame();
-    Human *h = new Human();
     sf::Text winner;
     sf::Font font;
     if (!font.loadFromFile("Sprites/Action_Man_Shaded.ttf"))
@@ -23,7 +21,7 @@ int main()
     sf::Text reset;
     reset.setFont(font);
     reset.setCharacterSize(50);
-    reset.setFillColor(sf::Color(255, 51,51));
+    reset.setFillColor(sf::Color(255, 51, 51));
     reset.setPosition(860, 500);
     reset.setString("RESET");
 
@@ -43,6 +41,11 @@ int main()
     int xCord;
     int yCord;
     int turn_count = 0;
+    int mode = 0;
+    Board *b = new Board();
+    b->startGame();
+    Human *h = new Human();
+    Computer *ai = new Computer();
     while (w.isOpen())
     {
         b->draw(w);
@@ -93,10 +96,25 @@ int main()
                         {
                             sf::Vector2i mousePos = sf::Mouse::getPosition(w);
 
-                            if (h->makeMove(mousePos.x, mousePos.y, b))
+                            if (mode == 0)
                             {
-                                firstClick = true;
-                                turn_count++;
+                                if (h->makeMove(mousePos.x, mousePos.y, b))
+                                {
+                                    firstClick = true;
+                                    turn_count++;
+                                }
+                            }
+                            else if (mode == 1)
+                            {
+                                if (h->makeMove(mousePos.x, mousePos.y, b))
+                                {
+                                    std::vector<Piece*> tmpPieces;
+                                    tmpPieces = ai->selectValidPieces(b);
+                                    ai->makeMove(tmpPieces, b);
+                                    h->current_player = true;
+                                    turn_count+=2;
+                                    firstClick = true;
+                                }
                             }
                         }
                     }
@@ -122,16 +140,15 @@ int main()
                 }
                 else if (e.mouseButton.button == sf::Mouse::Left)
                 {
-                        sf::Vector2i mousePos = sf::Mouse::getPosition(w);
-                        if (mousePos.x <= 980 && mousePos.x >= 860 && mousePos.y <= 550 && mousePos.y >= 500)
-                        {
-                            std::cout << "clicked" << std::endl;
-                            delete b;
-                            b = new Board();
-                            b->startGame();
-                            h->current_player = true;
-                            
-                        }
+                    sf::Vector2i mousePos = sf::Mouse::getPosition(w);
+                    if (mousePos.x <= 980 && mousePos.x >= 860 && mousePos.y <= 550 && mousePos.y >= 500)
+                    {
+                        std::cout << "clicked" << std::endl;
+                        delete b;
+                        b = new Board();
+                        b->startGame();
+                        h->current_player = true;
+                    }
                 }
             }
             if (!firstClick)
@@ -154,15 +171,14 @@ int main()
                 }
                 else if (e.mouseButton.button == sf::Mouse::Left)
                 {
-                        sf::Vector2i mousePos = sf::Mouse::getPosition(w);
-                        if (mousePos.x <= 980 && mousePos.x >= 860 && mousePos.y <= 550 && mousePos.y >= 500)
-                        {
-                            delete b;
-                            b = new Board();
-                            b->startGame();
-                            h->current_player = true;
-                            
-                        }
+                    sf::Vector2i mousePos = sf::Mouse::getPosition(w);
+                    if (mousePos.x <= 980 && mousePos.x >= 860 && mousePos.y <= 550 && mousePos.y >= 500)
+                    {
+                        delete b;
+                        b = new Board();
+                        b->startGame();
+                        h->current_player = true;
+                    }
                 }
             }
             if (b->gameStatus == 1)
