@@ -354,7 +354,6 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
                     AvailableMoves.push_back({{piece->position[0], piece->position[1] + 1}});
                 if (this->getGrid({piece->position[0], piece->position[1] + 2})->getPiece() == nullptr)
                     AvailableMoves.push_back({{piece->position[0], piece->position[1] + 2}});
-                AvailableMoves.push_back({{piece->position[0], piece->position[1] + 2}});
 
                 if (piece->position[0] != 7)
                 {

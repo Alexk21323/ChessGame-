@@ -42,6 +42,17 @@ add_executable(
 
 TARGET_LINK_LIBRARIES(piece gtest sfml-graphics sfml-window sfml-system)
 TARGET_COMPILE_DEFINITIONS(piece PRIVATE gtest_disable_pthreads=ON)
+
+
+add_executable(
+    possible
+    test/possibleMove_test.cpp
+    board.cpp
+    grid.cpp
+    )
+TARGET_LINK_LIBRARIES(possible gtest gmock sfml-graphics sfml-window sfml-system)
+TARGET_COMPILE_DEFINITIONS(possible PRIVATE gtest_disable_pthreads=ON)
+
 target_link_libraries (chess sfml-graphics sfml-window sfml-system)
     
 
