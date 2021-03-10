@@ -21,7 +21,7 @@ Board::Board()
         }
         grids.push_back(temp);
     }
-
+    gameStatus = 0;
     board_texture.loadFromFile("Board.png");
     board_sprite.setTexture(board_texture);
     board_sprite.setPosition(0, 0);
@@ -123,6 +123,17 @@ Board::Board()
         undoSize.x / undo_sprite.getGlobalBounds().width,
         undoSize.y / undo_sprite.getGlobalBounds().height);
     undo_sprite.setPosition(875, 600);
+
+    if (!font.loadFromFile("Sprites/Action_Man_Shaded.ttf"))
+    {
+        std::cout << "can't load font\n";
+    }
+    turn.setFont(font);
+    turn.setFillColor(sf::Color(102, 102, 255));
+    turn.setCharacterSize(50);
+    turn.setString("Player");
+    turn.setPosition(850, 150);
+
 }
 
 void Board::setPiece(Piece *piece)
@@ -171,6 +182,14 @@ void Board::movePiece(Piece &piece)
     }
     else
     {
+        if (grids[temp[0]][temp[1]]->getPiece()->getType() == 5)
+        {
+            if (grids[temp[0]][temp[1]]->getPiece()->getColor() == false)
+                gameStatus = 1;
+            else 
+                gameStatus = 2;
+        }
+
         moves.push({old, temp});
         captured.push(grids[temp[0]][temp[1]]->getPiece());
         position = piece.getPosition();
@@ -201,6 +220,8 @@ void Board::draw(sf::RenderWindow &window)
 {
     window.draw(background_sprite);
     window.draw(board_sprite);
+    window.draw(turn);
+
     window.draw(undo_sprite);
     for (int i = 0; i < 8; i++)
     {
@@ -213,6 +234,7 @@ void Board::draw(sf::RenderWindow &window)
         }
     }
 }
+
 
 void Board::showSelection(sf::RenderWindow &window, int x, int y)
 {
@@ -296,6 +318,7 @@ void Board::setPromotion(Piece *piece)
                 promotionWindow.setSize(targetSize);
             }
         }
+
         promotionWindow.display();
     }
 }
@@ -347,14 +370,18 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
                     AvailableMoves.push_back({{piece->position[0], piece->position[1] - 2}});
                 if (piece->position[0] != 7)
                 {
-                    if (this->getGrid({piece->position[0] + 1, piece->position[1] - 1})->getPiece() != nullptr && this->getGrid({piece->position[0] + 1, piece->position[1] - 1})->getPiece()->getColor() != piece->color)
+                    if (this->getGrid({piece->position[0] + 1, piece->position[1] - 1})->getPiece() != nullptr && 
+                    this->getGrid({piece->position[0] + 1, piece->position[1] - 1})->getPiece()->getColor() != piece->color)
+
                     {
                         AvailableMoves.push_back({piece->position[0] + 1, piece->position[1] - 1});
                     }
                 }
                 if (piece->position[0] != 0)
                 {
-                    if (this->getGrid({piece->position[0] - 1, piece->position[1] - 1})->getPiece() != nullptr && this->getGrid({piece->position[0] - 1, piece->position[1] - 1})->getPiece()->getColor() != piece->color)
+
+                    if (this->getGrid({piece->position[0] - 1, piece->position[1] - 1})->getPiece() != nullptr && 
+                    this->getGrid({piece->position[0] - 1, piece->position[1] - 1})->getPiece()->getColor() != piece->color)
                     {
                         AvailableMoves.push_back({piece->position[0] - 1, piece->position[1] - 1});
                     }
@@ -368,14 +395,17 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
                 }
                 if (piece->position[0] != 7)
                 {
-                    if (this->getGrid({piece->position[0] + 1, piece->position[1] - 1})->getPiece() != nullptr && this->getGrid({piece->position[0] + 1, piece->position[1] - 1})->getPiece()->getColor() != piece->color)
+                    if (this->getGrid({piece->position[0] + 1, piece->position[1] - 1})->getPiece() != nullptr && 
+                    this->getGrid({piece->position[0] + 1, piece->position[1] - 1})->getPiece()->getColor() != piece->color)
+
                     {
                         AvailableMoves.push_back({piece->position[0] + 1, piece->position[1] - 1});
                     }
                 }
                 if (piece->position[0] != 0)
                 {
-                    if (this->getGrid({piece->position[0] - 1, piece->position[1] - 1})->getPiece() != nullptr && this->getGrid({piece->position[0] - 1, piece->position[1] - 1})->getPiece()->getColor() != piece->color)
+                    if (this->getGrid({piece->position[0] - 1, piece->position[1] - 1})->getPiece() != nullptr && 
+                    this->getGrid({piece->position[0] - 1, piece->position[1] - 1})->getPiece()->getColor() != piece->color)
                     {
                         AvailableMoves.push_back({piece->position[0] - 1, piece->position[1] - 1});
                     }
@@ -392,14 +422,17 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
                     AvailableMoves.push_back({{piece->position[0], piece->position[1] + 2}});
                 if (piece->position[0] != 7)
                 {
-                    if (this->getGrid({piece->position[0] + 1, piece->position[1] + 1})->getPiece() != nullptr && this->getGrid({piece->position[0] + 1, piece->position[1] + 1})->getPiece()->getColor() != piece->color)
+                    if (this->getGrid({piece->position[0] + 1, piece->position[1] + 1})->getPiece() != nullptr && 
+                    this->getGrid({piece->position[0] + 1, piece->position[1] + 1})->getPiece()->getColor() != piece->color)
+
                     {
                         AvailableMoves.push_back({piece->position[0] + 1, piece->position[1] + 1});
                     }
                 }
                 if (piece->position[0] != 0)
                 {
-                    if (this->getGrid({piece->position[0] - 1, piece->position[1] + 1})->getPiece() != nullptr && this->getGrid({piece->position[0] - 1, piece->position[1] + 1})->getPiece()->getColor() != piece->color)
+                    if (this->getGrid({piece->position[0] - 1, piece->position[1] + 1})->getPiece() != nullptr && 
+                    this->getGrid({piece->position[0] - 1, piece->position[1] + 1})->getPiece()->getColor() != piece->color)
                     {
                         AvailableMoves.push_back({piece->position[0] - 1, piece->position[1] + 1});
                     }
@@ -413,14 +446,17 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
                 }
                 if (piece->position[0] != 7)
                 {
-                    if (this->getGrid({piece->position[0] + 1, piece->position[1] + 1})->getPiece() != nullptr && this->getGrid({piece->position[0] + 1, piece->position[1] + 1})->getPiece()->getColor() != piece->color)
+                    if (this->getGrid({piece->position[0] + 1, piece->position[1] + 1})->getPiece() != nullptr && 
+                    this->getGrid({piece->position[0] + 1, piece->position[1] + 1})->getPiece()->getColor() != piece->color)
+
                     {
                         AvailableMoves.push_back({piece->position[0] + 1, piece->position[1] + 1});
                     }
                 }
                 if (piece->position[0] != 0)
                 {
-                    if (this->getGrid({piece->position[0] - 1, piece->position[1] + 1})->getPiece() != nullptr && this->getGrid({piece->position[0] - 1, piece->position[1] + 1})->getPiece()->getColor() != piece->color)
+                    if (this->getGrid({piece->position[0] - 1, piece->position[1] + 1})->getPiece() != nullptr && 
+                    this->getGrid({piece->position[0] - 1, piece->position[1] + 1})->getPiece()->getColor() != piece->color)
                     {
                         AvailableMoves.push_back({piece->position[0] - 1, piece->position[1] + 1});
                     }
