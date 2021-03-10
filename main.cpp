@@ -72,44 +72,41 @@ int main()
     mode1.setString("P vs C");
     mode1.setPosition(100, 400);
 
-    while(introScreen.isOpen()){
+    while (introScreen.isOpen())
+    {
         introScreen.clear();
         introScreen.draw(introPrompt);
         introScreen.draw(mode0);
         introScreen.draw(mode1);
-          sf::Event e;
-            while (introScreen.pollEvent(e))
-            { 
-                if ((e.type == sf::Event::Closed))
+        sf::Event e;
+        while (introScreen.pollEvent(e))
+        {
+            if ((e.type == sf::Event::Closed))
+            {
+                introScreen.close();
+            }
+            else if (e.type == sf::Event::Resized)
+            {
+                introScreen.setSize(targetIntro);
+            }
+            else if (e.mouseButton.button == sf::Mouse::Left)
+            {
+                sf::Vector2i mousePos = sf::Mouse::getPosition(w);
+                if (mousePos.x < 500 && mousePos.x > 0 && mousePos.y > 250 && mousePos.y < 300)
                 {
+                    mode = 0;
                     introScreen.close();
                 }
-                else if (e.type == sf::Event::Resized)
+                else if (mousePos.x < 500 && mousePos.x > 0 && mousePos.y > 380 && mousePos.y < 480)
                 {
-                    introScreen.setSize(targetIntro);
+                    std::cout << "click" << std::endl;
+                    mode = 1;
+                    introScreen.close();
                 }
-                else if (e.mouseButton.button == sf::Mouse::Left)
-                {
-                   sf::Vector2i mousePos = sf::Mouse::getPosition(w);
-                        if (mousePos.x < 500 && mousePos.x > 0 && mousePos.y > 250 && mousePos.y <300)
-                        {
-                            mode = 0;
-                            introScreen.close();
-                        }
-                        else if (mousePos.x < 500 && mousePos.x > 0 && mousePos.y > 380 && mousePos.y < 480)
-                        {
-                            std::cout << "click" << std::endl;
-                            mode =1;
-                            introScreen.close();
-                        }
-
             }
-        introScreen.display();
+            introScreen.display();
+        }
     }
-    }
-
-
-
 
     while (w.isOpen())
     {
@@ -173,11 +170,11 @@ int main()
                             {
                                 if (h->makeMove(mousePos.x, mousePos.y, b))
                                 {
-                                    std::vector<Piece*> tmpPieces;
+                                    std::vector<Piece *> tmpPieces;
                                     tmpPieces = ai->selectValidPieces(b);
                                     ai->makeMove(tmpPieces, b);
                                     h->current_player = true;
-                                    turn_count+=2;
+                                    turn_count += 2;
                                     firstClick = true;
                                 }
                             }
