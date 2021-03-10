@@ -4,6 +4,7 @@
 #include <iostream>
 #include <ostream>
 #include <stack>
+
 #include <vector>
 
 #include <SFML/Graphics.hpp>
@@ -20,6 +21,7 @@ class Board
     sf::Texture circle_texture;
 
     sf::Sprite background_sprite;
+
     sf::Texture background_texture;
     //black
     sf::Sprite rook_sprite;
@@ -57,6 +59,7 @@ class Board
     sf::Text turn;
     sf::Font font;
 
+
 public:
     ~Board(){}
     Board();
@@ -77,6 +80,7 @@ public:
     std::vector<std::vector<Grid *>> grids; //<-----call pieces with this
     std::stack<std::vector<std::vector<int>>> moves;
     std::stack<Piece *> captured;
+
 };
 
 #endif //_BOARD_HS

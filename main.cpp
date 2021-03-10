@@ -32,6 +32,7 @@ int main()
     resetPrompt.setString("Reset To Start Again");
     resetPrompt.setPosition(400, 500);
 
+
     sf::Vector2u targetSize(1050, 800);
     sf::RenderWindow w(sf::VideoMode(1050, 800), "Chess");
     w.setSize(targetSize);
@@ -51,6 +52,7 @@ int main()
         b->draw(w);
         w.draw(reset);
         if (b->gameStatus == 0)
+
         {
             sf::Sprite knight;
             if (!h->current_player)
@@ -115,6 +117,7 @@ int main()
                                     turn_count+=2;
                                     firstClick = true;
                                 }
+
                             }
                         }
                     }
@@ -180,6 +183,7 @@ int main()
                         h->current_player = true;
                     }
                 }
+
             }
             if (b->gameStatus == 1)
                 winner.setString("White Wins!");
@@ -189,6 +193,7 @@ int main()
             w.draw(resetPrompt);
             w.draw(winner);
         }
+
         w.display();
     }
     return 0;
