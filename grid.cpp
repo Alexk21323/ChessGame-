@@ -27,4 +27,7 @@ Grid::Grid(Piece *piece)
     }
     this->position = piece->getPosition();
     this->piece = piece;
+    this->x = position[0] *100;
+    this->y = position[1] *100;
+    piece->setSpriteLocation(x,y);
 }
