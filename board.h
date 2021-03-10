@@ -6,10 +6,16 @@
 #include <stack>
 
 #include <vector>
-
 #include <SFML/Graphics.hpp>
-#include "grid.h"
 #include "piece.h"
+#include "grid.h"
+#include "board.h"
+#include "pawn.hpp"
+#include "rook.hpp"
+#include "knight.hpp"
+#include "bishop.hpp"
+#include "queen.hpp"
+#include "king.hpp"
 
 class Board
 {
@@ -77,6 +83,9 @@ public:
     sf::Sprite getWKnight() { return wknight_sprite; }
     
     std::vector<std::vector<int>> possibleMoves(Piece *piece);
+    
+  
+
     std::vector<std::vector<Grid *>> grids; //<-----call pieces with this
     std::stack<std::vector<std::vector<int>>> moves;
     std::stack<Piece *> captured;

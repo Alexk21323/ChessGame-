@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "board.h"
 #include "piece.h"
+
 #include "pawn.hpp"
 #include "undo.hpp"
 #include "human.hpp"
@@ -32,7 +33,6 @@ int main()
     resetPrompt.setString("Reset To Start Again");
     resetPrompt.setPosition(400, 500);
 
-
     sf::Vector2u targetSize(1050, 800);
     sf::RenderWindow w(sf::VideoMode(1050, 800), "Chess");
     w.setSize(targetSize);
@@ -42,17 +42,77 @@ int main()
     int xCord;
     int yCord;
     int turn_count = 0;
-    int mode = 0;
+    int mode;
     Board *b = new Board();
     b->startGame();
     Human *h = new Human();
     Computer *ai = new Computer();
+
+    sf::Vector2u targetIntro(500, 500);
+    sf::RenderWindow introScreen(sf::VideoMode(500, 500), "Chess");
+    introScreen.setSize(targetIntro);
+    sf::Text introPrompt;
+    introPrompt.setFont(font);
+    introPrompt.setFillColor(sf::Color(102, 102, 255));
+    introPrompt.setCharacterSize(30);
+    introPrompt.setString("Chess");
+    introPrompt.setPosition(100, 100);
+
+    sf::Text mode0;
+    mode0.setFont(font);
+    mode0.setFillColor(sf::Color(102, 102, 255));
+    mode0.setCharacterSize(30);
+    mode0.setString("P vs P");
+    mode0.setPosition(100, 250);
+
+    sf::Text mode1;
+    mode1.setFont(font);
+    mode1.setFillColor(sf::Color(102, 102, 255));
+    mode1.setCharacterSize(30);
+    mode1.setString("P vs C");
+    mode1.setPosition(100, 400);
+
+    while (introScreen.isOpen())
+    {
+        introScreen.clear();
+        introScreen.draw(introPrompt);
+        introScreen.draw(mode0);
+        introScreen.draw(mode1);
+        sf::Event e;
+        while (introScreen.pollEvent(e))
+        {
+            if ((e.type == sf::Event::Closed))
+            {
+                introScreen.close();
+            }
+            else if (e.type == sf::Event::Resized)
+            {
+                introScreen.setSize(targetIntro);
+            }
+            else if (e.mouseButton.button == sf::Mouse::Left)
+            {
+                sf::Vector2i mousePos = sf::Mouse::getPosition(w);
+                if (mousePos.x < 500 && mousePos.x > 0 && mousePos.y > 250 && mousePos.y < 300)
+                {
+                    mode = 0;
+                    introScreen.close();
+                }
+                else if (mousePos.x < 500 && mousePos.x > 0 && mousePos.y > 380 && mousePos.y < 480)
+                {
+                    std::cout << "click" << std::endl;
+                    mode = 1;
+                    introScreen.close();
+                }
+            }
+            introScreen.display();
+        }
+    }
+
     while (w.isOpen())
     {
         b->draw(w);
         w.draw(reset);
         if (b->gameStatus == 0)
-
         {
             sf::Sprite knight;
             if (!h->current_player)
@@ -110,14 +170,13 @@ int main()
                             {
                                 if (h->makeMove(mousePos.x, mousePos.y, b))
                                 {
-                                    std::vector<Piece*> tmpPieces;
+                                    std::vector<Piece *> tmpPieces;
                                     tmpPieces = ai->selectValidPieces(b);
                                     ai->makeMove(tmpPieces, b);
                                     h->current_player = true;
-                                    turn_count+=2;
+                                    turn_count += 2;
                                     firstClick = true;
                                 }
-
                             }
                         }
                     }
@@ -183,7 +242,6 @@ int main()
                         h->current_player = true;
                     }
                 }
-
             }
             if (b->gameStatus == 1)
                 winner.setString("White Wins!");
@@ -193,7 +251,6 @@ int main()
             w.draw(resetPrompt);
             w.draw(winner);
         }
-
         w.display();
     }
     return 0;

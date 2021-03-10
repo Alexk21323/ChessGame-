@@ -49,7 +49,7 @@ public:
     {
         return position;
     }
-    
+
     void setSpriteLocation(int x, int y)
     {
         sprite.setPosition(x, y);
@@ -59,7 +59,6 @@ public:
     {
         window.draw(sprite);
     }
-
 };
 
 #endif //_KING_H
