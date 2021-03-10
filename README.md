@@ -15,6 +15,21 @@
  > * Factory: We picked the factory design pattern because this can go hand in hand with the composite design pattern. We would create a “piece” factory and from there you can create different pieces based on their movements. For instance, creating a rook with specific movements.This solves the problem of breaking down the players further and having less functions to rewrite. The chosen pattern will lead to a good solution because it will help us create families of related objects without specifying concrete classes. 
 > * This project is interesting because we can put test our knowledge of design patterns to be put to actual use. Also, it's always fun being able to see a product you create yourself.
 
+ ## Screenshots
+![alt text](screenshots/3.png "Main Menu")
+![alt text](screenshots/1.png "Main Menu")
+![alt text](screenshots/2.png "Main Menu")
+ ## Installation/Usage
+ > 1. Clone this project directory into your local directory.
+ > 2. Run cmake . or cmake3 . to create the Makefile for this project.
+ > 3. Run make to make the executable.
+ > 4. Run ./chess to start the chess game. 
+ > 5. At the main menu screen, select to the mode as Player vs Player (PvP) or Player vs Computer (PvC).
+ > 6. Enjoy a game of chess.
+ > In the game UI, there is a red back button on the right to undo a move, and a Reset button to restart the game. The game UI also indicates black/white side's turn on the top of the reset button.
+ ## Testing
+ > The game is tested using googletest with self-written unit tests.
+ 
  > ## Phase II
  > In addition to completing the "Class Diagram" section below, you will need to 
  > * Set up your GitHub project board as a Kanban board for the project. It should have columns that map roughly to 
@@ -43,19 +58,4 @@
  > Before the demo, you should do the following:
  > * Complete the sections below (i.e. Screenshots, Installation/Usage, Testing)
  > * Plan one more sprint (that you will not necessarily complete before the end of the quarter). Your In-progress and In-testing columns should be empty (you are not doing more work currently) but your TODO column should have a full sprint plan in it as you have done before. This should include any known bugs (there should be some) or new features you would like to add. These should appear as issues/cards on your Kanban board. 
- 
- ## Screenshots
-![alt text](screenshots/3.png "Main Menu")
-![alt text](screenshots/1.png "Main Menu")
-![alt text](screenshots/2.png "Main Menu")
- ## Installation/Usage
- > 1. Clone this project directory into your local directory.
- > 2. Run cmake . or cmake3 . to create the Makefile for this project.
- > 3. Run make to make the executable.
- > 4. Run ./chess to start the chess game. 
- > 5. At the main menu screen, select to the mode as Player vs Player (PvP) or Player vs Computer (PvC).
- > 6. Enjoy a game of chess.
- > In the game UI, there is a red back button on the right to undo a move, and a Reset button to restart the game. The game UI also indicates black/white side's turn on the top of the reset button.
- ## Testing
- > The game is tested using googletest with self-written unit tests.
  
