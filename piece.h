@@ -16,7 +16,7 @@ public:
     int x;
     int y;
     bool isFirstTime = true;
-
+    int moveCount = 0; 
     Piece() {}
     //All of the textures needed
 
@@ -40,6 +40,12 @@ public:
     void setPostion(int x, int y)
     {
         oldPosition = position;
+        position[0] = x;
+        position[1] = y;
+    }
+
+    void setPositionUndo(int x, int y)
+    {
         position[0] = x;
         position[1] = y;
     }

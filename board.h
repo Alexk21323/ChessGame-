@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <ostream>
+#include <stack>
+
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include "piece.h"
@@ -24,6 +26,9 @@ class Board
     sf::Sprite circle_sprite;
     sf::Texture circle_texture;
 
+    sf::Sprite background_sprite;
+
+    sf::Texture background_texture;
     //black
     sf::Sprite rook_sprite;
     sf::Texture rook_texture;
@@ -53,9 +58,18 @@ class Board
     sf::Texture wqueen_texture;
     sf::Sprite wqueen_sprite;
 
+    //undo sprite and texture
+    sf::Texture undo_texture;
+    sf::Sprite undo_sprite;
+
+    sf::Text turn;
+    sf::Font font;
+
+
 public:
-    ~Board();
+    ~Board(){}
     Board();
+    int gameStatus; 
     void startGame();
     Grid *getGrid(std::vector<int> position);
     void setPiece(Piece *piece);
@@ -65,11 +79,17 @@ public:
     void showSelection(sf::RenderWindow &window, int x, int y);
     void draw(sf::RenderWindow &window);
     void movePiece(Piece &piece);
+    sf::Sprite getBKnight() { return knight_sprite; }
+    sf::Sprite getWKnight() { return wknight_sprite; }
+    
     std::vector<std::vector<int>> possibleMoves(Piece *piece);
     
   
 
     std::vector<std::vector<Grid *>> grids; //<-----call pieces with this
+    std::stack<std::vector<std::vector<int>>> moves;
+    std::stack<Piece *> captured;
+
 };
 
 #endif //_BOARD_HS
