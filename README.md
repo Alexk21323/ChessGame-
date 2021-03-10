@@ -29,6 +29,11 @@
  > In the game UI, there is a red back button on the right to undo a move, and a Reset button to restart the game. The game UI also indicates black/white side's turn on the top of the reset button.
  ## Testing
  > The game is tested using googletest with self-written unit tests.
+ > To the run the test:
+ > 1. run make
+ > 2. ./possible ->test for possible moves and tested for invaid movements
+ > 3. ./move ->initial test for moving pieces 
+ > 4. ./piece ->initial test for placing pieces
  
  > ## Phase II
  > In addition to completing the "Class Diagram" section below, you will need to 
