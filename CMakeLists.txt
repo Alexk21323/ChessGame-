@@ -16,14 +16,13 @@ add_executable(
     main.cpp
     board.cpp
     grid.cpp
-    
     )
 
 
     
 add_executable(
     move
-    move_test.cpp
+    test/move_test.cpp
     board.cpp
     grid.cpp
 
@@ -34,7 +33,7 @@ add_executable(
 
 add_executable(
     piece
-    piece_test.cpp
+    test/piece_test.cpp
     board.cpp
     grid.cpp
 

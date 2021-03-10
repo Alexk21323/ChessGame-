@@ -2,9 +2,9 @@
 #define _PIECE_HPP
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "human.hpp"
-#include "board.h"
-#include "piece.h"
+#include "../human.hpp"
+#include "../board.h"
+#include "../piece.h"
 //TEST piece positions
 
 //Black pawn

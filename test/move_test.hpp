@@ -2,9 +2,9 @@
 #define _MOVE_HPP
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "human.hpp"
-#include "board.h"
-#include "piece.h"
+#include "../human.hpp"
+#include "../board.h"
+#include "../piece.h"
 
 TEST(BMovePiece, pawn)
 {
