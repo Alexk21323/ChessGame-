@@ -32,7 +32,6 @@ int main()
     resetPrompt.setString("Reset To Start Again");
     resetPrompt.setPosition(400, 500);
 
-
     sf::Vector2u targetSize(1050, 800);
     sf::RenderWindow w(sf::VideoMode(1050, 800), "Chess");
     w.setSize(targetSize);
@@ -91,12 +90,12 @@ int main()
                 else if (e.mouseButton.button == sf::Mouse::Left)
                 {
                    sf::Vector2i mousePos = sf::Mouse::getPosition(w);
-                        if (mousePos.x < 250 && mousePos.x > 0 && mousePos.y > 250 && mousePos.y < 280 )
+                        if (mousePos.x < 500 && mousePos.x > 0 && mousePos.y > 250 && mousePos.y <300)
                         {
                             mode = 0;
                             introScreen.close();
                         }
-                        else if (mousePos.x < 250 && mousePos.x > 0 && mousePos.y > 380 && mousePos.y < 480)
+                        else if (mousePos.x < 500 && mousePos.x > 0 && mousePos.y > 380 && mousePos.y < 480)
                         {
                             std::cout << "click" << std::endl;
                             mode =1;
@@ -116,7 +115,6 @@ int main()
         b->draw(w);
         w.draw(reset);
         if (b->gameStatus == 0)
-
         {
             sf::Sprite knight;
             if (!h->current_player)
@@ -181,7 +179,6 @@ int main()
                                     turn_count+=2;
                                     firstClick = true;
                                 }
-
                             }
                         }
                     }
@@ -247,7 +244,6 @@ int main()
                         h->current_player = true;
                     }
                 }
-
             }
             if (b->gameStatus == 1)
                 winner.setString("White Wins!");
@@ -257,7 +253,6 @@ int main()
             w.draw(resetPrompt);
             w.draw(winner);
         }
-
         w.display();
     }
     return 0;
