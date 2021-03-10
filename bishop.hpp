@@ -15,6 +15,7 @@ public:
 
     Bishop(std::vector<int> pos, bool color1)
     {
+        type =3;
         if (color1)
         {
             color = color1;
@@ -58,8 +59,7 @@ public:
     {
         window.draw(sprite);
     }
-  
- 
+    
 };
 
 #endif //_BISHOP_H

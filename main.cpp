@@ -3,6 +3,7 @@
 #include "board.h"
 #include "piece.h"
 #include "pawn.hpp"
+#include "undo.hpp"
 #include "human.hpp"
 
 int main()
@@ -10,54 +11,169 @@ int main()
     Board *b = new Board();
     b->startGame();
     Human *h = new Human();
-    sf::VideoMode v(1000, 800);
-    sf::RenderWindow w(v, "Chess");
+    sf::Text winner;
+    sf::Font font;
+    if (!font.loadFromFile("Sprites/Action_Man_Shaded.ttf"))
+    {
+        std::cout << "can't load font\n";
+    }
+    winner.setFont(font);
+    winner.setFillColor(sf::Color(102, 102, 255));
+    winner.setCharacterSize(100);
+    sf::Text reset;
+    reset.setFont(font);
+    reset.setCharacterSize(50);
+    reset.setFillColor(sf::Color(255, 51,51));
+    reset.setPosition(860, 500);
+    reset.setString("RESET");
+
+    sf::Text resetPrompt;
+    resetPrompt.setFont(font);
+    resetPrompt.setFillColor(sf::Color(102, 102, 255));
+    resetPrompt.setCharacterSize(30);
+    resetPrompt.setString("Reset To Start Again");
+    resetPrompt.setPosition(400, 500);
+
+    sf::Vector2u targetSize(1050, 800);
+    sf::RenderWindow w(sf::VideoMode(1050, 800), "Chess");
+    w.setSize(targetSize);
     bool player1 = true;
     bool firstClick = true;
     bool moveMade = false;
+    int xCord;
+    int yCord;
+    int turn_count = 0;
     while (w.isOpen())
     {
-        w.clear();
         b->draw(w);
-        w.display();
-        sf::Event e;
-        int tmpCoorX;
-        int tmpCoorY;
-        while (w.pollEvent(e))
+        w.draw(reset);
+        if (b->gameStatus == 0)
         {
-            if ((e.type == sf::Event::Closed))
+            sf::Sprite knight;
+            if (!h->current_player)
             {
-                w.close();
+                knight = b->getBKnight();
+                knight.setPosition(875, 200);
+                w.draw(knight);
             }
-            else if (e.type == sf::Event::MouseButtonPressed)
+            else
             {
-                if (firstClick)
+                knight = b->getWKnight();
+                knight.setPosition(875, 200);
+                w.draw(knight);
+            }
+            sf::Event e;
+            while (w.pollEvent(e))
+            {
+                if ((e.type == sf::Event::Closed))
                 {
+                    w.close();
+                }
+                else if (e.type == sf::Event::MouseButtonPressed)
+                {
+                    if (firstClick)
+                    {
+                        if (e.mouseButton.button == sf::Mouse::Left)
+                        {
+                            sf::Vector2i mousePos = sf::Mouse::getPosition(w);
+                            if (mousePos.x / 100 <= 7 && mousePos.x / 100 >= 0 && mousePos.y / 100 >= 0 && mousePos.y / 100 <= 7)
+                            {
+                                if (h->select(mousePos.x, mousePos.y, b))
+                                {
+                                    firstClick = false;
+                                    xCord = mousePos.x / 100;
+                                    yCord = mousePos.y / 100;
+                                }
+                            }
+                        }
+                    }
+                    else if (!firstClick)
+                    {
+                        if (e.mouseButton.button == sf::Mouse::Left)
+                        {
+                            sf::Vector2i mousePos = sf::Mouse::getPosition(w);
+
+                            if (h->makeMove(mousePos.x, mousePos.y, b))
+                            {
+                                firstClick = true;
+                                turn_count++;
+                            }
+                        }
+                    }
                     if (e.mouseButton.button == sf::Mouse::Left)
                     {
                         sf::Vector2i mousePos = sf::Mouse::getPosition(w);
-                        tmpCoorX = mousePos.x / 100;
-                        tmpCoorY = mousePos.y / 100;
-                        if (h->select(mousePos.x, mousePos.y, b))
+                        if (mousePos.x <= 965 && mousePos.x >= 875 && mousePos.y <= 700 && mousePos.y >= 600)
                         {
-                            firstClick = false;
+                            std::cout << "clicked undo\n";
+                            std::cout << turn_count << std::endl;
+                            Undo *u;
+                            u->undo(b);
+                            if (turn_count != 0)
+                                h->current_player = !h->current_player;
+                            if (turn_count > 0)
+                                turn_count--;
                         }
                     }
                 }
-                else if (!firstClick)
+                else if (e.type == sf::Event::Resized)
                 {
-                    if (e.mouseButton.button == sf::Mouse::Left)
-                    {
-                        sf::Vector2i mousePos = sf::Mouse::getPosition(w);
-                        if (h->makeMove(mousePos.x, mousePos.y, b))
-                        {
-                            firstClick = true;
-                        }
-                    }
+                    w.setSize(targetSize);
                 }
+                else if (e.mouseButton.button == sf::Mouse::Left)
+                {
+                        sf::Vector2i mousePos = sf::Mouse::getPosition(w);
+                        if (mousePos.x <= 980 && mousePos.x >= 860 && mousePos.y <= 550 && mousePos.y >= 500)
+                        {
+                            std::cout << "clicked" << std::endl;
+                            delete b;
+                            b = new Board();
+                            b->startGame();
+                            h->current_player = true;
+                            
+                        }
+                }
+            }
+            if (!firstClick)
+            {
+                b->showSelection(w, xCord, yCord);
             }
         }
+        else
+        {
+            sf::Event e;
+            while (w.pollEvent(e))
+            {
+                if ((e.type == sf::Event::Closed))
+                {
+                    w.close();
+                }
+                else if (e.type == sf::Event::Resized)
+                {
+                    w.setSize(targetSize);
+                }
+                else if (e.mouseButton.button == sf::Mouse::Left)
+                {
+                        sf::Vector2i mousePos = sf::Mouse::getPosition(w);
+                        if (mousePos.x <= 980 && mousePos.x >= 860 && mousePos.y <= 550 && mousePos.y >= 500)
+                        {
+                            delete b;
+                            b = new Board();
+                            b->startGame();
+                            h->current_player = true;
+                            
+                        }
+                }
+            }
+            if (b->gameStatus == 1)
+                winner.setString("White Wins!");
+            if (b->gameStatus == 2)
+                winner.setString("Black Wins!");
+            winner.setPosition(150, 350);
+            w.draw(resetPrompt);
+            w.draw(winner);
+        }
+        w.display();
     }
-
     return 0;
 }

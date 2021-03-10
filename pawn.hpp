@@ -50,57 +50,7 @@ public:
         return position;
     }
 
-    void setFirstTimeMove(bool b)
-    {
-        isFirstTime = b;
-    }
-
-    std::vector<std::vector<int>> getAvailableMoves(Board* board)
-    {
-        std::vector<std::vector<int>> AvailableMoves;
-        if(this->color == false)
-        {
-            if(isFirstTime == true)
-            {
-                AvailableMoves.push_back({{this->position[0],this->position[1]-1}});
-                AvailableMoves.push_back({{this->position[0],this->position[1]-2}});
-            }
-            if (board->getGrid({{this->position[0],this->position[1]-1}})->getPiece()==nullptr)
-            {
-                AvailableMoves.push_back({{this->position[0],this->position[1]-1}});
-            }
-            if(board->getGrid({this->position[0]-1,this->position[1]-1})->getPiece() != nullptr && board->getGrid({this->position[0]-1,this->position[1]-1})->getPiece()->getColor() != this->color)
-            {
-                AvailableMoves.push_back({this->position[0]-1,this->position[1]-1});
-            }
-            if(board->getGrid({this->position[0]+1,this->position[1]-1})->getPiece() != nullptr && board->getGrid({this->position[0]+1,this->position[1]-1})->getPiece()->getColor() != this->color)
-            {
-                AvailableMoves.push_back({this->position[0]+1,this->position[1]-1});
-            }
-        }
-        if(this->color == true)
-        {
-            if(isFirstTime == true)
-            {
-                AvailableMoves.push_back({{this->position[0],this->position[1]+1}});
-                AvailableMoves.push_back({{this->position[0],this->position[1]+2}});
-            }
-            if(board->getGrid({this->position[0],this->position[1]+1})->getPiece() == nullptr)
-            {
-                AvailableMoves.push_back({{this->position[0],this->position[1]+1}});
-            }
-            if(board->getGrid({this->position[0]+1,this->position[1]+1})->getPiece() != nullptr && board->getGrid({this->position[0]+1,this->position[1]+1})->getPiece()->getColor() != this->color)
-            {
-                AvailableMoves.push_back({this->position[0]+1,this->position[1]+1});
-            }
-            if(board->getGrid({this->position[0]-1,this->position[1]+1})->getPiece() != nullptr && board->getGrid({this->position[0]-1,this->position[1]+1})->getPiece()->getColor() != this->color)
-            {
-                AvailableMoves.push_back({this->position[0]-1,this->position[1]+1});
-            }
-        }
-        return AvailableMoves;
-        }
-
+   
     void setSpriteLocation(int x, int y)
     {
         sprite.setPosition(x, y);

@@ -15,6 +15,7 @@ public:
 
     Rook(std::vector<int> pos, bool color1)
     {
+        type = 1;
         if (color1)
         {
             color = color1;
