@@ -1,11 +1,4 @@
 #include "board.h"
-#include "pawn.hpp"
-#include "rook.hpp"
-#include "knight.hpp"
-#include "bishop.hpp"
-#include "queen.hpp"
-#include "king.hpp"
-#include <vector>
 
 Board::Board()
 {
@@ -115,6 +108,7 @@ Board::Board()
         backgroundSize.x / promotion_sprite.getGlobalBounds().width,
         backgroundSize.y / promotion_sprite.getGlobalBounds().height);
     promotion_sprite.setPosition(0, 0);
+
 
     undo_texture.loadFromFile("Sprites/button.png");
     undo_sprite.setTexture(undo_texture);
@@ -270,6 +264,7 @@ void Board::setPromotion(Piece *piece)
             promotionWindow.draw(wbishop_sprite);
             promotionWindow.draw(wqueen_sprite);
         }
+
         sf::Event e;
         while (promotionWindow.pollEvent(e))
         {
@@ -283,7 +278,7 @@ void Board::setPromotion(Piece *piece)
                 {
                     sf::Vector2i mousePos = sf::Mouse::getPosition(promotionWindow);
                     int x = mousePos.x / 100;
-                    //if(mousePos.x >= 400 && mousePos.x <=0 && mousePos.y >=0 && mousePos.y <=100){
+
                     switch (x)
                     {
                     case 0:
@@ -291,6 +286,7 @@ void Board::setPromotion(Piece *piece)
                         setPiece(new Rook({piece->position[0], piece->position[1]}, piece->getColor()));
                         promotionWindow.close();
                         break;
+
                     }
                     case 1:
                     {
@@ -312,6 +308,7 @@ void Board::setPromotion(Piece *piece)
                     }
                     }
                 }
+
             }
             else if (e.type == sf::Event::Resized)
             {
@@ -319,7 +316,7 @@ void Board::setPromotion(Piece *piece)
             }
         }
 
-        promotionWindow.display();
+
     }
 }
 
@@ -362,6 +359,7 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
     {
         if (piece->color == true)
         {
+
             if (piece->isFirstTime == true)
             {
                 if (this->getGrid({piece->position[0], piece->position[1] - 1})->getPiece() == nullptr)
@@ -374,7 +372,7 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
                     this->getGrid({piece->position[0] + 1, piece->position[1] - 1})->getPiece()->getColor() != piece->color)
 
                     {
-                        AvailableMoves.push_back({piece->position[0] + 1, piece->position[1] - 1});
+                        AvailableMoves.push_back({{piece->position[0] + 1, piece->position[1] - 1}});
                     }
                 }
                 if (piece->position[0] != 0)
@@ -420,6 +418,7 @@ std::vector<std::vector<int>> Board::possibleMoves(Piece *piece)
                     AvailableMoves.push_back({{piece->position[0], piece->position[1] + 1}});
                 if (this->getGrid({piece->position[0], piece->position[1] + 2})->getPiece() == nullptr)
                     AvailableMoves.push_back({{piece->position[0], piece->position[1] + 2}});
+
                 if (piece->position[0] != 7)
                 {
                     if (this->getGrid({piece->position[0] + 1, piece->position[1] + 1})->getPiece() != nullptr && 

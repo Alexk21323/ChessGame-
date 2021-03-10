@@ -12,6 +12,7 @@ class Human : public Player
     int xPiece;
     int yPiece;
     std::vector<std::vector<int>> posMove;
+    std::vector<Piece*> captured;
     bool select(int x, int y, Board *board)
     {
         Piece *tmpPiece;
@@ -55,7 +56,10 @@ class Human : public Player
         std::vector<int> destination;
         destination.push_back(destinationX);
         destination.push_back(destinationY);
+
+
        
+
        if (board->getGrid({xPiece, yPiece})->getPiece() != nullptr)
         {
             if (xPiece != destinationX || yPiece != destinationY)
@@ -80,6 +84,7 @@ class Human : public Player
                         current_player = !current_player;
                         return true;
                     }
+                    
                 }
             }
         }

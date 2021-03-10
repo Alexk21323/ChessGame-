@@ -3,6 +3,9 @@ CMakeFiles/
 Makefile
 cmake_install.cmake
 chess
+move
+piece
+possible
 CMakeCache.txt
 CMakeFiles/
 cmake_install.cmake
