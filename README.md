@@ -45,7 +45,7 @@
  > * Complete your first *sprint planning* meeting to plan out the next 7 days of work.
  >   * Create smaller development tasks as issues and assign them to team members. Place these in the `Backlog` column.
  >   * These cards should represent roughly 7 days worth of development time for your team, taking you until your first meeting with the TA
- > ![alt text](https://github.com/cs100/final-project-jinte002-ywang1055-akuan004-rpark028/blob/master/Final%20Project%20-%20Chess%20(2).png?raw=true)
+ 
 ## Class Diagram
  > Include a class diagram(s) for each design pattern and a description of the diagram(s). Your class diagram(s) should include all the main classes you plan for the project. This should be in sufficient detail that another group could pick up the project this point and successfully complete it. Use proper OMT notation (as discussed in the course slides). You may combine multiple design patterns into one diagram if you'd like, but it needs to be clear which portion of the diagram represents which design pattern (either in the diagram or in the description). 
  > ![alt text](screenshots/Final_Project_-_Chess_1.png)
@@ -59,7 +59,6 @@
  >   - Any tasks that did not get completed last sprint, and how you took them into consideration for this sprint
  >   - Any bugs you've identified and created issues for during the sprint. Do you plan on fixing them in the next sprint or are they lower priority?
  >   - What tasks you are planning for this next sprint.
-
  > ## Final deliverable
  > All group members will give a demo to the TA during lab time. The TA will check the demo and the project GitHub repository and ask a few questions to all the team members. 
  > Before the demo, you should do the following:
