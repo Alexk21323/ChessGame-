@@ -1,11 +1,10 @@
-#ifndef _TEST_HPP
-#define _TEST_HPP
+#ifndef _PIECE_HPP
+#define _PIECE_HPP
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "human.hpp"
 #include "board.h"
 #include "piece.h"
-#include "gmock/gmock.h"
 //TEST piece positions
 
 //Black pawn
@@ -357,4 +356,4 @@ TEST(AvailablePositions, pawn)
 
 
 
-#endif //_TEST_HPP
+#endif //_PIECE_HPP
