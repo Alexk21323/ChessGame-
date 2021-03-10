@@ -6,7 +6,7 @@
 class Human : public Player
 {
 
-public:
+    public:
     int x;
     int y;
     int xPiece;
@@ -17,7 +17,11 @@ public:
         Piece *tmpPiece;
         this->xPiece = x / 100;
         this->yPiece = y / 100;
-        if( board->getGrid({xPiece, yPiece})->getPiece()== nullptr){
+    
+        if(board->getGrid({xPiece, yPiece})->getPiece()== nullptr){
+            return false;
+        }
+        if(current_player != board->getGrid({xPiece, yPiece})->getPiece()->getColor()){
             return false;
         }
         tmpPiece = board->getGrid({xPiece, yPiece})->getPiece();
@@ -52,7 +56,7 @@ public:
         destination.push_back(destinationX);
         destination.push_back(destinationY);
        
-        if (board->getGrid({xPiece, yPiece})->getPiece() != nullptr)
+       if (board->getGrid({xPiece, yPiece})->getPiece() != nullptr)
         {
             if (xPiece != destinationX || yPiece != destinationY)
             {
@@ -73,6 +77,7 @@ public:
                             board->triggerPromotion = true;
                              board->setPromotion(tmpPiece);
                         }
+                        current_player = !current_player;
                         return true;
                     }
                 }
