@@ -49,7 +49,13 @@
 ![alt text](screenshots/1.png "Main Menu")
 ![alt text](screenshots/2.png "Main Menu")
  ## Installation/Usage
- > Instructions on installing and running your application
+ > 1. Clone this project directory into your local directory.
+ > 2. Run cmake . or cmake3 . to create the Makefile for this project.
+ > 3. Run make to make the executable.
+ > 4. Run ./chess to start the chess game. 
+ > 5. At the main menu screen, select to the mode as Player vs Player (PvP) or Player vs Computer (PvC).
+ > 6. Enjoy a game of chess.
+ > In the game UI, there is a red back button on the right to undo a move, and a Reset button to restart the game. The game UI also indicates black/white side's turn on the top of the reset button.
  ## Testing
- > How was your project tested/validated? If you used CI, you should have a "build passing" badge in this README.
+ > The game is tested using googletest with self-written unit tests.
  
